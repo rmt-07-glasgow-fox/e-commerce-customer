@@ -2,7 +2,7 @@
   <div class="home">
     <Carousel />
     <Categories
-      v-for="category in categories"
+      v-for="category in filterCategories"
       :key="category.id"
       :category="category"
     ></Categories>
@@ -30,7 +30,10 @@ export default {
   computed: {
     ...mapState([
       'categories'
-    ])
+    ]),
+    filterCategories () {
+      return this.categories.filter(el => el.Products.length > 0)
+    }
   }
 }
 </script>

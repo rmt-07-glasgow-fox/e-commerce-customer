@@ -142,14 +142,30 @@ export default new Vuex.Store({
           access_token: accessToken
         },
         data: {
-          productId: payload,
-          quantity: 1
+          productId: payload.productId,
+          quantity: payload.quantity
         }
       }).then(res => {
-        console.log(res.data)
         context.dispatch('getCarts')
       }).catch(err => {
-        console.log(err)
+        console.log(err.response.message)
+      })
+    },
+    updateCart (context, payload) {
+      const accessToken = localStorage.getItem('access_token')
+      axios({
+        method: 'PATCH',
+        url: `/carts/${payload.id}`,
+        headers: {
+          access_token: accessToken
+        },
+        data: {
+          quantity: payload.quantity
+        }
+      }).then(res => {
+        context.dispatch('getCarts')
+      }).catch(err => {
+        console.log(err.response.data.message)
       })
     },
     getCarts (context) {
@@ -163,6 +179,21 @@ export default new Vuex.Store({
       }).then(res => {
         console.log(res.data)
         context.commit('setCarts', res.data)
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    removeCart (context, payload) {
+      const accessToken = localStorage.getItem('access_token')
+      axios({
+        method: 'DELETE',
+        url: `/carts/${payload}`,
+        headers: {
+          access_token: accessToken
+        }
+      }).then(res => {
+        console.log(res.data)
+        context.dispatch('getCarts')
       }).catch(err => {
         console.log(err)
       })

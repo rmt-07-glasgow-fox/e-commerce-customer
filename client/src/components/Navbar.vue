@@ -52,7 +52,7 @@ export default {
     logout () {
       localStorage.clear()
       this.$store.commit('setLogin', false)
-      // this.$router.push('/login')
+      this.$router.push('/')
     }
   },
   computed: {

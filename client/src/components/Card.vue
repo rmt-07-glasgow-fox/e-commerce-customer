@@ -11,13 +11,27 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'Card',
   props: ['product'],
   methods: {
     addCart (id) {
-      this.$store.dispatch('addCart', id)
+      if (this.isLogin) {
+        this.$store.dispatch('addCart', {
+          productId: id,
+          quantity: 1
+        })
+      } else {
+        this.$router.push('/login')
+      }
     }
+  },
+  computed: {
+    ...mapState([
+      'isLogin'
+    ])
   }
 }
 </script>
