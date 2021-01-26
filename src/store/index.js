@@ -8,7 +8,8 @@ export default new Vuex.Store({
   state: {
     products: [],
     categories: [],
-    filter: ''
+    filter: '',
+    search: ''
   },
   mutations: {
     insertProduct (state, payload) {
@@ -19,6 +20,9 @@ export default new Vuex.Store({
     },
     changeFilter (state, payload) {
       state.filter = payload
+    },
+    changeSearch (state, payload) {
+      state.search = payload
     }
   },
   actions: {
@@ -49,8 +53,12 @@ export default new Vuex.Store({
   },
   getters: {
     filterProducts: state => {
-      if (state.filter === '') return state.products
-      else {
+      if (state.filter === '' && state.search === '') return state.products
+      else if (state.search) {
+        return state.products.filter(e => {
+          return e.name.toLowerCase().includes(state.search.toLowerCase())
+        })
+      } else {
         return state.products.filter(e => {
           return e.CategoryId === state.filter
         })
