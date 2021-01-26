@@ -58,7 +58,7 @@
                 height="28"
               />
               <p style="margin: 0 0 0 8px; font-weight: 600" class="nav-name">
-                大戸
+                Ralfaryavka
               </p>
             </div>
             <!-- user-info// -->
@@ -75,7 +75,7 @@
                     height="48"
                   />
                   <h6 style="margin: 0; font-size: 16px; color: #202124">
-                    大戸アイ
+                    Ralfaryavka Koizumi
                   </h6>
                   <p style="margin-bottom: 16px">ohtoai@mail.com</p>
 
@@ -179,7 +179,7 @@ export default {
     display: none;
   }
 }
-@media screen and (max-width: 380px) {
+@media screen and (max-width: 520px) {
   .nav-btn {
     display: none;
   }
