@@ -13,7 +13,7 @@
           class="btn btn-sm btn-outline-success"
           @click="showLoginForm"
         >Login</button>
-        <div v-else><i class="fas fa-sign-out-alt"></i></div>
+        <div v-else @click.prevent="logout"><i class="fas fa-sign-out-alt"></i></div>
       </div>
     </div>
     <div class="container-fluid row">
@@ -33,7 +33,7 @@
 export default {
   data () {
     return {
-      access_token: localStorage.access_token,
+      access_token: '',
       filter: '',
       search: ''
     }
@@ -64,11 +64,19 @@ export default {
     },
     changeFilter (category) {
       this.filter = category
+    },
+    logout () {
+      localStorage.clear()
+      this.$router.push('/login')
     }
   },
   created () {
+    this.access_token = localStorage.access_token
     this.fetchCategory()
     this.$store.commit('changeFilter', '')
+  },
+  updated () {
+    this.access_token = localStorage.access_token
   }
 }
 </script>

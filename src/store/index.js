@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from '../api/axios'
+import router from '../router'
 
 Vue.use(Vuex)
 
@@ -26,6 +27,41 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    login (_, payload) {
+      const { email, password } = payload
+      axios({
+        method: 'POST',
+        url: '/login',
+        data: {
+          email,
+          password
+        }
+      })
+        .then(({ data }) => {
+          localStorage.access_token = data.access_token
+          router.push('/')
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    register (_, payload) {
+      const { email, password } = payload
+      axios({
+        method: 'POST',
+        url: '/register',
+        data: {
+          email,
+          password
+        }
+      })
+        .then(({ data }) => {
+          router.push('/login')
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
     fetchProduct ({ commit }) {
       axios({
         method: 'GET',
