@@ -1,9 +1,9 @@
 <template>
-  <footer class="footer mt-5 py-3 bg-light">
-    <div class="container">
-      <span class="text-muted">Place sticky footer content here.</span>
-    </div>
-  </footer>
+<footer class="bg-info text-white text-center text-lg-start">
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+    © 2021 Copyright: @ariftoteles
+  </div>
+</footer>
 </template>
 
 <script>

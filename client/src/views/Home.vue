@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <Navbar />
     <Carousel />
     <Categories
       v-for="category in filterCategories"
@@ -15,12 +16,14 @@ import { mapState } from 'vuex'
 import Carousel from '@/components/Carousel.vue'
 import Categories from '@/components/Categories.vue'
 import Footer from '@/components/Footer.vue'
+import Navbar from '../components/Navbar.vue'
 
 export default {
   name: 'Home',
   components: {
     Carousel,
     Categories,
+    Navbar,
     Footer
   },
   created () {

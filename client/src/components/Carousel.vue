@@ -3,9 +3,9 @@
     <ol class="carousel-indicators">
       <li v-for="(banner, ind) in filterBanners" :key="banner.id" data-bs-target="#carouselExampleDark" :data-bs-slide-to="ind" class="active"></li>
     </ol>
-    <div class="carousel-inner py-3 px-5 bg-light">
+    <div class="carousel-inner bg-light">
       <div v-for="banner in firstBanners" :key="banner.id" class="carousel-item active" data-bs-interval="5000">
-        <img :src="banner.image_url" class="d-block w-100 rounded-3" alt="...">
+        <img :src="banner.image_url" class="d-block w-100" alt="...">
       </div>
       <div v-for="banner in sliceBanners" :key="banner.id" class="carousel-item" data-bs-interval="2000">
         <img :src="banner.image_url" class="d-block w-100 rounded-3" alt="...">
