@@ -7,11 +7,15 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    banners: []
+    banners: [],
+    products: []
   },
   mutations: {
     SET_BANNERS (state, payload) {
       state.banners = payload
+    },
+    SET_PRODUCTS (state, payload) {
+      state.products = payload
     }
   },
   actions: {
@@ -22,6 +26,18 @@ export default new Vuex.Store({
       })
         .then(({ data }) => {
           context.commit('SET_BANNERS', data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    fetchProducts (context, payload) {
+      axios({
+        method: 'GET',
+        url: '/products'
+      })
+        .then(({ data }) => {
+          context.commit('SET_PRODUCTS', data)
         })
         .catch(err => {
           console.log(err)
