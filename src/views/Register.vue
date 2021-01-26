@@ -1,9 +1,9 @@
 <template>
-  <div class="container">
+    <div class="container">
     <div class="sidenav">
          <div class="login-main-text">
-            <h2>The Man Store<br>Login Page</h2>
-            <p>Login from here to access.</p>
+            <h2>The Man Store<br>Register Page</h2>
+            <p> register from here to access. </p>
          </div>
       </div>
       <div class="main">
@@ -19,7 +19,7 @@
                      type="text"
                      class="form-control"
                      v-model="user.email"
-                     placeholder="Email Address">
+                     placeholder="Email Adress">
                   </div>
                   <div class="form-group">
                      <label>Password</label>
@@ -32,8 +32,8 @@
                   <button
                   type="submit"
                   class="btn btn-black"
-                  href="#"
-                  @click.prevent="login">Login</button>
+                  @click.prevent="register"
+                  href="#">Register</button>
                </form>
             </div>
          </div>
@@ -43,7 +43,7 @@
 
 <script>
 export default {
-  name: 'Login',
+  name: 'Register',
   data () {
     return {
       user: {
@@ -53,29 +53,28 @@ export default {
     }
   },
   methods: {
-    login () {
-      this.$store.dispatch('login', this.user)
+    register () {
+      this.$store.dispatch('register', this.user)
     }
   },
   computed: {
     errHandler () {
       return this.$store.state.errorData
     }
-
   }
 }
 </script>
 
 <style>
-body {
+.container {
     font-family: "Lato", sans-serif;
 }
 
-.main-head{
+/* .main-head{
     height: 150px;
     background: #FFF;
 
-}
+} */
 
 .sidenav {
     height: 100%;
@@ -84,11 +83,11 @@ body {
     padding-top: 20px;
 }
 
-.main {
+/* .main {
     padding: 0px 10px;
-}
+} */
 
-@media screen and (max-height: 450px) {
+/* @media screen and (max-height: 450px) {
     .sidenav {padding-top: 15px;}
 }
 
@@ -132,7 +131,7 @@ body {
 
 .login-main-text h2{
     font-weight: 300;
-}
+} */
 
 .btn-black{
     background-color: #000 !important;

@@ -8,6 +8,7 @@
       <router-link to="/transactions">History</router-link> |
       <router-link to="/checkout">Check Out</router-link> |
       <router-link to="/wishlists">Wishlist</router-link> |
+      <router-link to="/register">Register</router-link> |
     </div>
     <router-view/>
   </div>
