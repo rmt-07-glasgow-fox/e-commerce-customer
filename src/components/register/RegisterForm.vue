@@ -7,30 +7,33 @@
             <div class="card card-login">
               <div class="card-body">
                 <div style="text-align: center">
-                  <img
-                    src="@/assets/img_logoC.svg"
-                    width="80px"
-                    style="margin-bottom: 32px"
-                  />
-
+                  <router-link to="/">
+                    <img
+                      src="@/assets/img_logoC.svg"
+                      width="80px"
+                      style="margin-bottom: 32px"
+                    />
+                  </router-link>
                   <h4>Welcome to Funorama!</h4>
                   <p class="text-muted" style="font-size: 14px">
                     Want to buy some games for kill your free time? Register and
                     buy from here!
                   </p>
                 </div>
-                <form action="">
+                <form action="" @submit.prevent="register">
                   <div class="input-group mb-3">
                     <span class="input-group-text"
                       ><user-icon size="1x"></user-icon
                     ></span>
                     <input
+                      v-model="payload.firstname"
                       type="text"
                       aria-label="First name"
                       class="form-control"
                       placeholder="First name"
                     />
                     <input
+                      v-model="payload.lastname"
                       type="text"
                       aria-label="Last name"
                       class="form-control"
@@ -43,6 +46,7 @@
                       ><mail-icon size="1x"></mail-icon
                     ></span>
                     <input
+                      v-model="payload.email"
                       type="email"
                       class="form-control"
                       id="email-admin-login"
@@ -55,6 +59,7 @@
                       ><lock-icon size="1x"></lock-icon
                     ></span>
                     <input
+                      v-model="payload.password"
                       type="password"
                       class="form-control"
                       id="password-admin-login"
@@ -105,10 +110,25 @@ import { UserIcon, MailIcon, LockIcon } from 'vue-feather-icons'
 
 export default {
   name: 'RegisterForm',
+  data () {
+    return {
+      payload: {
+        firstname: '',
+        lastname: '',
+        email: '',
+        password: ''
+      }
+    }
+  },
   components: {
     UserIcon,
     MailIcon,
     LockIcon
+  },
+  methods: {
+    register () {
+      this.$store.dispatch('register', this.payload)
+    }
   }
 }
 </script>

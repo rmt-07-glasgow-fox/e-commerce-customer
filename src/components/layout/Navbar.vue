@@ -14,6 +14,7 @@
         <div
           class="d-flex align-items-center justify-content-between"
           style="width: auto"
+          v-if="isLogin"
         >
           <router-link to="/wishlist">
             <heart-icon
@@ -52,13 +53,13 @@
               role="button"
             >
               <img
-                src="https://i.imgur.com/dDkSAPb.jpg"
+                :src="fetchUserInfo.profpic"
                 style="border-radius: 2.5rem"
                 width="28"
                 height="28"
               />
               <p style="margin: 0 0 0 8px; font-weight: 600" class="nav-name">
-                Ralfaryavka
+                {{ fetchUserInfo.firstname }}
               </p>
             </div>
             <!-- user-info// -->
@@ -67,21 +68,26 @@
               aria-labelledby="dropdownMenuButton"
             >
               <li>
-                <div class="dropdown-item text-center" style="width: inherit">
+                <div
+                  class="dropdown-item text-center disabled"
+                  style="width: inherit"
+                >
                   <img
-                    src="https://i.imgur.com/dDkSAPb.jpg"
+                    :src="fetchUserInfo.profpic"
                     style="border-radius: 2.5rem; margin: 16px auto"
                     width="48"
                     height="48"
                   />
                   <h6 style="margin: 0; font-size: 16px; color: #202124">
-                    Ralfaryavka Koizumi
+                    {{ fetchUserInfo.firstname }} {{ fetchUserInfo.lastname }}
                   </h6>
-                  <p style="margin-bottom: 16px">ohtoai@mail.com</p>
-
+                  <p style="margin-bottom: 16px">{{ fetchUserInfo.email }}</p>
+                </div>
+                <div class="text-center">
                   <button
-                    class="btn btn-outline-danger btn-sm"
+                    class="btn btn-outline-danger btn-sm text-center"
                     style="border-radius: 2.5rem; margin-bottom: 16px"
+                    @click="logout"
                   >
                     Logout
                   </button>
@@ -128,13 +134,34 @@
         </div>
 
         <!-- v-if="store nya belom login" -->
-        <!-- <div
+        <div
           class="d-flex align-items-center justify-content-between"
           style="width: auto"
+          v-if="!isLogin"
         >
-          <button class="btn btn-primary">Register</button>
-          <button class="btn btn-primary">Login</button>
-        </div> -->
+          <router-link to="/register">
+            <button
+              class="btn btn-outline-secondary"
+              style="font-weight: 600; color: black; border-radius: 2.5rem"
+            >
+              Register
+            </button>
+          </router-link>
+          <router-link to="/login">
+            <button
+              class="btn btn-link"
+              style="
+                font-weight: 600;
+                color: black;
+                text-decoration: none;
+                border-radius: 2.5rem;
+                margin-left: 16px;
+              "
+            >
+              Login
+            </button>
+          </router-link>
+        </div>
       </div>
     </nav>
     <!-- navbar// -->
@@ -143,6 +170,7 @@
 
 <script>
 import { HeartIcon, ShoppingCartIcon, ClockIcon } from 'vue-feather-icons'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'Navbar',
@@ -150,6 +178,23 @@ export default {
     HeartIcon,
     ShoppingCartIcon,
     ClockIcon
+  },
+  methods: {
+    logout () {
+      this.$store.dispatch('logout')
+    }
+  },
+  computed: {
+    ...mapGetters([
+      'isLogin',
+      'fetchUserInfo'
+    ])
+  },
+  created () {
+    if (localStorage.getItem('access_token')) {
+      this.$store.commit('isLogin', true)
+      this.$store.dispatch('fetchUserInfo')
+    }
   }
 }
 </script>

@@ -7,12 +7,13 @@
             <div class="card card-login">
               <div class="card-body">
                 <div style="text-align: center">
-                  <img
-                    src="@/assets/img_logoC.svg"
-                    width="80px"
-                    style="margin-bottom: 32px"
-                  />
-
+                  <router-link to="/">
+                    <img
+                      src="@/assets/img_logoC.svg"
+                      width="80px"
+                      style="margin-bottom: 32px"
+                    />
+                  </router-link>
                   <h4>Welcome back!</h4>
                   <p class="text-muted" style="font-size: 14px">
                     Please login to continue your transaction. For better
@@ -20,12 +21,13 @@
                     safe.
                   </p>
                 </div>
-                <form action="">
+                <form action="" @submit.prevent="login">
                   <div class="input-group mb-3">
                     <span class="input-group-text" id="email-login-icon"
                       ><mail-icon size="1x"></mail-icon
                     ></span>
                     <input
+                      v-model="payload.email"
                       type="email"
                       class="form-control"
                       id="email-admin-login"
@@ -38,6 +40,7 @@
                       ><lock-icon size="1x"></lock-icon
                     ></span>
                     <input
+                      v-model="payload.password"
                       :type="passwordType"
                       class="form-control"
                       id="password-admin-login"
@@ -128,6 +131,9 @@ export default {
     LockIcon
   },
   methods: {
+    login () {
+      this.$store.dispatch('login', this.payload)
+    },
     showPassword () {
       this.passwordType === 'password' ? this.passwordType = 'text' : this.passwordType = 'password'
     }
