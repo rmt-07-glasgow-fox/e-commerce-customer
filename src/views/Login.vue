@@ -1,6 +1,7 @@
 <template>
 <div>
   <navbar/>
+  <transition name="fade">
   <div class="container-fluid bg">
   <div class="row justify-content-center">
     <div class="col-12 pt-5 pb-3">
@@ -28,8 +29,8 @@
     </div>
     </div>
   </div>
+  </transition>
 </div>
-
 </template>
 
 <script>
@@ -70,9 +71,9 @@ export default {
     successLogin () {
       this.$swal.fire({
         icon: 'success',
-        title: 'success',
+        title: 'Success',
         showConfirmButton: false,
-        timer: 1500
+        timer: 1000
       }).then(() => {
         this.$router.push('/')
       })
@@ -133,4 +134,5 @@ h1 {
   text-indent: 16px;
   color: #272C35;
 }
+
 </style>

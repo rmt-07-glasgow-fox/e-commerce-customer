@@ -12,6 +12,9 @@ export default new Vuex.Store({
   actions: {
     login (context, payload) {
       return axios.post('/login', payload)
+    },
+    register (context, payload) {
+      return axios.post('/register', payload)
     }
   }
 })
