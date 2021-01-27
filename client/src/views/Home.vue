@@ -1,5 +1,5 @@
 <template>
-  <div class="home bg-light">
+  <div class="home">
     <Navbar />
     <Carousel />
     <ListCategories

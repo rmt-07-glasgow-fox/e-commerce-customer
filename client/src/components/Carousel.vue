@@ -1,5 +1,5 @@
 <template>
-  <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+  <div id="carouselExampleInterval" class="carousel slide my-5 mx-5" data-bs-ride="carousel">
     <ol class="carousel-indicators">
       <li v-for="(banner, ind) in filterBanners" :key="banner.id" data-bs-target="#carouselExampleDark" :data-bs-slide-to="ind" class="active"></li>
     </ol>
@@ -8,7 +8,7 @@
         <img :src="banner.image_url" class="d-block w-100" alt="...">
       </div>
       <div v-for="banner in sliceBanners" :key="banner.id" class="carousel-item" data-bs-interval="2000">
-        <img :src="banner.image_url" class="d-block w-100 rounded-3" alt="...">
+        <img :src="banner.image_url" class="d-block w-100" alt="...">
       </div>
     </div>
     <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-bs-slide="prev">

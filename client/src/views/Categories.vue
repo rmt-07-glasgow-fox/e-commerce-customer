@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="mh-100">
     <Navbar />
-    <Carousel />
+    <!-- <Carousel /> -->
     <ListProducts
       :products="products"
     ></ListProducts>
@@ -12,7 +12,7 @@
 <script>
 import $ from 'jquery'
 import { mapState } from 'vuex'
-import Carousel from '@/components/Carousel.vue'
+// import Carousel from '@/components/Carousel.vue'
 import ListProducts from '@/components/ListProducts.vue'
 import Footer from '@/components/Footer.vue'
 import Navbar from '../components/Navbar.vue'
@@ -21,7 +21,7 @@ export default {
   name: 'Categories',
   components: {
     Navbar,
-    Carousel,
+    // Carousel,
     ListProducts,
     Footer
   },
@@ -47,3 +47,13 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+footer {
+  margin-top: 7rem;
+  /* position: fixed; */
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+</style>

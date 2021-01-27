@@ -1,7 +1,7 @@
 <template>
     <div class="container-fluid d-flex justify-content-between w-75 mx-auto mt-5 position-relative">
       <router-link to="/">
-        <h3 class="logo text-primary position-absolute fw-bold">Buka Warung</h3>
+        <h3 class="logo text-dark position-absolute">BUKA PEDIA</h3>
       </router-link>
       <div class="w-50 text-center">
         <!-- <h3>Welcome to Buka Warung</h3> -->
@@ -25,7 +25,7 @@
               <div class="mb-3 border-bottom">
                 <input type="password" class="form-control border border-0" placeholder="password" v-model="user.password">
               </div>
-              <button type="submit" class="btn btn-primary w-100 rounded-pill" id="submit-login">Login</button>
+              <button type="submit" class="btn btn-dark w-100 rounded-pill" id="submit-login">Login</button>
             </form>
           </div>
         </div>

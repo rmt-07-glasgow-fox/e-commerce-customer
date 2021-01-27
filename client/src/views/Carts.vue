@@ -1,7 +1,7 @@
 <template>
   <div>
     <Navbar />
-    <ListCarts />
+    <ListCarts class="mb-5"/>
     <Footer />
   </div>
 </template>

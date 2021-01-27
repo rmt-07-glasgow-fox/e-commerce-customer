@@ -1,6 +1,6 @@
 <template>
-<footer class="bg-info text-white text-center text-lg-start">
-  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+<footer class="text-white text-center text-lg-start">
+  <div class="text-center p-3 bg-dark">
     © 2021 Copyright: @ariftoteles
   </div>
 </footer>
@@ -13,11 +13,5 @@ export default {
 </script>
 
 <style scped>
-/* .footer {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  left: 0;
-} */
 
 </style>

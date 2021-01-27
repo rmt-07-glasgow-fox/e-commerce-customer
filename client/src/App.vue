@@ -17,11 +17,9 @@ body {
 }
 
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  @import url('https://fonts.googleapis.com/css2?family=Merriweather&family=Montserrat&display=swap');
+  font-family: 'Merriweather', sans-serif;
   text-align: center;
-  color: #2c3e50;
-  height: 100vh;
+  color: #1d2329;
 }
 </style>

@@ -217,6 +217,12 @@ export default new Vuex.Store({
       }).then(res => {
         console.log(res.data.message)
         context.dispatch('getCarts')
+        Vue.swal.fire({
+          icon: 'success',
+          title: res.data.message,
+          showConfirmButton: false,
+          timer: 1500
+        })
         router.push('/')
       }).catch(err => {
         Vue.swal({

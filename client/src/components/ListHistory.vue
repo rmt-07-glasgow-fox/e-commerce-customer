@@ -5,10 +5,10 @@
       <div v-for="cart in filterCarts" :key="cart.id" class="card mb-3" style="width: 640px;">
         <div class="row g-0">
           <div class="col-md-4">
-            <img  class="p-3" :src="cart.Product.image_url" alt="...">
+            <img  class="" :src="cart.Product.image_url" alt="...">
           </div>
-          <div class="col-md-8 text-start">
-            <div class="p-3">
+          <div class="col-md-8 text-start p-3 align-self-center">
+            <div class="px-3">
               <h5 class="fw-bold">{{ cart.Product.name }}</h5>
               <span class="text-muted">Total Item: {{ cart.quantity }} pcs</span><br>
               <span class="fs-6 text-muted">Total : {{ totalPrice(cart.Product.price, cart.quantity) }}</span><br>
@@ -58,8 +58,9 @@ export default {
   cursor: auto;
 }
 img {
-  width: 150px;
-  height: 150px;
+  width: 220px;
+  height: 190px;
+  object-fit: cover;
 }
 .svg-icon {
   width: 1.5rem;

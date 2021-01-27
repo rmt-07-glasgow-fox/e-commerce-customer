@@ -1,7 +1,7 @@
 <template>
   <div>
     <Navbar />
-    <ListHistory />
+    <ListHistory class="mb-5"/>
     <Footer />
   </div>
 </template>
@@ -27,6 +27,5 @@ footer {
   bottom: 0;
   left: 0;
   right: 0;
-  margin-top: 16rem;
 }
 </style>
