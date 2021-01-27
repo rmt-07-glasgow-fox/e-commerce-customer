@@ -1,20 +1,45 @@
 <template>
-  <div class="home">
-     <Navbar/>
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+	<div class="home">
+		<h1>this is product</h1>
+		<!-- <ProductCard v-for="product in products" :key="product.id" :product="product"/> -->
+		<ProductCard/>
+		<!-- <ProductCard/> -->
+	</div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-import Navbar from '../components/Navbar'
+import { mapActions, mapState } from 'vuex'
+import ProductCard from '../components/ProductCard'
 export default {
   name: 'Home',
   components: {
-    HelloWorld,
-    Navbar
+    ProductCard
+  },
+  // methods: {
+  // 	fetch () {
+  // 		this.$store.dispatch('fetchProd')
+  // 	}
+  // },
+  created () {
+    // this.$store.dispatch('fetchProd')
+    // this.fetch()
+    this.getProducts()
+  },
+  computed: {
+    // products () {
+    // 	return this.$store.state.products
+    // }
+    // products () {
+    //   return this.$store.state.products
+    // }
+    ...mapState('products', ['products'])
+  },
+  methods: {
+    ...mapActions('products', ['getProducts'])
   }
 }
 </script>
+
+<style>
+
+</style>

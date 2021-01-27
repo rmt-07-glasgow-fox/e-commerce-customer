@@ -29,6 +29,8 @@
                 Login
               </button>
             </div>
+              <router-link class='navbar-item' to='/register'>register here</router-link>
+              <!-- <p>for sign up</p> -->
           </form>
         </div>
       </div>

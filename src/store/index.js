@@ -9,9 +9,9 @@ export default new Vuex.Store({
   state: {
     status: '',
     products: [],
-    // carts: [],
-    // totalPrice: 0,
-    // histories: []
+    carts: [],
+    totalPrice: 0,
+    histories: []
   },
   mutations: {
     setStatus (state, payload) {
@@ -19,30 +19,43 @@ export default new Vuex.Store({
     },
     setProducts (state, payload) {
       state.products = payload
+    },
+    setCarts (state, payload) {
+      state.carts = payload
+    },
+    setTotalPrice (state, payload) {
+      state.totalPrice = payload
+    },
+    setHistories (state, payload) {
+      state.histories = payload
     }
   },
   actions: {
     login (context, payload) {
       // console.log(payload)
       axios({
-        method: 'post',
+        method: 'POST',
         url: '/login',
         data: payload
       })
         .then(({ data }) => {
           // console.log(data)
           localStorage.setItem('access_token', data.access_token)
+          context.commit('setStatus', 'loggedIn')
           // Vue.toasted.success('welcome', {
           //   action: {
           //     text: payload.email.split('@')[0],
           //     position: 'top-right'
           //   }
           // })
-          router.push('/')
+          Vue.toasted.success('welcome ' + payload.email.split('@')[0], { icon: 'crown' })
+          if (router.history.current.name !== 'Home') {
+            router.push('/')
+          }
         })
         .catch(({ response }) => {
           // console.log(error.response.data)
-          // Vue.toasted.error(response.data.message, { icon: 'skull' })
+          Vue.toasted.error(response.data.message)
         })
     },
     register (context, payload) {
@@ -55,19 +68,38 @@ export default new Vuex.Store({
           router.push('/login')
         })
         .catch(({ response }) => {
-          console.log(response.data)
+          console.log(response.data.message)
         })
     },
-    fetchProduct (context, payload) {
+    fetchProd (context) {
       axios({
-        url: '/products',
-        method: 'GET'
+        method: 'get',
+        url: '/products'
+        // headers: {
+        //   access_token: localStorage.getItem('access_token')
+        // }
       })
         .then(({ data }) => {
           context.commit('setProducts', data.products)
+          // console.log(data)
         })
-        .catch(_ => {
-          // console.log(error)
+        .catch(error => {
+          console.log(error.response.data)
+        })
+    },
+    getProducts ({ commit }, payload) {
+      axios({
+        method: 'GET',
+        url: '/products',
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+        .then(({ data }) => {
+          commit('setProducts', data)
+        })
+        .catch(error => {
+          console.log(error.response.data)
         })
     },
     fetchCart (context, payload) {
@@ -83,6 +115,9 @@ export default new Vuex.Store({
           context.commit('setCarts', carts)
           context.commit('setTotalPrice', totalPrice)
         })
+        .catch(error => {
+          console.log(error.response.data)
+        })
     },
     changeQuantity (context, payload) {
       axios({
@@ -97,7 +132,76 @@ export default new Vuex.Store({
           context.dispatch('fetchCart')
         })
         .catch(err => {
-          console.log(err.response.data.message)
+          Vue.toasted.error(err.response.data.message)
+          // console.log(err.response.data.message)
+        })
+    },
+    deleteCart (context, payload) {
+      // console.log(payload)
+      Vue.toasted.error('are you sure ?', {
+        action: [
+          {
+            text: 'yes',
+            onClick: (e, toastObject) => {
+              axios({
+                url: '/carts',
+                method: 'DELETE',
+                headers: {
+                  access_token: localStorage.getItem('access_token')
+                },
+                data: payload
+              })
+                .then(_ => {
+                  context.dispatch('fetchCart')
+                  Vue.toasted.success('deleted')
+                })
+                .catch(_ => {
+                  // console.log(err)
+                })
+            }
+          },
+          {
+            text: 'no',
+            onClick: (e, toastObject) => {
+              toastObject.goAway(0)
+            }
+          }
+        ]
+      })
+    },
+    checkout (context, payload) {
+      // console.log('hit')
+      axios({
+        url: '/carts',
+        method: 'PUT',
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
+      })
+        .then(_ => {
+          context.dispatch('fetchCart')
+          Vue.toasted.success('success')
+        })
+        .catch(_ => {
+          context.dispatch('fetchCart')
+          // console.log(err)
+          Vue.toasted.error('something went wrong')
+        })
+    },
+    fetchHistories (context, payload) {
+      axios({
+        url: '/carts/histories',
+        method: 'GET',
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
+      })
+        .then(({ data }) => {
+          // console.log(data)
+          context.commit('setHistories', data)
+        })
+        .catch(_ => {
+          // console.log(error)
         })
     }
   },

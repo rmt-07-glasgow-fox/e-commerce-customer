@@ -28,6 +28,7 @@
                 Register
               </button>
             </div>
+            <router-link class='navbar-item' to='/login'>login here</router-link>
           </form>
         </div>
       </div>

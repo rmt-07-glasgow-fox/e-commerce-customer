@@ -22,15 +22,16 @@
 
       <div id='navbarBasicExample' class='navbar-menu'>
         <div class='navbar-start'>
+          <router-link class='navbar-item' to="/">Home</router-link>
+          <!-- <router-link class='navbar-item' to="/about">About</router-link> -->
+          <!-- <router-link class='navbar-item' to="/products">Products</router-link> -->
+
+        </div>
+        <div class='navbar-end'>
           <!-- <router-link class='navbar-item' to='/register'>Register</router-link> -->
           <router-link class='navbar-item' to='/login'>Login</router-link>
           <router-link class='navbar-item' to='/cart'>Cart</router-link>
-          <router-link class='navbar-item' to='/history'>History</router-link>
-          <!-- <router-link class='navbar-item' to='/'>Dashboard</router-link>
-          <router-link class='navbar-item' to='/add'>Add</router-link>
-          <router-link class='navbar-item' to='/edit'>Edit</router-link> -->
-        </div>
-        <div class='navbar-end'>
+          <router-link class='navbar-item' to='/histories'>History</router-link>
           <div class='navbar-item'>
             <div class='buttons'>
               <a @click.passive='logout' class='button is-primary'>
@@ -48,23 +49,23 @@ export default {
   name: 'Navbar',
   methods: {
     logout () {
-      // this.$toasted.show('are you sure?', {
-      //   action: [
-      //     {
-      //       text: 'yes',
-      //       onClick: (e, toastObject) => {
-      localStorage.clear()
-      this.$router.push('/login')
-      //       }
-      //     },
-      //     {
-      //       text: 'no',
-      //       onClick: (e, toastObject) => {
-      //         toastObject.goAway(0)
-      //       }
-      //     }
-      //   ]
-      // })
+      this.$toasted.show('are you sure?', {
+        action: [
+          {
+            text: 'yes',
+            onClick: (e, toastObject) => {
+              localStorage.clear()
+              this.$router.push('/login')
+            }
+          },
+          {
+            text: 'no',
+            onClick: (e, toastObject) => {
+              toastObject.goAway(0)
+            }
+          }
+        ]
+      })
     }
   }
 }
