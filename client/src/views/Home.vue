@@ -1,18 +1,51 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Banner/>
+    <div class="container">
+      <div class="row">
+        <ProductList
+          class="d-flex justify-content-center"
+          v-for="product in products"
+          :key="product.id"
+          :product="product"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import Banner from '@/components/Banner.vue'
+import ProductList from '../components/ProductList'
+import { mapState } from 'vuex'
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld
+    Banner,
+    ProductList
+  },
+  methods: {
+    fetchProduct () {
+      this.$store.dispatch('fetchProduct')
+    }
+  },
+  created () {
+    this.fetchProduct()
+  },
+  computed: {
+    ...mapState([
+      'products'
+    ])
   }
 }
 </script>
+
+<style scoped>
+/* .row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+</style>
