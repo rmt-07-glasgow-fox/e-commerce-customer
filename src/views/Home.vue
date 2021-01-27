@@ -5,7 +5,7 @@
         <slider />
       </b-col>
     </b-row>
-    <b-row class="mt-3">
+    <b-row class="mt-5">
       <b-col cols="3">
         <b-container>
           <div class="p-4">
@@ -136,6 +136,7 @@
 import Slider from '../components/home/Slider.vue';
 
 export default {
+  name: 'Home',
   components: { Slider },
 };
 </script>

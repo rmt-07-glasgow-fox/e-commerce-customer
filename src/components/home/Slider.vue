@@ -2,6 +2,7 @@
   <div>
     <b-carousel
       id="carousel-1"
+      v-if="banners.length > 0"
       v-model="slide"
       :interval="4000"
       controls
@@ -13,13 +14,13 @@
       @sliding-start="onSlideStart"
       @sliding-end="onSlideEnd"
     >
-      <b-carousel-slide caption="Oleh2">
+      <b-carousel-slide v-for="(banner, i) in banners" :key="i" :caption="banner.title">
         <template #img>
           <img
             class="d-block img-height w-100"
             width="1024"
             height="360"
-            src="https://picsum.photos/1024/480/?image=55"
+            :src="banner.image_url"
             alt="image slot"
           />
         </template>
@@ -35,6 +36,11 @@ export default {
       slide: 0,
       sliding: null,
     };
+  },
+  computed: {
+    banners() {
+      return this.$store.getters.banners;
+    },
   },
   methods: {
     onSlideStart() {

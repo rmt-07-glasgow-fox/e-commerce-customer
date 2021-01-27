@@ -36,6 +36,7 @@
             <template #button-content
               ><b-icon icon="person-circle"></b-icon> {{ $store.getters.fullname }}
             </template>
+            <b-dropdown-item href="#">Orders</b-dropdown-item>
             <b-dropdown-item @click.prevent="logout" href="#">Sign Out</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>

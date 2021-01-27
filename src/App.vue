@@ -14,6 +14,7 @@ export default {
   components: { Navbar, Footer },
   created() {
     this.$store.dispatch('autoLogin');
+    this.$store.dispatch('fetchBanners');
   },
 };
 </script>
