@@ -32,29 +32,20 @@ export default new Vuex.Store({
   },
   actions: {
     login (context, payload) {
-      // console.log(payload)
       axios({
         method: 'POST',
         url: '/login',
         data: payload
       })
         .then(({ data }) => {
-          // console.log(data)
           localStorage.setItem('access_token', data.access_token)
           context.commit('setStatus', 'loggedIn')
-          // Vue.toasted.success('welcome', {
-          //   action: {
-          //     text: payload.email.split('@')[0],
-          //     position: 'top-right'
-          //   }
-          // })
           Vue.toasted.success('welcome ' + payload.email.split('@')[0], { icon: 'crown' })
           if (router.history.current.name !== 'Home') {
             router.push('/')
           }
         })
         .catch(({ response }) => {
-          // console.log(error.response.data)
           Vue.toasted.error(response.data.message)
         })
     },
@@ -75,9 +66,6 @@ export default new Vuex.Store({
       axios({
         url: '/products',
         method: 'GET'
-        // headers: {
-        //   access_token: localStorage.getItem('access_token')
-        // }
       })
         .then(({ data }) => {
           context.commit('setProducts', data)
@@ -87,28 +75,10 @@ export default new Vuex.Store({
           console.log(error.response.data)
         })
     },
-    // getProducts ({ commit }, payload) {
-    //   axios({
-    //     method: 'GET',
-    //     url: '/products',
-    //     headers: {
-    //       access_token: localStorage.access_token
-    //     }
-    //   })
-    //     .then(({ data }) => {
-    //       commit('setProducts', data)
-    //     })
-    //     .catch(error => {
-    //       console.log(error.response.data)
-    //     })
-    // },
     fetchCart (context, payload) {
       axios({
         url: '/carts',
         method: 'GET',
-        // headers: {
-        //   access_token: localStorage.getItem('access_token')
-        // }
       })
         .then(({ data }) => {
           const { carts, totalPrice } = data
