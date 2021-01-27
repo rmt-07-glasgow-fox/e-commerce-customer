@@ -62,7 +62,8 @@ export default {
       'carts'
     ]),
     totalCarts () {
-      return this.carts.length
+      const activeCarts = this.carts.filter(el => el.checkout === false)
+      return activeCarts.length
     }
   }
 }

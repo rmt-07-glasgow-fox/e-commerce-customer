@@ -39,7 +39,7 @@ export default new Vuex.Store({
       console.log(payload)
       axios({
         method: 'POST',
-        url: '/register',
+        url: '/customer/register',
         data: {
           email: payload.email,
           username: payload.username,
@@ -70,7 +70,7 @@ export default new Vuex.Store({
     handleLogin (context, payload) {
       axios({
         method: 'POST',
-        url: '/login',
+        url: '/customer/login',
         data: {
           email: payload.email,
           password: payload.password
@@ -194,6 +194,22 @@ export default new Vuex.Store({
       }).then(res => {
         console.log(res.data)
         context.dispatch('getCarts')
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    checkoutCart (context, payload) {
+      const accessToken = localStorage.getItem('access_token')
+      axios({
+        method: 'PUT',
+        url: '/carts/checkout',
+        headers: {
+          access_token: accessToken
+        },
+        data: payload
+      }).then(res => {
+        context.dispatch('getCarts')
+        router.push('/')
       }).catch(err => {
         console.log(err)
       })

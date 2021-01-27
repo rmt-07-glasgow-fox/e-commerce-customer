@@ -28,6 +28,7 @@ export default {
     this.$store.dispatch('getCategoriesId', {
       id: this.$route.params.id
     })
+    this.$store.dispatch('getBanners')
   },
   computed: {
     ...mapState([

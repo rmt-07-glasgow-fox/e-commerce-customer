@@ -53,7 +53,7 @@
                 <span>Rp. {{ totalPayment }}</span>
               </div>
             </div>
-            <button class="btn btn-success w-100 mt-3">Checkout</button>
+            <button @click.prevent="checkoutCart" class="btn btn-success w-100 mt-3">Checkout</button>
           </div>
         </div>
       </div>
@@ -66,21 +66,6 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'Carts',
-  computed: {
-    ...mapState([
-      'carts'
-    ]),
-    filterCarts () {
-      return this.carts.filter(el => el.checkout === false)
-    },
-    totalPayment () {
-      let total = 0
-      this.carts.forEach(el => {
-        total += el.quantity * el.Product.price
-      })
-      return total
-    }
-  },
   methods: {
     totalPrice (price, qty) {
       const total = price * qty
@@ -100,6 +85,24 @@ export default {
         id,
         quantity: -1
       })
+    },
+    checkoutCart () {
+      this.$store.dispatch('checkoutCart', this.filterCarts)
+    }
+  },
+  computed: {
+    ...mapState([
+      'carts'
+    ]),
+    filterCarts () {
+      return this.carts.filter(el => el.checkout === false)
+    },
+    totalPayment () {
+      let total = 0
+      this.carts.forEach(el => {
+        total += el.quantity * el.Product.price
+      })
+      return total
     }
   }
 }
