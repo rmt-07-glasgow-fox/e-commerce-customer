@@ -6,11 +6,15 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    products: []
+    products: [],
+    carts: []
   },
   mutations: {
     readData (state, payload) {
       state.products = payload
+    },
+    readCart (state, payload) {
+      state.carts = payload
     }
   },
   actions: {
@@ -40,7 +44,7 @@ export default new Vuex.Store({
         }
       })
         .then(({ data }) => {
-          console.log(data)
+          console.log('Success register')
         })
         .catch(err => {
           console.log(err)
@@ -53,6 +57,56 @@ export default new Vuex.Store({
       })
         .then(({ data }) => {
           context.commit('readData', data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    featchReadCart (context, payload) {
+      axios({
+        url: '/cart',
+        method: 'get',
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+        .then(({ data }) => {
+          context.commit('readCart', data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    createCart (context, payload) {
+      const id = payload
+      axios({
+        url: '/cart/' + id,
+        method: 'post',
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
+      })
+        .then(({ data }) => {
+          context.dispatch('featchReadCart')
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    editQuantity (context, payload) {
+      const id = payload.id
+      axios({
+        method: 'put',
+        url: '/cart/' + id,
+        headers: {
+          access_token: localStorage.access_token
+        },
+        data: {
+          quantity: payload.quantity
+        }
+      })
+        .then(({ data }) => {
+          context.dispatch('featchReadCart', data)
         })
         .catch(err => {
           console.log(err)

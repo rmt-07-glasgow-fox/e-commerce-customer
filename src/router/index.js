@@ -11,13 +11,12 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home,
-    children: [
-      {
-        path: '',
-        component: Products
-      }
-    ]
+    component: Home
+  },
+  {
+    path: '',
+    name: 'Products',
+    component: Products
   },
   {
     path: '/user',
@@ -36,6 +35,11 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login
+  },
+  {
+    path: '/carts',
+    name: 'Carts',
+    component: () => import('../views/Cart.vue')
   }
 ]
 

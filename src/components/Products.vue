@@ -7,7 +7,10 @@
           <h5 class="card-title">{{product.name}}</h5>
           <p class="card-text">{{product.stock}}</p>
           <p class="card-text">{{product.price}}</p>
-          <a href="#" class="btn btn-primary">Buy</a>
+          <p>{{product.id}}</p>
+          <div>
+            <button @click="createCart(product.id)">Buy</button>
+          </div>
         </div>
       </div>
     </div>
@@ -18,7 +21,15 @@
 <script>
 export default {
   name: 'Products',
-  props: ['product']
+  props: ['product'],
+  methods: {
+    createCart (id) {
+      if (!localStorage.access_token) {
+        return this.$router.replace('login')
+      }
+      this.$store.dispatch('createCart', id)
+    }
+  }
 }
 </script>
 
