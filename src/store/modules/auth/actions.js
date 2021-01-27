@@ -16,6 +16,7 @@ export default {
       localStorage.setItem('access_token', res.data.access_token);
       const { firstname, lastname, email } = res.data;
       localStorage.setItem('user', JSON.stringify({ firstname, lastname, email }));
+      this.dispatch('fetchCarts');
       context.commit('setUser', res.data);
     } catch (err) {
       err.response.data.map((e) => {
@@ -25,18 +26,20 @@ export default {
   },
   autoLogin(context) {
     const access_token = localStorage.getItem('access_token');
-    const { firstname, lastname, email } = JSON.parse(localStorage.getItem('user'));
-    const data = {
-      firstname,
-      lastname,
-      email,
-      access_token,
-    };
     if (access_token) {
+      const { firstname, lastname, email } = JSON.parse(localStorage.getItem('user'));
+      const data = {
+        firstname,
+        lastname,
+        email,
+        access_token,
+      };
+      this.dispatch('fetchCarts');
       context.commit('setUser', data);
     }
   },
   logout(context) {
+    context.commit('removeCarts');
     localStorage.removeItem('access_token');
     localStorage.removeItem('user');
     context.commit('removeUser');

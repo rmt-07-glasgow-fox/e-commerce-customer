@@ -2,7 +2,7 @@
   <div>
     <b-navbar toggleable="lg" class="bg-two" type="dark" fixed="top">
       <b-navbar-brand class="custom" @click.prevent="goToHome" href="#" tag="h1"
-        >Lapak Vue</b-navbar-brand
+        >Lapak H8</b-navbar-brand
       >
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -17,8 +17,13 @@
         </b-navbar-nav>
 
         <b-navbar-nav class="ml-auto">
-          <b-nav-item @click.prevent="goToCart" href="#"
-            ><b-icon icon="cart4"></b-icon> Cart</b-nav-item
+          <b-nav-item @click.prevent="goToCart" href="#">
+            <div v-if="countCarts === 0"><b-icon icon="cart4"></b-icon>Cart</div>
+            <div v-else>
+              <b-icon icon="cart4"></b-icon>Cart<span class="badge badge-notify">{{
+                countCarts
+              }}</span>
+            </div></b-nav-item
           >
           <b-button
             v-if="!$store.getters.isAuth"
@@ -50,6 +55,11 @@
 <script>
 export default {
   name: 'Navbar',
+  computed: {
+    countCarts() {
+      return this.$store.getters.carts.length;
+    },
+  },
   methods: {
     goToCart() {
       if (this.$store.getters.isAuth) {
@@ -73,4 +83,11 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.badge-notify {
+  background: red;
+  position: relative;
+  top: -12px;
+  left: -65px;
+}
+</style>

@@ -14,7 +14,7 @@
       @sliding-start="onSlideStart"
       @sliding-end="onSlideEnd"
     >
-      <b-carousel-slide v-for="(banner, i) in banners" :key="i" :caption="banner.title">
+      <b-carousel-slide v-for="(banner, i) in banners" :key="i">
         <template #img>
           <img
             class="d-block img-height w-100"

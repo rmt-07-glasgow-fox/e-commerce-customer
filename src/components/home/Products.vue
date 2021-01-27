@@ -18,9 +18,8 @@
             <br /><b-icon icon="basket-fill" aria-hidden="true"></b-icon> Stock:
             {{ product.stock }}</b-card-text
           >
-          <b-card-text></b-card-text>
 
-          <b-button href="#" class="bg-fourth"
+          <b-button @click.prevent="addCart(product.id)" href="#" class="bg-fourth"
             ><b-icon icon="cart-plus-fill" aria-hidden="true"></b-icon> Add to Cart</b-button
           >
         </b-card>
@@ -40,6 +39,26 @@ export default {
     formatPrice(value) {
       const val = (value / 1).toFixed(2).replace('.', ',');
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    },
+    async addCart(id) {
+      if (this.$store.getters.isAuth) {
+        try {
+          const payload = {
+            ProductId: id,
+            quantity: 1,
+          };
+          await this.$store.dispatch('addCart', payload);
+          this.$swal.fire('Success!', 'Cart successfully added!', 'success');
+        } catch (err) {
+          this.$swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: err,
+          });
+        }
+      } else {
+        this.$router.push('/login');
+      }
     },
   },
 };

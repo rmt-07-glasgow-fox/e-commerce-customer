@@ -69,8 +69,10 @@ a:hover {
   background-color: #ff9900 !important;
   border-color: rgba(0, 0, 0, 0.125) !important;
 }
-
 .text-yellow {
   color: #ff9900 !important;
+}
+.text-red {
+  color: red !important;
 }
 </style>
