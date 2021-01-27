@@ -1,10 +1,15 @@
 <template>
   <div>
     <Navbar/>
-    <ProductCard
-      v-for="product in getProducts" :key="product.id"
-      v-bind:product="product"
-    />
+    <div class="container">
+      <h4 class="card-title text-center">Product List</h4>
+      <div class="row">
+        <ProductCard
+          v-for="product in getProducts" :key="product.id"
+          v-bind:product="product"
+        />
+      </div>
+    </div>
   </div>
 </template>
 

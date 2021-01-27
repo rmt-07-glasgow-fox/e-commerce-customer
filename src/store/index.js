@@ -10,8 +10,8 @@ export default new Vuex.Store({
   state: {
     products: [],
     categories: [],
-    cart: null,
-    cartItem: null
+    totalCart: 0,
+    cartItems: []
   },
 
   mutations: {
@@ -21,7 +21,28 @@ export default new Vuex.Store({
 
     setCategories (state, payload) {
       state.categories = payload
+    },
+
+    setCartItems (state, payload) {
+      state.cartItems = payload
+    },
+
+    setTotalCart (state, payload) {
+      state.totalCart = 0
+      state.cartItems.forEach((i) => {
+        state.totalCart += i.quantity * i.Product.price
+      })
+    },
+
+    removeCartItem (state, payload) {
+      state.cartItems = state.cartItems.filter((f) => f.id !== payload)
+    },
+
+    updateTotal (state, payload) {
+      // const total = payload.quantity * payload.productPrice
+      state.totalCart = payload.total
     }
+
   },
 
   actions: {
@@ -98,7 +119,20 @@ export default new Vuex.Store({
     },
 
     fetchCartItems (context, payload) {
-
+      axios({
+        method: 'get',
+        url: '/carts',
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+        .then((response) => {
+          context.commit('setCartItems', response.data.cartItems)
+          context.commit('setTotalCart')
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     },
 
     addToCart (context, payload) {
@@ -114,6 +148,54 @@ export default new Vuex.Store({
       })
         .then((response) => {
           console.log('INI DATA ADD TO CART', response.data)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
+
+    deleteCartItem (context, payload) {
+      axios({
+        method: 'delete',
+        url: '/cartItems/' + payload.CartItemId,
+        headers: {
+          access_token: localStorage.access_token
+        },
+        data: {
+          CartItemId: payload.CartItemId,
+          ProductId: payload.ProductId,
+          quantity: payload.quantity
+        }
+      })
+        .then(() => {
+          context.commit('removeCartItem', payload.CartItemId)
+          context.commit('setTotalCart')
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
+
+    updateTotal (context, payload) {
+      axios({
+        method: 'patch',
+        url: '/cartItems/' + payload.CartItemId,
+        headers: {
+          access_token: localStorage.access_token
+        },
+        data: {
+          CartItemId: payload.CartItemId,
+          ProductPrice: payload.ProductPrice,
+          quantity: payload.quantity
+        }
+      })
+        .then((response) => {
+          // const _payload = {
+          //   productPrice: payload.ProductPrice,
+          //   quantity: payload.quantity
+          // }
+
+          context.commit('updateTotal', response.data)
         })
         .catch((error) => {
           console.log(error)

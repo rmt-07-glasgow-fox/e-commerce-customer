@@ -24,7 +24,8 @@
             </ul>
           </li>
           <li class="nav-item" v-if="($route.name !== 'Login') && ($route.name !== 'Register')">
-            <a class="nav-link active" aria-current="page" href="#">Cart</a>
+            <router-link to="/carts" class="nav-link active" aria-current="page">Cart
+            </router-link>
           </li>
           <li class="nav-item" v-if="($route.name !== 'Login') && ($route.name !== 'Register')">
             <a class="nav-link" href="#">History</a>

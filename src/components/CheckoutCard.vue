@@ -1,8 +1,8 @@
 <template>
-  <div class="card w-25">
+  <div class="card">
     <div class="card-body">
       <h5 class="card-title">Total</h5>
-      <p class="card-text">Rp. 30.000.000</p>
+      <p class="card-text">Rp. {{totalCart}}</p>
       <a href="#" class="btn btn-primary">Checkout</a>
     </div>
   </div>
@@ -10,7 +10,8 @@
 
 <script>
 export default {
-
+  name: 'CheckoutCard',
+  props: ['totalCart']
 }
 </script>
 
