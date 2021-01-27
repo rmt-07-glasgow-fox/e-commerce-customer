@@ -1,22 +1,28 @@
 <template>
-  <div id="app">
-    <Navbar />
-    <router-view/>
+  <div class="login">
+      <RegisterForm />
   </div>
 </template>
 
 <script>
-import Navbar from './components/Navbar.vue'
-export default {
-  components: {
-    Navbar
-  }
+import RegisterForm from '@/components/RegisterForm'
 
+export default {
+  name: 'Register',
+  components: {
+    RegisterForm
+  }
 }
 </script>
 
-<style>
-#app {
+<style scoped>
+.login {
+  width: 325px;
+  margin: auto;
+  margin-top: 10px;
+}
+
+.loginForm {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

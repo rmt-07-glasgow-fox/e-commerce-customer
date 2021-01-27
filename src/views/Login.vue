@@ -1,7 +1,7 @@
 <template>
   <div class="login">
       <LoginForm />
-    </div>
+  </div>
 </template>
 
 <script>
@@ -19,6 +19,7 @@ export default {
 .login {
   width: 325px;
   margin: auto;
+  margin-top: 10px;
 }
 
 .loginForm {
