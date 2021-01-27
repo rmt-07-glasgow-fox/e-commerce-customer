@@ -8,7 +8,7 @@
         <p class="card-text">Stock: <span style="float: right">{{ product.stock }}</span></p>
         <button v-if="role == 'admin'" @click="toEditForm(product.id)" class="btn btn-success">Edit</button>
         <button v-if="role == 'admin'" @click="destroyProduct(product.id)" class="btn btn-success" style="float: right">Delete</button>
-        <button v-if="role == 'customer'" @click="addToCart(product.id)" class="btn btn-success">Add To Cart</button>
+        <button v-if="role == 'customer' && isInCart == false" @click="addToCart(product.id)" class="btn btn-success">Add To Cart</button>
       </div>
     </div>
   </div>
@@ -22,7 +22,8 @@ export default {
   data () {
     return {
       email: localStorage.email,
-      role: localStorage.role
+      role: localStorage.role,
+      isInCart: false
     }
   },
   props: ['product', 'changePage'],
@@ -41,6 +42,27 @@ export default {
         .then(({ data }) => {
           console.log(data)
           return this.$store.dispatch('fetchProducts')
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    addToCart (id) {
+      axios({
+        method: 'POST',
+        url: '/carts',
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        },
+        data: {
+          ProductId: id
+        }
+      })
+        .then(({ data }) => {
+          this.isInCart = true
+          console.log(this.isInCart)
+          this.$store.dispatch('fetchCarts')
+          this.changePage('cartList')
         })
         .catch(err => {
           console.log(err)

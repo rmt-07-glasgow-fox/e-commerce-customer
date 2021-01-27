@@ -7,7 +7,7 @@
           <input class="rounded" type="text" placeholder="Image Url" v-model="image_url"><br><br>
           <input class="rounded" type="text" placeholder="Price" v-model="price"><br><br>
           <input class="rounded" type="text" placeholder="Stock" v-model="stock"><br><br><br>
-          <button class="btn btn-dark rounded" type="submit">Add</button>
+          <button class="btn btn-success rounded" type="submit">Add</button>
         </form>
       </div>
     </div>

@@ -7,7 +7,7 @@
           <input class="rounded" type="text" :placeholder="productDetail.image_url" v-model="editImage_url"><br><br>
           <input class="rounded" type="text" :placeholder="productDetail.price" v-model="editPrice"><br><br>
           <input class="rounded" type="text" :placeholder="productDetail.stock" v-model="editStock"><br><br>
-          <button class="btn btn-dark rounded" type="submit">Edit</button>
+          <button class="btn btn-success rounded" type="submit">Edit</button>
         </form>
         </div>
     </div>

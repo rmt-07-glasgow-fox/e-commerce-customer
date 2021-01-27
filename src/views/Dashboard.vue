@@ -7,10 +7,10 @@
             <ul>
               <p>{{ email }}</p>
             </ul>
-            <ul>
+            <ul v-if="role == 'customer'">
               <a href="#" @click.prevent="changePage('cartList')">Cart</a>
             </ul>
-            <ul>
+            <ul v-if="role == 'customer'">
               <a href="#" @click.prevent="changePage('wishList')">Wishlist</a>
             </ul>
           </li>
