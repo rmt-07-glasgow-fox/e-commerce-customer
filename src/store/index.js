@@ -65,6 +65,22 @@ export default new Vuex.Store({
           }
         })
     },
+    updateCart (context, payload) {
+      const { CartId, ProductId, quantity } = payload
+      console.log('>>>>>', ProductId, CartId, quantity)
+      axios
+        .patch('/carts/' + CartId, { ProductId, quantity }, {
+          headers: {
+            access_token: localStorage.getItem('access_token')
+          }
+        })
+        .then(({ data }) => {
+          console.log(data.message)
+        })
+        .catch((err) => {
+          console.log(err.response.data.errors)
+        })
+    },
     fetchProducts (context) {
       axios
         .get('/products', {

@@ -15,9 +15,11 @@
           <div class='card-footer bg-transparent border-secondary'>
               <div class='box'>
                 <ul>
+                    <form>
                     <li><button @click="substractQty" class='mr-1'>-</button></li>
                     <li><input type="text" size="2" v-model='cart.quantity' class='mr-1'></li>
                     <li><button @click="addQty">+</button></li>
+                    </form>
                 </ul>
                 <button class='btn btn-outline-danger btn-sm' @click='removeCart(cart.id)'>Remove from cart</button>
               </div>
@@ -29,19 +31,10 @@
 </template>
 
 <script>
+import _ from 'lodash'
 export default {
   name: 'CartCard',
   props: ['cart'],
-  data () {
-    return {
-      queriedQty: this.cart.quantity
-    }
-  },
-  watch: {
-    queriedQty: function (val, oldVal) {
-      this.debouncedUpdateQty()
-    }
-  },
   methods: {
     substractQty (qty) {
       if (this.cart.quantity <= 0) {
@@ -49,6 +42,12 @@ export default {
       } else {
         this.cart.quantity -= 1
       }
+      const payload = {
+        CartId: this.cart.id,
+        quantity: this.cart.quantity,
+        ProductId: this.cart.ProductId
+      }
+      this.updateCart(payload)
     },
     addQty (qty) {
       if (this.cart.quantity < this.cart.Product.stock) {
@@ -56,6 +55,12 @@ export default {
       } else {
         this.cart.quantity = this.cart.Product.stock
       }
+      const payload = {
+        CartId: this.cart.id,
+        quantity: this.cart.quantity,
+        ProductId: this.cart.ProductId
+      }
+      this.updateCart(payload)
     },
     removeCart (id) {
       this.$swal.fire({
@@ -83,10 +88,13 @@ export default {
         .catch((err) => {
           this.$store.commit('catchError', err.response.data.errors)
         })
+    },
+    updateCart (payload) {
+      this.$store.dispatch('updateCart', payload)
     }
   },
   created () {
-    this.debouncedUpdateQty = _.debounce(this.updateQty, 500)
+    this.debouncedUpdateQty = _.debounce(this.updateCart, 500)
   }
 }
 </script>
