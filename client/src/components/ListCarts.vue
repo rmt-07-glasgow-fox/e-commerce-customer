@@ -11,7 +11,7 @@
             <div class="p-3">
               <h5 class="fw-bold">{{ cart.Product.name }}</h5>
               <span class="text-muted">Stock: {{ cart.Product.stock }} pcs</span><br>
-              <span class="fs-6 text-warning fw-bold">Price: Rp. {{ cart.Product.price }}</span><br>
+              <span class="fs-6 text-warning fw-bold">Price: {{ priceFormat(cart.Product.price) }}</span><br>
               <div class="mt-2">
                 <span @click="decreaseCart(cart.id)" class="bg-light rounded py-2 px-3 fw-bold" type="button">-</span>
                 <span class="mx-3">{{ cart.quantity }}</span>
@@ -29,7 +29,8 @@
     </div>
     <div>
       <div class="col-sm-12 px-3 text-start" style="width: 500px;">
-        <div class="card">
+        <h5 v-if="filterCarts.length === 0" class="text-center">You don't have a shopping cart</h5>
+        <div v-if="filterCarts.length" class="card">
           <div class="card-body">
             <h5 class="card-title fw-bold">Total Payment</h5>
             <hr>
@@ -41,7 +42,7 @@
                 </span>
               </div>
               <div>
-                <span>Rp. {{ totalPrice(cart.Product.price, cart.quantity )}}</span>
+                <span>{{ totalPrice(cart.Product.price, cart.quantity )}}</span>
               </div>
             </div>
             <hr>
@@ -50,10 +51,10 @@
                 <span>Total</span>
               </div>
               <div>
-                <span>Rp. {{ totalPayment }}</span>
+                <span>{{ totalPayment }}</span>
               </div>
             </div>
-            <button @click.prevent="checkoutCart" class="btn btn-success w-100 mt-3">Checkout</button>
+            <button @click.prevent="checkoutCarts" class="btn btn-success w-100 mt-3">Checkout</button>
           </div>
         </div>
       </div>
@@ -67,9 +68,12 @@ import { mapState } from 'vuex'
 export default {
   name: 'ListCarts',
   methods: {
+    priceFormat (price) {
+      return 'Rp. ' + price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+    },
     totalPrice (price, qty) {
       const total = price * qty
-      return total
+      return this.priceFormat(total)
     },
     removeCart (id) {
       this.$store.dispatch('removeCart', id)
@@ -86,8 +90,8 @@ export default {
         quantity: -1
       })
     },
-    checkoutCart () {
-      this.$store.dispatch('checkoutCart', this.filterCarts)
+    checkoutCarts () {
+      this.$store.dispatch('checkoutCarts', this.filterCarts)
     }
   },
   computed: {
@@ -102,7 +106,7 @@ export default {
       this.filterCarts.forEach(el => {
         total += el.quantity * el.Product.price
       })
-      return total
+      return this.priceFormat(total)
     }
   }
 }

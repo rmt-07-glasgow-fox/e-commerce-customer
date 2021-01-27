@@ -36,7 +36,6 @@ export default new Vuex.Store({
   },
   actions: {
     handleRegister (context, payload) {
-      console.log(payload)
       axios({
         method: 'POST',
         url: '/customer/register',
@@ -115,7 +114,6 @@ export default new Vuex.Store({
           access_token: accessToken
         }
       }).then(res => {
-        console.log(res.data)
         context.commit('setCategories', res.data)
       }).catch(err => {
         console.log(err)
@@ -126,11 +124,13 @@ export default new Vuex.Store({
         method: 'GET',
         url: `/customer/categories/${payload.id}`
       }).then(res => {
-        console.log(res.data)
         context.commit('setProducts', res.data.Products)
-        // router.push(`/categories/${payload.id}`)
       }).catch(err => {
-        console.log(err)
+        Vue.swal({
+          icon: 'error',
+          title: 'Something Error',
+          text: err.response.data.message
+        })
       })
     },
     addCart (context, payload) {
@@ -148,7 +148,11 @@ export default new Vuex.Store({
       }).then(res => {
         context.dispatch('getCarts')
       }).catch(err => {
-        console.log(err.response.message)
+        Vue.swal({
+          icon: 'error',
+          title: 'Something Error',
+          text: err.response.data.message
+        })
       })
     },
     updateCart (context, payload) {
@@ -165,7 +169,11 @@ export default new Vuex.Store({
       }).then(res => {
         context.dispatch('getCarts')
       }).catch(err => {
-        console.log(err.response.data.message)
+        Vue.swal({
+          icon: 'error',
+          title: 'Something Error',
+          text: err.response.data.message
+        })
       })
     },
     getCarts (context) {
@@ -177,7 +185,6 @@ export default new Vuex.Store({
           access_token: accessToken
         }
       }).then(res => {
-        console.log(res.data)
         context.commit('setCarts', res.data)
       }).catch(err => {
         console.log(err)
@@ -192,13 +199,13 @@ export default new Vuex.Store({
           access_token: accessToken
         }
       }).then(res => {
-        console.log(res.data)
         context.dispatch('getCarts')
       }).catch(err => {
         console.log(err)
       })
     },
-    checkoutCart (context, payload) {
+    checkoutCarts (context, payload) {
+      console.log(payload)
       const accessToken = localStorage.getItem('access_token')
       axios({
         method: 'PUT',
@@ -208,10 +215,16 @@ export default new Vuex.Store({
         },
         data: payload
       }).then(res => {
+        console.log(res.data.message)
         context.dispatch('getCarts')
         router.push('/')
       }).catch(err => {
-        console.log(err)
+        Vue.swal({
+          icon: 'error',
+          title: 'Something Error',
+          text: err.response.data.message
+        })
+        context.dispatch('getCarts')
       })
     }
   },

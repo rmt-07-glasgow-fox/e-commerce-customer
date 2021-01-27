@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home bg-light">
     <Navbar />
     <Carousel />
     <ListCategories
@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import $ from 'jquery'
 import { mapState } from 'vuex'
 import Carousel from '@/components/Carousel.vue'
 import ListCategories from '@/components/ListCategories.vue'
@@ -37,6 +38,15 @@ export default {
     filterCategories () {
       return this.categories.filter(el => el.Products.length > 0)
     }
+  },
+  updated () {
+    console.log('updated')
+    $('#search-task').on('keyup', function () {
+      const value = $(this).val().toLowerCase()
+      $('.product-list').filter(function () {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      })
+    })
   }
 }
 </script>

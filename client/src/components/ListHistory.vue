@@ -1,7 +1,7 @@
 <template>
   <div class="p-5 d-flex justify-content-center">
+    <h5 v-if="filterCarts.length === 0" class="text-center">You don't have a shopping history</h5>
     <div class="px-3">
-      <!-- Carts -->
       <div v-for="cart in filterCarts" :key="cart.id" class="card mb-3" style="width: 640px;">
         <div class="row g-0">
           <div class="col-md-4">
@@ -11,8 +11,8 @@
             <div class="p-3">
               <h5 class="fw-bold">{{ cart.Product.name }}</h5>
               <span class="text-muted">Total Item: {{ cart.quantity }} pcs</span><br>
-              <span class="fs-6 text-muted">Total : Rp. {{ totalPrice(cart.Product.price, cart.quantity) }}</span><br>
-              <span class="fs-6 text-muted">Date: {{ cart.updatedAt }}</span><br>
+              <span class="fs-6 text-muted">Total : {{ totalPrice(cart.Product.price, cart.quantity) }}</span><br>
+              <span class="fs-6 text-muted">Date: {{ dateFormat(cart.updatedAt) }}</span><br>
               <span @click="removeHistory(cart.id)" type="button" class="text-danger">Remove history</span>
             </div>
           </div>
@@ -28,9 +28,15 @@ import { mapState } from 'vuex'
 export default {
   name: 'ListHistory',
   methods: {
+    priceFormat (price) {
+      return 'Rp. ' + price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+    },
+    dateFormat (date) {
+      return new Date(date).toLocaleString()
+    },
     totalPrice (price, qty) {
       const total = price * qty
-      return total
+      return this.priceFormat(total)
     },
     removeHistory (id) {
       this.$store.dispatch('removeCart', id)

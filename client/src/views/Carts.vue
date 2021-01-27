@@ -23,6 +23,9 @@ export default {
 
 <style scoped>
 footer {
-  margin-top: 16rem;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 </style>

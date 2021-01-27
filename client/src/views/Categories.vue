@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import $ from 'jquery'
 import { mapState } from 'vuex'
 import Carousel from '@/components/Carousel.vue'
 import ListProducts from '@/components/ListProducts.vue'
@@ -34,6 +35,15 @@ export default {
     ...mapState([
       'products'
     ])
+  },
+  updated () {
+    console.log('updated')
+    $('#search-task').on('keyup', function () {
+      const value = $(this).val().toLowerCase()
+      $('.product-list').filter(function () {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      })
+    })
   }
 }
 </script>

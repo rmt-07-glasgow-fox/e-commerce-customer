@@ -4,11 +4,11 @@
       <div class="d-flex justify-content-start">
         <router-link to="/" class="text-decoration-none">
           <a class="navbar-brand" href="#">
-            <span class="fw-bold">Buka Warung</span>
+            <span class="fw-bold fs-3">Buka Warung</span>
           </a>
         </router-link>
-        <div class="mx-2 col-10 align-self-center">
-          <input class="form-control" id="search-task" type="search" placeholder="Search Product">
+        <div class="mx-3 col-12 align-self-center">
+          <input class="form-control rounded-pill px-3" id="search-task" type="search" placeholder="Search Product ...">
         </div>
       </div>
       <!-- Cart, If Login -->
