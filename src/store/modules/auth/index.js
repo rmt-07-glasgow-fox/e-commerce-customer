@@ -3,7 +3,10 @@ import actions from './actions';
 import getters from './getters';
 
 export default {
-  state: {},
+  state: {
+    user: null,
+    token: null,
+  },
   actions,
   getters,
   mutations,

@@ -55,6 +55,28 @@ export default {
     };
   },
   methods: {
+    async login() {
+      const payload = {
+        email: this.email,
+        password: this.password,
+      };
+
+      try {
+        await this.$store.dispatch('login', payload);
+        this.clearForm();
+        this.$router.replace('/');
+      } catch (err) {
+        this.$swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: err,
+        });
+      }
+    },
+    clearForm() {
+      this.email = '';
+      this.password = '';
+    },
     switchPassword() {
       this.passwordType = this.passwordType === 'password' ? 'text' : 'password';
     },

@@ -12,6 +12,9 @@ import Footer from './components/layouts/Footer.vue';
 
 export default {
   components: { Navbar, Footer },
+  created() {
+    this.$store.dispatch('autoLogin');
+  },
 };
 </script>
 
