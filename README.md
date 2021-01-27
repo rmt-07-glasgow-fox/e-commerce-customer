@@ -1,9 +1,15 @@
 # ecommerce-client-customer
-"AnTz Shop" e-commerce app for customer, created using Vue.js, bootstrap (customer client & [CMS client](https://github.com/AnthonyGunardi/ecommerce-client-CMS)) & node.js, express, sequelize, postgreSQL ([server](https://github.com/AnthonyGunardi/ecommerce-server))
+"AnTz Shop" e-commerce app for customer, created using Vue.js, bootstrap (customer client & CMS client) & node.js, express, sequelize, postgreSQL (server)
 
 
 ## URL
-https://_____________________________________
+https://ecommerce-antzshop.web.app
+
+#### Link for CMS Client:
+[AnTz Shop - CMS Client](https://github.com/AnthonyGunardi/ecommerce-client-CMS)
+
+#### Link for Server:
+[AnTz Shop - Server](https://github.com/AnthonyGunardi/ecommerce-server)
 
 
 ## Project setup
