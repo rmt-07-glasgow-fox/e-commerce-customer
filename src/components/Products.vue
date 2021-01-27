@@ -5,11 +5,10 @@
         <img class="card-img-top" :src="product.image_url" alt="...">
         <div class="card-body">
           <h5 class="card-title">{{product.name}}</h5>
-          <p class="card-text">{{product.stock}}</p>
           <p class="card-text">{{product.price}}</p>
-          <p>{{product.id}}</p>
+          <p class="card-text">stock: {{ this.stock }}</p>
           <div>
-            <button @click="createCart(product.id)">Buy</button>
+            <button @click="createCart(product.id)" class="btn btn-primary">Buy</button>
           </div>
         </div>
       </div>
@@ -22,13 +21,23 @@
 export default {
   name: 'Products',
   props: ['product'],
+  data () {
+    return {
+      stock: this.$store.state.stock
+    }
+  },
   methods: {
     createCart (id) {
       if (!localStorage.access_token) {
         return this.$router.replace('login')
+      } else {
+        this.$store.dispatch('createCart', id)
+        this.stock--
       }
-      this.$store.dispatch('createCart', id)
     }
+  },
+  created () {
+    this.$store.commit('readStock', this.product.stock)
   }
 }
 </script>

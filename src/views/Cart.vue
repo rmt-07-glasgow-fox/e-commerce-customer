@@ -15,9 +15,6 @@ export default {
   components: {
     Carts
   },
-  created () {
-    this.$store.dispatch('featchReadCart')
-  },
   computed: {
     carts () {
       return this.$store.state.carts

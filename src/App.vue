@@ -1,11 +1,7 @@
 <template>
   <div id="app">
     <Navbar/>
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/user">login</router-link> |
-      <router-link to="/carts">Carts</router-link>
-    </div>
+    <br>
     <router-view/>
   </div>
 </template>
@@ -29,7 +25,8 @@ export default {
 }
 
 #nav {
-  padding: 30px;
+  padding: 5px;
+  margin: auto;
 }
 
 #nav a {
@@ -39,5 +36,6 @@ export default {
 
 #nav a.router-link-exact-active {
   color: #42b983;
+  margin-top: 5cm;
 }
 </style>

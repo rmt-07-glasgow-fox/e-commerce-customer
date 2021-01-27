@@ -7,7 +7,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     products: [],
-    carts: []
+    carts: [],
+    stock: 0
   },
   mutations: {
     readData (state, payload) {
@@ -15,6 +16,18 @@ export default new Vuex.Store({
     },
     readCart (state, payload) {
       state.carts = payload
+    },
+    removeCart (state) {
+      state.carts = []
+    },
+    readStock (state, payload) {
+      state.stock = payload
+    },
+    increment (state) {
+      state.stock = state.stock++
+    },
+    decrement (state) {
+      state.stock = state.stock--
     }
   },
   actions: {
@@ -107,6 +120,23 @@ export default new Vuex.Store({
       })
         .then(({ data }) => {
           context.dispatch('featchReadCart', data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    deleteCart (context, payload) {
+      const id = payload
+      axios({
+        method: 'DELETE',
+        url: '/cart/' + id,
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+        .then(({ data }) => {
+          console.log('Sucess deleted')
+          context.dispatch('featchReadCart')
         })
         .catch(err => {
           console.log(err)
