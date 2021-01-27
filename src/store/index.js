@@ -1,14 +1,16 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from '../api/axios'
-// import router from '../router'
+import router from '../router'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
     banners: [],
-    products: []
+    products: [],
+    categories: [],
+    isLoggedIn: false
   },
   mutations: {
     SET_BANNERS (state, payload) {
@@ -16,6 +18,12 @@ export default new Vuex.Store({
     },
     SET_PRODUCTS (state, payload) {
       state.products = payload
+    },
+    SET_CATEGORIES (state, payload) {
+      state.categories = payload
+    },
+    SET_ISLOGGEDIN (state, payload) {
+      state.isLoggedIn = payload
     }
   },
   actions: {
@@ -28,7 +36,7 @@ export default new Vuex.Store({
           context.commit('SET_BANNERS', data)
         })
         .catch(err => {
-          console.log(err)
+          console.log(err.response)
         })
     },
     fetchProducts (context, payload) {
@@ -40,8 +48,60 @@ export default new Vuex.Store({
           context.commit('SET_PRODUCTS', data)
         })
         .catch(err => {
-          console.log(err)
+          console.log(err.response)
         })
+    },
+    fetchCategories (context, payload) {
+      axios({
+        method: 'GET',
+        url: '/categories'
+      })
+        .then(({ data }) => {
+          context.commit('SET_CATEGORIES', data)
+        })
+        .catch(err => {
+          console.log(err.response)
+        })
+    },
+    handleLogin (context, payload) {
+      axios({
+        method: 'POST',
+        url: '/login',
+        data: {
+          email: payload.email,
+          password: payload.password
+        }
+      })
+        .then(({ data }) => {
+          context.commit('SET_ISLOGGEDIN', true)
+          localStorage.setItem('access_token', data.access_token)
+          router.push('/')
+        })
+        .catch(err => {
+          console.log(err.response)
+        })
+    },
+    handleRegister (context, payload) {
+      axios({
+        method: 'POST',
+        url: '/register',
+        data: {
+          email: payload.email,
+          password: payload.password
+        }
+      })
+        .then(({ data }) => {
+          console.log(data)
+          router.push('/login')
+        })
+        .catch(err => {
+          console.log(err.response)
+        })
+    },
+    handleLogout (context, payload) {
+      localStorage.clear()
+      context.commit('SET_ISLOGGEDIN', payload)
+      router.push('/')
     }
   },
   modules: {

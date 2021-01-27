@@ -5,6 +5,7 @@
         v-for="product in products"
         :key="product.id"
         :product="product"/>
+      {{ categories }}
     </div>
   </div>
 </template>
@@ -20,14 +21,21 @@ export default {
   methods: {
     fetchProducts () {
       this.$store.dispatch('fetchProducts')
+    },
+    fetchCategories () {
+      this.$store.dispatch('fetchCategories')
     }
   },
   created () {
     this.fetchProducts()
+    this.fetchCategories()
   },
   computed: {
     products () {
       return this.$store.state.products
+    },
+    categories () {
+      return this.$store.state.categories
     }
   }
 }
