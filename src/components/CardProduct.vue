@@ -10,7 +10,7 @@
         <h6 class="card-title">{{product.name}}</h6>
         <p class="card-text">Price : {{product.price}}</p>
         <p class="card-text">Stock : {{product.stock}}</p>
-        <button class="btn btn-warning bg-gradient btn-block shadow-lg"><b-icon icon="cart-plus-fill"/> Add to Cart</button>
+        <button @click="addCart(product.id)" class="btn btn-warning bg-gradient btn-block shadow-lg"><b-icon icon="cart-plus-fill"/> Add to Cart</button>
       </div>
     </div>
   </div>
@@ -20,6 +20,12 @@
 import { mapState } from 'vuex'
 
 export default {
+  methods: {
+    async addCart (ProductId) {
+      console.log('>>> addCart ', ProductId)
+      this.$store.dispatch('addCart', ProductId)
+    }
+  },
   props: ['product'],
   computed: { ...mapState(['baseURL']) }
 }

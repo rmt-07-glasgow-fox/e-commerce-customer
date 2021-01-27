@@ -2,11 +2,7 @@
   <div class="card mb-3 shadow-lg" style="max-width: 100%">
     <div class="row g-0 p-2">
       <div class="col-md-4">
-        <img
-          :src="baseURL + cart.Product.image_url"
-          alt="..."
-          class="card-img"
-        />
+        <img :src="baseURL + cart.Product.image_url" alt="..." class="card-img" />
       </div>
       <div class="col-md-8">
         <div class="card-body">
@@ -16,27 +12,11 @@
           <div class="my-2">
             <form @submit.prevent="updateCart">
               Quantity :
-              <button
-                @click="plus"
-                type="button"
-                class="btn btn-sm btn-primary rounded-circle mx-2"
-              >
-                +
-              </button>
+              <button @click="plus" type="button" class="btn btn-sm btn-primary rounded-circle mx-2" > + </button>
               {{ cart.quantity }}
-              <button
-                @click="minus"
-                type="button"
-                class="btn btn-sm btn-danger rounded-circle mx-2"
-              >
-                -
-              </button>
-              <button type="submit" class="btn btn-warning mx-2">
-                <b-icon icon="arrow-clockwise" /> update
-              </button>
-              <button type="button" class="btn btn-dark">
-                <b-icon icon="trash-fill" /> delete
-              </button>
+              <button @click="minus" type="button" class="btn btn-sm btn-danger rounded-circle mx-2"> - </button>
+              <button type="submit" class="btn btn-warning mx-2"> <b-icon icon="arrow-clockwise" /> update </button>
+              <button @click="deleteCart(cart.id)" type="button" class="btn btn-dark"> <b-icon icon="trash-fill" /> delete </button>
             </form>
           </div>
         </div>
@@ -46,12 +26,24 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex'
 
 export default {
-  props: ["cart"],
-  computed: { ...mapState(["baseURL"]) },
-};
+  methods: {
+    async deleteCart (id) {
+      console.log('>>> cart id', id)
+      await this.$store.dispatch('deleteCart', id)
+    },
+    plus () {
+      console.log('plus')
+    },
+    minus () {
+      console.log('minus')
+    }
+  },
+  props: ['cart'],
+  computed: { ...mapState(['baseURL']) }
+}
 </script>
 
 <style scoped>

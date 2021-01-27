@@ -68,14 +68,36 @@ export default new Vuex.Store({
         context.commit('SET_CARTS', [])
       } else {
         context.commit('SET_ISUSERLOGIN', true)
-        this.dispatch('cart')
+        this.dispatch('getCart')
       }
     },
-    async cart (context, payload) {
+    async getCart (context, payload) {
       try {
         const URL = this.state.baseURL + '/cart'
         const response = await axios.get(URL, { headers: { access_token: localStorage.access_token } })
         context.commit('SET_CARTS', response.data)
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    async deleteCart (context, idCart) {
+      try {
+        const URL = this.state.baseURL + `/cart/${idCart}`
+        await axios.delete(URL, { headers: { access_token: localStorage.access_token } })
+        this.dispatch('getCart')
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    async addCart (context, ProductId) {
+      try {
+        let quantity = 1
+
+        const URL = this.state.baseURL + `/cart`
+        let response = await axios.post(URL, { ProductId, quantity },{ headers: { access_token: localStorage.access_token } })
+        console.log(response.data)
+        this.dispatch('getCart')
+
       } catch (err) {
         console.log(err)
       }

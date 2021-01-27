@@ -24,7 +24,7 @@ import CardCart from '../components/CardCart'
 
 export default {
   components: { CardCart },
-  computed: {...mapState(['carts'])}
+  computed: { ...mapState(['carts']) }
 }
 </script>
 
