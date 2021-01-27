@@ -9,6 +9,14 @@ Vue.config.productionTip = false
 
 Vue.use(VueSweetalert2)
 
+Vue.mixin({
+  methods: {
+    formatPrice (price) {
+      return 'IDR ' + price.toLocaleString('id')
+    }
+  }
+})
+
 new Vue({
   router,
   store,

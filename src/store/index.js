@@ -11,11 +11,15 @@ export default new Vuex.Store({
     products: [],
     username: '',
     categories: [],
-    errors: []
+    errors: [],
+    carts: []
   },
   mutations: {
     insertProducts (state, payload) {
       state.products = payload
+    },
+    insertCarts (state, payload) {
+      state.carts = payload
     },
     getUserName (state, payload) {
       state.username = payload.email.split('@')[0]
@@ -36,6 +40,26 @@ export default new Vuex.Store({
     addToCart (context, payload) {
       return axios
         .post('/carts', payload, {
+          headers: {
+            access_token: localStorage.getItem('access_token')
+          }
+        })
+    },
+    fetchAllCarts (context, payload) {
+      axios
+        .get('/carts', {
+          headers: {
+            access_token: localStorage.getItem('access_token')
+          }
+        })
+        .then(({ data }) => {
+          context.commit('insertCarts', data)
+        })
+        .catch(console.log)
+    },
+    removeCart (context, payload) {
+      return axios
+        .delete('/carts/' + payload, {
           headers: {
             access_token: localStorage.getItem('access_token')
           }

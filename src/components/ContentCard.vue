@@ -1,5 +1,5 @@
 <template>
-    <div class='col-3 pl-0 pr-0 ml-4 mb-4'>
+    <div class='col-3 pl-0 pr-0 ml-2 mr-2 mb-4'>
       <div class='card'>
         <img :src="`${product.image_url}`" class="card-img-top img-fluid" alt="image not found" @click='productDetail(product.id)'>
         <div class='card-header'>
@@ -57,7 +57,13 @@ export default {
         }
       })
         .then(({ data }) => {
-          this.$swal.fire(data.message.toString(), '', 'success')
+          this.$swal.fire({
+            title: data.message.toString(),
+            toast: true,
+            icon: 'success',
+            confirmButton: false,
+            timer: 1500
+          })
         })
         .catch((err) => {
           this.$store.commit('catchError', err.response.data.errors)
@@ -90,8 +96,8 @@ export default {
   transition: all 200ms ease-out;
 }
 .add-cart-large:hover {
-  color: #5ff7d2;
-  border-color:#5ff7d2;
+  color: #00ac96;
+  border-color:#00ac96;
   -webkit-transition: all 200ms ease-out;
   -moz-transition: all 200ms ease-out;
   -ms-transition: all 200ms ease-out;
