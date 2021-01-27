@@ -6,7 +6,8 @@
     <h5 class="card-title">{{product.name}}</h5>
     <p class="card-text">Rp.{{product.price}}</p>
     <p class="card-text text-muted"> stock: {{product.stock}}</p>
-    <a href="#" class="btn btn-outline-secondary btn-sm-2" @click.prevent="addToCart(product.id)" style="margin-right: 10px; border:none;"><img src="https://www.flaticon.com/svg/vstatic/svg/57/57563.svg?token=exp=1611665779~hmac=2c76045303d57955737e14315d2439ad" style="width:40px;"></a>
+    <a href="#" class="btn btn-outline-secondary btn-sm-2" @click.prevent="addToCart(product.id)" style="margin-right: 10px; border:none;"><img src="../assets/addtocart.png" style="width:40px;"></a>
+    <a href="#" class="btn btn-outline-secondary btn-sm-2" @click.prevent="addWishlist(product.id)" style="margin-right: 10px; border:none;"><img src="../assets/heart.png" style="width:40px;"></a>
     </div>
     </div>
   </div>
@@ -20,6 +21,9 @@ export default {
     addToCart (id) {
       const ProductId = id
       this.$store.dispatch('add', ProductId)
+    },
+    addWishlist (id) {
+      this.$store.dispatch('addWish', id)
     }
   },
   computed: {

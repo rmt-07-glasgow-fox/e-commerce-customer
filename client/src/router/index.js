@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Register from '../views/Register.vue'
 import MyCart from '../views/MyCart.vue'
-import Banners from '../views/Banners.vue'
+import Wishlist from '../views/Wishlist.vue'
 
 Vue.use(VueRouter)
 
@@ -32,9 +32,9 @@ const routes = [
     component: MyCart
   },
   {
-    path: '/banners',
-    name: 'Banners',
-    component: Banners
+    path: '/wishlists',
+    name: 'Wishlist',
+    component: Wishlist
   }
 ]
 

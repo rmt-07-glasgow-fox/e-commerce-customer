@@ -8,18 +8,26 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     err: '',
+    notif: '',
     products: [],
     carts: [],
-    banners: []
+    banners: [],
+    wishlists: []
   },
   mutations: {
     errHandling (state, payload) {
       state.err = payload
     },
+    notifHandling (state, payload) {
+      state.notif = payload
+    },
     fetchAllProduct (state, payload) {
       state.products = payload
     },
     fetchAllCart (state, payload) {
+      if (payload.length === 0) {
+        state.carts = payload
+      }
       payload.forEach(el => {
         if (el.quantity > 1) {
           el.Product.price = el.Product.price * el.quantity
@@ -28,10 +36,12 @@ export default new Vuex.Store({
           state.carts = payload
         }
       })
-      // state.carts = payload
     },
     fetchAllBanner (state, payload) {
       state.banners = payload
+    },
+    fetchAllWish (state, payload) {
+      state.wishlists = payload
     }
   },
   actions: {
@@ -125,10 +135,46 @@ export default new Vuex.Store({
         })
     },
 
+    fetchAllWish (context, payload) {
+      const headers = { access_token: localStorage.access_token }
+      axios
+        .get('/wishlists', { headers })
+        .then(response => {
+          context.commit('fetchAllWish', response.data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+
     add (context, payload) {
       const headers = { access_token: localStorage.access_token }
       axios
         .post('/carts', { id: payload }, { headers })
+        .then(response => {
+          context.commit('errHandling', '')
+          context.commit('notifHandling', 'Success adding to your cart')
+          context.dispatch('fetchAllProduct')
+        })
+        .catch(err => {
+          const msg = err.response.data.errors
+          const temp = []
+          for (let i = 0; i < msg.length; i++) {
+            if (msg.length > 1) {
+              temp.push(msg[i])
+              const str = temp.join(', ')
+              context.commit('errHandling', str)
+            } else if (msg.length <= 1) {
+              context.commit('errHandling', msg[i])
+            }
+          }
+        })
+    },
+
+    addWish (context, payload) {
+      const headers = { access_token: localStorage.access_token }
+      axios
+        .post('/wishlists', { id: payload }, { headers })
         .then(response => {
           context.commit('errHandling', '')
           context.dispatch('fetchAllProduct')
@@ -200,6 +246,18 @@ export default new Vuex.Store({
         .then(response => {
           context.commit('errHandling', '')
           context.dispatch('fetchAllCart')
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+
+    destroyWish (context, payload) {
+      axios
+        .delete('/wishlists', { data: { id: payload }, headers: { access_token: localStorage.access_token } })
+        .then(response => {
+          context.commit('errHandling', '')
+          context.dispatch('fetchAllWish')
         })
         .catch(err => {
           console.log(err)
