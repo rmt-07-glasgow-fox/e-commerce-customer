@@ -17,15 +17,25 @@ const routes = [
     children: [
       {
         path: '/login',
-        name: 'login',
+        name: 'Login',
         component: () => import('../components/LoginForm.vue')
       },
       {
         path: '/register',
-        name: 'register',
+        name: 'Register',
         component: () => import('../components/RegisterForm.vue')
       }
     ]
+  },
+  {
+    path: '/cart',
+    name: 'Cart',
+    component: () => import('../views/Cart.vue')
+  },
+  {
+    path: '/history',
+    name: 'History',
+    component: () => import('../views/History.vue')
   }
 ]
 
@@ -35,8 +45,12 @@ const router = new VueRouter({
   routes
 })
 
-// router.beforeEach((to, from, next) => {
-
-// })
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = localStorage.getItem('access_token')
+  if (to.name === 'Home' && !isAuthenticated) next()
+  else if (to.name !== 'Login' && !isAuthenticated) next({ name: 'Login' })
+  else if (to.name === 'Login' && isAuthenticated) next({ name: 'Home' })
+  else next()
+})
 
 export default router
