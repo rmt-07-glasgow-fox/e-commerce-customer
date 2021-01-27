@@ -22,10 +22,10 @@
           </div>
           <div class="d-flex" v-if="this.$store.state.isLoggedIn">
             <li class="nav-item">
-              <router-link class="nav-link" to="/about"><i class="fas fa-history"></i></router-link>
+              <router-link class="nav-link" to="/history"><i class="fas fa-history"></i></router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="/about"><i class="fas fa-shopping-cart"></i></router-link>
+              <router-link class="nav-link" to="/cart"><i class="fas fa-shopping-cart"></i></router-link>
             </li>
             <li class="nav-item">
               <a class="nav-link disabled" href="#">Welcome, mity</a>
