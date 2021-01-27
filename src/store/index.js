@@ -10,7 +10,8 @@ export default new Vuex.Store({
     banners: [],
     products: [],
     categories: [],
-    isLoggedIn: false
+    isLoggedIn: false,
+    categoryName: ''
   },
   mutations: {
     SET_BANNERS (state, payload) {
@@ -24,6 +25,9 @@ export default new Vuex.Store({
     },
     SET_ISLOGGEDIN (state, payload) {
       state.isLoggedIn = payload
+    },
+    SET_CATEGORY_NAME (state, payload) {
+      state.categoryName = payload
     }
   },
   actions: {
@@ -102,6 +106,17 @@ export default new Vuex.Store({
       localStorage.clear()
       context.commit('SET_ISLOGGEDIN', payload)
       router.push('/')
+    }
+  },
+  getters: {
+    filterByCategory: state => {
+      if (state.categoryName === '') {
+        return state.products
+      } else {
+        return state.products.filter(product => {
+          return product.Category.name === state.categoryName
+        })
+      }
     }
   },
   modules: {
