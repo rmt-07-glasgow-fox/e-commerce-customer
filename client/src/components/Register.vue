@@ -1,5 +1,5 @@
 <template>
-  <form style="max-width: 30rem;">
+  <form style="max-width: 30rem;" @submit.prevent="register">
     <h3 class="m-3">Hello</h3>
     <div class="form-floating mb-3">
       <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" v-model="user.email" required>
@@ -17,6 +17,9 @@
 </template>
 
 <script>
+import axios from '../api/axios'
+import swal from 'sweetalert'
+
 export default {
   name: 'Register',
   data () {
@@ -31,6 +34,23 @@ export default {
     reset () {
       this.user.email = ''
       this.user.password = ''
+    },
+    register () {
+      axios({
+        method: 'post',
+        url: '/register',
+        data: {
+          email: this.user.email,
+          password: this.user.password
+        }
+      })
+        .then(() => {
+          this.reset()
+          this.$router.push({ name: 'Login' })
+        })
+        .catch((err) => {
+          swal(err.response.data.msg.join(','), '', 'error')
+        })
     }
   }
 }

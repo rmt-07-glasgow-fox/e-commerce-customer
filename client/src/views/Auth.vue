@@ -4,7 +4,14 @@
 
 <script>
 export default {
-  name: 'Auth'
+  name: 'Auth',
+  beforeRouteEnter (to, from, next) {
+    if (localStorage.access_token) {
+      return next({ name: 'ItemList' })
+    } else {
+      return next()
+    }
+  }
 }
 </script>
 

@@ -7,6 +7,10 @@
 <script>
 
 export default {
-  name: 'Home'
+  name: 'Home',
+  created () {
+    this.$store.dispatch('fetchProducts')
+    this.$store.dispatch('fetchBanners')
+  }
 }
 </script>

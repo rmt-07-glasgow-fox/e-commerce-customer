@@ -2,10 +2,7 @@
   <div>
     <Slider/>
     <div class="mt-5 d-flex justify-content-around flex-wrap">
-      <ItemCard/>
-      <ItemCard/>
-      <ItemCard/>
-      <ItemCard/>
+      <ItemCard v-for="product in $store.state.products" :key="product.id" :product="product"/>
     </div>
   </div>
 </template>

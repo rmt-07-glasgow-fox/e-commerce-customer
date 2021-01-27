@@ -1,5 +1,5 @@
 <template>
-  <form style="max-width: 30rem;">
+  <form style="max-width: 30rem;" @submit.prevent="login">
     <h3 class="m-3">Welcome Back</h3>
     <div class="form-floating mb-3">
       <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" v-model="user.email" required>
@@ -17,6 +17,9 @@
 </template>
 
 <script>
+import axios from '../api/axios'
+import swal from 'sweetalert'
+
 export default {
   name: 'Login',
   data () {
@@ -31,6 +34,23 @@ export default {
     reset () {
       this.user.email = ''
       this.user.password = ''
+    },
+    login () {
+      axios({
+        method: 'post',
+        url: '/login',
+        data: {
+          email: this.user.email,
+          password: this.user.password
+        }
+      })
+        .then((response) => {
+          localStorage.access_token = response.data.access_token
+          this.$router.push({ name: 'ItemList' })
+        })
+        .catch((err) => {
+          swal(err.response.data.msg.join(', '), '', 'error')
+        })
     }
   }
 }

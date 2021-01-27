@@ -20,7 +20,7 @@ const routes = [
         name: 'ItemList',
         component: ItemList
       }, {
-        path: '/cart',
+        path: 'cart',
         name: 'Cart',
         component: Cart
       }
