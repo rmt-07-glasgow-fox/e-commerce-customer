@@ -6,7 +6,7 @@
           <h5 class="text-medium mt-0 mb-2 text-black">
             Free shipping all over Indonesia
           </h5>
-          <img src="https://www.flaticon.com/svg/vstatic/svg/1670/1670915.svg?token=exp=1611735014~hmac=5d7526d56d5c2c43d6588b6f72065a14" style="width: 35px" alt="">
+          <img src="../assets/fast-delivery.png" style="width: 35px" alt="">
         </div>
         <div class="w-full lg:w-6/12 px-4">
           <div class="flex flex-wrap items-top mb-6">

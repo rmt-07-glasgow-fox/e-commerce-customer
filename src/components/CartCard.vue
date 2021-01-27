@@ -8,11 +8,11 @@
         <h4 class="text-gray-900 font-medium">{{ cart.Product.name }}</h4>
         <div class="flex flex-row py-3">
         <a href="" @click.prevent="decrease(cart.Product.id)">
-          <img src="https://www.flaticon.com/svg/vstatic/svg/1828/1828708.svg?token=exp=1611724804~hmac=f274c67cf67e27a0223ae56b0c74e6c5" style="width: 25px; margin-right: 20px" alt="">
+          <img src="../assets/minus.png" style="width: 25px; margin-right: 20px" alt="">
         </a>
         <p class="text-gray-700 font-light text-sm"> {{cart.quantity}}</p>
         <a href="" @click.prevent="increase(cart.Product.id)">
-          <img src="https://www.flaticon.com/svg/vstatic/svg/1828/1828753.svg?token=exp=1611725035~hmac=4d3bd2e8fef1b41bc10db0b2aff81739" style="width: 25px; margin-left: 20px" alt="">
+          <img src="../assets/plus.png" style="width: 25px; margin-left: 20px" alt="">
         </a>
         <!-- tambahin harga satuan sama sub total -->
         </div>
