@@ -73,6 +73,7 @@
 
 <script>
 import { PlusIcon, MinusIcon, ShoppingCartIcon } from 'vue-feather-icons'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'CartCard',
@@ -80,6 +81,14 @@ export default {
     PlusIcon,
     MinusIcon,
     ShoppingCartIcon
+  },
+  computed: {
+    ...mapGetters([
+      'fetchCarts'
+    ])
+  },
+  created () {
+    this.$store.dispatch('fetchCarts')
   }
 }
 </script>
