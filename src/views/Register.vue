@@ -7,7 +7,7 @@
           <div class="container">
             <div class="row">
               <div class="col-md-9 col-lg-8 mx-auto">
-                <h3 class="login-heading mb-4">Welcome back!</h3>
+                <h3 class="login-heading mb-4 text-center">Register an account ?</h3>
                 <form>
                   <input
                     type="email"
@@ -29,8 +29,9 @@
                     Register
                   </button>
                   <button
+                  @click="toLogin"
                     class="btn btn-sm btn-warning btn-block btn-login text-uppercase font-weight-bold mb-2"
-                    type="submit"
+                    type="button"
                   >
                     login using Account
                   </button>
@@ -45,7 +46,13 @@
 </template>
 
 <script>
-export default {}
+export default {
+  methods : {
+    toLogin () {
+      this.$router.push('/login')
+    }
+  }
+}
 </script>
 
 <style scoped>

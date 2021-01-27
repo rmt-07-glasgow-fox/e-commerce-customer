@@ -8,7 +8,8 @@ export default new Vuex.Store({
   state: {
     products: [],
     banners: [],
-    baseURL: 'http://localhost:3000'
+    baseURL: 'http://localhost:3000',
+    isUserLogin: false
   },
   mutations: {
     SET_PRODUCTS (state, payload) {
@@ -16,6 +17,9 @@ export default new Vuex.Store({
     },
     SET_BANNERS (state, payload) {
       state.banners = payload
+    },
+    SET_ISUSERLOGIN (state, payload) {
+      state.isUserLogin = payload
     }
   },
   actions: {
