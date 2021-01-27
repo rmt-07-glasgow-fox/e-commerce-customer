@@ -4,10 +4,17 @@
       <div class="row" style="width:98%; margin-left:1%">
         <div class="col-12 border bg-light rounded shadow-sm" style="margin-top: 10px; padding: 10px">
           <div class="row">
-            <div class="col-4 offset-4">
+            <div v-if="this.$route.path === '/login'" class="col-4" style="display: flex;">
+              <button @click.prevent="toRegister" class="btn btn-success" style="padding-top: 8px">Register</button>
+            </div>
+            <div v-if="this.$route.path === '/register'" class="col-4" style="display: flex;">
+              <button @click.prevent="toLogin" class="btn btn-success" style="padding-top: 8px">Login</button>
+            </div>
+            <div v-if="this.$route.path === '/'" class="col-4"></div>
+            <div class="col-4">
               <h1 class="text-success">Pokotedia</h1>
             </div>
-            <div v-if="this.$route.path !== '/login'" class="col-4" style="display: flex; justify-content: flex-end">
+            <div v-if="this.$route.path === '/'" class="col-4" style="display: flex; justify-content: flex-end">
               <button @click.prevent="logout" class="btn btn-success" style="padding-top: 8px">Logout</button>
             </div>
           </div>
@@ -23,6 +30,12 @@ export default {
   methods: {
     logout () {
       return this.$store.dispatch('logout')
+    },
+    toRegister () {
+      return this.$router.push('/register')
+    },
+    toLogin () {
+      return this.$router.push('/login')
     }
   }
 }
