@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from '../api/axios'
 import router from '../router'
+import Swal from 'sweetalert2'
 
 Vue.use(Vuex)
 
@@ -47,11 +48,20 @@ export default new Vuex.Store({
         .then(({ data }) => {
           localStorage.access_token = data.access_token
           localStorage.email = data.email
-          context.commit('setEmail', data.email)
+          context.commit('updateEmail', data.email)
           router.push('/')
         })
         .catch(err => {
-          console.log(err.response.data)
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops',
+            text: err.response.data.errors[0],
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+            toast: true,
+            position: 'top-right'
+          })
         })
     },
     postRegister (context, payload) {
@@ -70,7 +80,16 @@ export default new Vuex.Store({
           router.push('/')
         })
         .catch(err => {
-          console.log(err.response.data)
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops',
+            text: err.response.data.errors[0],
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+            toast: true,
+            position: 'top-right'
+          })
         })
     },
     getProducts (context, payload) {
@@ -113,6 +132,16 @@ export default new Vuex.Store({
         }
       })
         .then(({ data }) => {
+          Swal.fire({
+            icon: 'success',
+            title: ' ',
+            text: 'Item has been added to cart',
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+            toast: true,
+            position: 'top-right'
+          })
           context.dispatch('getCartItems')
         })
         .catch(err => {
@@ -144,14 +173,37 @@ export default new Vuex.Store({
         })
     },
     deleteCartItem (context, payload) {
-      axios({
-        url: '/carts/' + payload,
-        method: 'DELETE',
-        headers: {
-          access_token: localStorage.access_token
-        }
+      Swal.fire({
+        title: 'Are you sure?',
+        text: 'You might regret this!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, remove it!'
       })
+        .then((result) => {
+          if (result.isConfirmed) {
+            return axios({
+              url: '/carts/' + payload,
+              method: 'DELETE',
+              headers: {
+                access_token: localStorage.access_token
+              }
+            })
+          }
+        })
         .then(({ data }) => {
+          Swal.fire({
+            icon: 'success',
+            title: ' ',
+            text: 'Item has been removed from cart',
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+            toast: true,
+            position: 'top-right'
+          })
           context.dispatch('getCartItems')
         })
         .catch(err => {

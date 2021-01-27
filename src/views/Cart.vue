@@ -17,6 +17,7 @@
           <h2>Cart summary</h2>
           <h6>Number of items: {{ numberofItems }}</h6>
           <h6>Total price: {{ new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(totalPrice) }}</h6>
+          <button class="btn btn-primary mt-5">Checkout</button>
         </div>
       </div>
     </div>

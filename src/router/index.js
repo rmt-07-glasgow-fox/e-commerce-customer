@@ -43,9 +43,12 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   // ...
   const token = localStorage.getItem('access_token')
-  store.dispatch('getCartItems')
   store.dispatch('getProducts')
-  store.commit('updateToken', token)
+
+  if (localStorage.access_token) {
+    store.dispatch('getCartItems')
+    store.commit('updateToken', token)
+  }
 
   if (to.name === 'Home') {
     next()
