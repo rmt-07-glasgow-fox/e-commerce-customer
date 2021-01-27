@@ -11,11 +11,16 @@ export default new Vuex.Store({
     products: [],
     productDetail: {},
     errors: [],
-    userDetail: {}
+    userDetail: {},
+    carts: []
   },
   mutations: {
     insertProducts (state, payload) {
       state.products = payload
+      // console.log(state.products)
+    },
+    insertCarts (state, payload) {
+      state.carts = payload
       // console.log(state.products)
     },
     insertProductDetail (state, payload) {
@@ -93,6 +98,25 @@ export default new Vuex.Store({
       // console.log('masuk action')
       // console.log(payload)
       context.commit('insertUserDetail', payload)
+    },
+
+    fetchCarts (context, payload) {
+      // console.log('masuk fetch products')
+      axios({
+        method: 'GET',
+        url: '/carts',
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
+      })
+        .then(({ data }) => {
+          // console.log('ini dari then')
+          // console.log(data)
+          context.commit('insertCarts', data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   },
   modules: {

@@ -5,10 +5,10 @@
         <div class="col-12 border bg-light rounded shadow-sm" style="margin-top: 10px; padding: 10px">
           <div class="row">
             <div class="col-4 offset-4">
-              <h1>Pokotedia</h1>
+              <h1 class="text-success">Pokotedia</h1>
             </div>
             <div v-if="this.$route.path !== '/login'" class="col-4" style="display: flex; justify-content: flex-end">
-              <button @click.prevent="logout" class="btn btn-dark" style="padding-top: 8px">Logout</button>
+              <button @click.prevent="logout" class="btn btn-success" style="padding-top: 8px">Logout</button>
             </div>
           </div>
         </div>
@@ -62,7 +62,6 @@ export default {
 }
 
 .userNav {
-  color: green;
   padding-top: 25px;
   padding-left: 0px;
   text-align: left;

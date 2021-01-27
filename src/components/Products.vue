@@ -1,13 +1,14 @@
 <template>
   <div class="col-3" style="margin-bottom: 12px">
     <div class="card">
-      <img class="card-img-top" style="height: 53%" :src="product.image_url" alt="Card image cap">
+      <img class="card-img-top" style="height: 53%; object-fit: contain" :src="product.image_url" alt="Card image cap">
       <div class="card-body" style="text-align: left">
         <h5 class="card-title" style="text-align: center">{{ product.name }}</h5>
         <p class="card-text">Price: <span style="float: right">Rp {{ product.price }}</span></p>
         <p class="card-text">Stock: <span style="float: right">{{ product.stock }}</span></p>
-        <button v-if="role == 'admin'" @click="toEditForm(product.id)" class="btn btn-dark">Edit</button>
-        <button v-if="role == 'admin'" @click="destroyProduct(product.id)" class="btn btn-dark" style="float: right">Delete</button>
+        <button v-if="role == 'admin'" @click="toEditForm(product.id)" class="btn btn-success">Edit</button>
+        <button v-if="role == 'admin'" @click="destroyProduct(product.id)" class="btn btn-success" style="float: right">Delete</button>
+        <button v-if="role == 'customer'" @click="addToCart(product.id)" class="btn btn-success">Add To Cart</button>
       </div>
     </div>
   </div>
