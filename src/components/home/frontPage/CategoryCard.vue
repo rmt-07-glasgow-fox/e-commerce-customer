@@ -6,7 +6,11 @@
         v-for="(HomeCategory, i) in fetchHomeCategories"
         :key="HomeCategory.id"
       >
-        <router-link to="/category" style="text-decoration: none">
+        <router-link
+          to="/category"
+          style="text-decoration: none"
+          @click.native="scrollToTop"
+        >
           <div :class="colorCategory[i]" style="margin-bottom: 16px">
             <div class="card-body">
               <h5 class="card-title">{{ HomeCategory.name }}</h5>
@@ -26,13 +30,17 @@
         </router-link>
       </div>
       <div class="col-6 col-md-3">
-        <router-link to="/category" style="text-decoration: none">
+        <router-link
+          to="/product"
+          style="text-decoration: none"
+          @click.native="scrollToTop"
+        >
           <div class="card bg-danger text-white" style="margin-bottom: 16px">
             <div class="card-body">
               <h5 class="card-title">Show All</h5>
 
               <p class="card-text text-white" style="font-size: 12px">
-                {{ fetchTotalCategories   }} Categories
+                {{ fetchTotalCategories }} Categories
                 <chevron-right-icon size="1x"></chevron-right-icon>
               </p>
             </div>
@@ -61,6 +69,11 @@ export default {
         'text-white',
         'text-dark'
       ]
+    }
+  },
+  methods: {
+    scrollToTop () {
+      window.scrollTo(0, 0)
     }
   },
   components: {

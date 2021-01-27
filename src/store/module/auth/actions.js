@@ -56,5 +56,6 @@ export default {
   logout (context) {
     localStorage.clear()
     context.commit('isLogin', false)
+    if (router.currentRoute.name !== 'Home') router.replace({ name: 'Home' })
   }
 }

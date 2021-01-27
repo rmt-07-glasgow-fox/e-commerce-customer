@@ -13,12 +13,18 @@
         <!-- product-card -->
         <product-card />
         <!-- product-card// -->
-        <button
-          class="btn btn-primary"
-          style="margin: 32px auto; width: 240px; border-radius: 2.4em"
+        <router-link
+          to="/product"
+          style="margin: 32px auto; width: 240px"
+          @click.native="scrollToTop"
         >
-          See More <chevron-right-icon size="1x"></chevron-right-icon>
-        </button>
+          <button
+            class="btn btn-primary"
+            style="border-radius: 2.4em; width: 240px"
+          >
+            See More <chevron-right-icon size="1x"></chevron-right-icon>
+          </button>
+        </router-link>
       </div>
     </div>
   </div>
@@ -37,6 +43,11 @@ export default {
     CategoryCard,
     ProductCard,
     ChevronRightIcon
+  },
+  methods: {
+    scrollToTop () {
+      window.scrollTo(0, 0)
+    }
   }
 }
 </script>

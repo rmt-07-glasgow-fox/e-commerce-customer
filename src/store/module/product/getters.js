@@ -7,8 +7,11 @@ export default {
       if (products[i].stock > 0) temp.push(products[i])
     }
 
-    if (temp.length > 8) return temp.slice(0, 4)
+    if (temp.length > 4) return temp.slice(0, 4)
 
     return temp
+  },
+  fetchProducts (state) {
+    return state.products
   }
 }

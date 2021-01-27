@@ -1,10 +1,10 @@
 <template>
-  <div id="ProductCard">
+  <div id="ProductCardPage">
     <div class="container-fluid" style="padding: 0">
       <div class="row row-cols-1 row-cols-md-3 g-4">
         <!-- card -->
         <div
-          v-for="Product in fetchHomeProducts"
+          v-for="Product in fetchProducts"
           :key="Product.id"
           class="col-12 col-sm-6 col-md-6 col-lg-3"
         >
@@ -86,7 +86,7 @@ import { ShoppingCartIcon, HeartIcon } from 'vue-feather-icons'
 import { mapGetters } from 'vuex'
 
 export default {
-  name: 'ProductCard',
+  name: 'ProductCardPage',
   components: {
     ShoppingCartIcon,
     HeartIcon
@@ -105,7 +105,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'fetchHomeProducts'
+      'fetchProducts'
     ])
   },
   created () {
