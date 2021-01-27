@@ -1,8 +1,10 @@
 <template>
   <div class="px-5 mt-3">
     <div class="text-start">
-      <span class="fs-4 fw-bold px-3">{{ category.name }}</span>
-      <span type="button" @click="getCategoriesId(category.id)" class="fw-bold text-primary">Lihat Semua</span>
+      <span class="fs-4 fw-bold px-3">{{ category.id }}</span>
+      <span @click="getCategoriesId(category.id)" class="fw-bold text-primary">Lihat Semua</span>
+      <!-- <router-link :to="`/categories/{category.id}`">
+      </router-link> -->
     </div>
     <div class="d-flex justify-content-start flex-wrap p-3">
       <Card
@@ -19,14 +21,15 @@
 import Card from './Card'
 
 export default {
-  name: 'Categories',
+  name: 'ListCategories',
   components: {
     Card
   },
   props: ['category'],
   methods: {
     getCategoriesId (id) {
-      this.$store.dispatch('getCategoriesId', id)
+      // this.$store.dispatch('getCategoriesId', id)
+      this.$router.push(`/categories/${id}`)
     }
   },
   computed: {

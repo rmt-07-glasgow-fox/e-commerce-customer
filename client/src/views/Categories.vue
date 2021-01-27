@@ -17,17 +17,18 @@ import Footer from '@/components/Footer.vue'
 import Navbar from '../components/Navbar.vue'
 
 export default {
-  name: 'Products',
+  name: 'Categories',
   components: {
     Navbar,
     Carousel,
     ListProducts,
     Footer
   },
-  // created () {
-  //   this.$store.dispatch('fetchBanners')
-  //   this.$store.dispatch('fetchCategories')
-  // },
+  created () {
+    this.$store.dispatch('getCategoriesId', {
+      id: this.$route.params.id
+    })
+  },
   computed: {
     ...mapState([
       'products'

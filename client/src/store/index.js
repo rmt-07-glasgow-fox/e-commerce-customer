@@ -124,11 +124,11 @@ export default new Vuex.Store({
     getCategoriesId (context, payload) {
       axios({
         method: 'GET',
-        url: `/customer/categories/${payload}`
+        url: `/customer/categories/${payload.id}`
       }).then(res => {
         console.log(res.data)
         context.commit('setProducts', res.data.Products)
-        router.push('/products')
+        // router.push(`/categories/${payload.id}`)
       }).catch(err => {
         console.log(err)
       })

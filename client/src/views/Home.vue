@@ -2,11 +2,11 @@
   <div class="home">
     <Navbar />
     <Carousel />
-    <Categories
+    <ListCategories
       v-for="category in filterCategories"
       :key="category.id"
       :category="category"
-    ></Categories>
+    ></ListCategories>
     <Footer />
   </div>
 </template>
@@ -14,7 +14,7 @@
 <script>
 import { mapState } from 'vuex'
 import Carousel from '@/components/Carousel.vue'
-import Categories from '@/components/Categories.vue'
+import ListCategories from '@/components/ListCategories.vue'
 import Footer from '@/components/Footer.vue'
 import Navbar from '../components/Navbar.vue'
 
@@ -22,7 +22,7 @@ export default {
   name: 'Home',
   components: {
     Carousel,
-    Categories,
+    ListCategories,
     Navbar,
     Footer
   },
