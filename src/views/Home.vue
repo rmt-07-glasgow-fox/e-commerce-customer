@@ -7,18 +7,7 @@
     </b-row>
     <b-row class="mt-5">
       <b-col cols="3">
-        <b-container>
-          <div class="p-4">
-            <h1 class="mb-4">Category</h1>
-            <b-list-group>
-              <b-list-group-item>Cras justo odio</b-list-group-item>
-              <b-list-group-item active>Dapibus ac facilisis in</b-list-group-item>
-              <b-list-group-item>Morbi leo risus</b-list-group-item>
-              <b-list-group-item>Porta ac consectetur ac</b-list-group-item>
-              <b-list-group-item>Vestibulum at eros</b-list-group-item>
-            </b-list-group>
-          </div>
-        </b-container>
+        <categories />
       </b-col>
       <b-col>
         <b-container>
@@ -134,10 +123,11 @@
 
 <script>
 import Slider from '../components/home/Slider.vue';
+import Categories from '../components/home/Categories.vue';
 
 export default {
   name: 'Home',
-  components: { Slider },
+  components: { Slider, Categories },
 };
 </script>
 

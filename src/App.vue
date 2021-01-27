@@ -15,6 +15,7 @@ export default {
   created() {
     this.$store.dispatch('autoLogin');
     this.$store.dispatch('fetchBanners');
+    this.$store.dispatch('fetchCategories');
   },
 };
 </script>
