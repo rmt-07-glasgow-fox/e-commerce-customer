@@ -1,18 +1,22 @@
 <template>
   <div id="App">
-    <navbar v-if="$route.name !== 'Login' && $route.name !== 'Register'"/>
+    <Navbar v-if="$route.name !== 'Login' && $route.name !== 'Register'" />
 
     <router-view />
+
+    <Footer v-if="$route.name === 'Home'" />
   </div>
 </template>
 
 <script>
 import Navbar from '@/components/layout/Navbar.vue'
+import Footer from '@/components/layout/Footer.vue'
 
 export default {
   name: 'App',
   components: {
-    Navbar
+    Navbar,
+    Footer
   }
 }
 </script>

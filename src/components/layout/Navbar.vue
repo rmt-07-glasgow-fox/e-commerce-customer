@@ -2,7 +2,7 @@
   <div id="Navbar">
     <!-- navbar -->
     <nav class="navbar navbar-light bg-light shadow" style="height: 56px">
-      <div class="container-fluid" style="margin: auto 32px">
+      <div class="container-fluid container-style">
         <router-link to="/" class="logo-pc">
           <img src="@/assets/img_logoLineC.svg" height="24" />
         </router-link>
@@ -202,6 +202,16 @@ export default {
 <style scoped>
 #Navbar {
   background-color: #f7fafc;
+}
+
+.container-style {
+  margin: auto 32px;
+}
+
+@media screen and (max-width: 420px) {
+  .container-style {
+    margin: auto 12px;
+  }
 }
 
 .logo-mobile {
