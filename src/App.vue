@@ -2,10 +2,10 @@
   <div id="app">
     <div class="container-fluid">
       <div class="row" style="width:98%; margin-left:1%">
-        <div class="col-12 bg-light rounded" style="margin-top: 10px; padding: 10px">
+        <div class="col-12 border bg-light rounded shadow-sm" style="margin-top: 10px; padding: 10px">
           <div class="row">
             <div class="col-4 offset-4">
-              <h1>E-Commerce CMS</h1>
+              <h1>Pokotedia</h1>
             </div>
             <div v-if="this.$route.path !== '/login'" class="col-4" style="display: flex; justify-content: flex-end">
               <button @click.prevent="logout" class="btn btn-dark" style="padding-top: 8px">Logout</button>
@@ -59,6 +59,16 @@ export default {
 
 .btn {
   margin-bottom: 10px;
+}
+
+.userNav {
+  color: green;
+  padding-top: 25px;
+  padding-left: 0px;
+  text-align: left;
+  font-size: 20px;
+  list-style-type: none;
+
 }
 
 </style>

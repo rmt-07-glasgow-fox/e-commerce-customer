@@ -1,7 +1,22 @@
 <template>
   <div class="Dashboard">
     <div class="row" style="width:98%; margin-left:1%">
-      <div class="col-12 bg-light rounded" style="margin-top: 20px; margin-bottom: 20px; padding: 30px;">
+      <div class="col-2 bg-light rounded" style="margin-top: 20px; margin-bottom: 20px; padding: 0px">
+        <div class="userNav">
+          <li>
+            <ul>
+              <p>{{ email }}</p>
+            </ul>
+            <ul>
+              <a href="#">Cart</a>
+            </ul>
+            <ul>
+              <a href="#">Wishlist</a>
+            </ul>
+          </li>
+        </div>
+      </div>
+      <div class="col-10 border bg-light rounded shadow-sm" style="margin-top: 20px; margin-bottom: 20px; padding: 30px;">
         <div class="row">
           <div class="col-4 offset-4">
             <h1 v-if="currentPage == 'productList'">Products</h1>
@@ -9,7 +24,7 @@
             <h1 v-if="currentPage == 'editForm'">Edit Product</h1>
           </div>
           <div class="col-4" style="display: flex; justify-content: flex-end">
-            <button v-if="currentPage == 'productList'" @click.prevent="changePage('addForm')" class="btn btn-dark" style="padding-top: 8px">Add Product</button>
+            <button v-if="currentPage == 'productList' && role == 'admin'" @click.prevent="changePage('addForm')" class="btn btn-dark" style="padding-top: 8px">Add Product</button>
             <button v-if="currentPage !== 'productList'" @click.prevent="changePage('productList')" class="btn btn-dark" style="padding-top: 8px">Back</button>
           </div>
         </div>
@@ -41,6 +56,12 @@ import EditForm from '../components/EditForm'
 
 export default {
   name: 'Dashboard',
+  data () {
+    return {
+      email: localStorage.email,
+      role: localStorage.role
+    }
+  },
   components: {
     Product,
     AddForm,
@@ -57,6 +78,9 @@ export default {
     },
     products () {
       return this.$store.state.products
+    },
+    userDetail () {
+      return this.$store.state.userDetail
     }
   },
   created () {

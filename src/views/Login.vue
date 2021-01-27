@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="row">
-      <div class="col-4 offset-4 bg-light rounded" style="margin-top: 20px; margin-bottom: 20px;padding: 30px;">
+      <div class="col-4 offset-4 bg-light rounded shadow" style="margin-top: 20px; margin-bottom: 20px;padding: 30px;">
         <div @submit.prevent ="login">
             <h2 style="text-shadow: white 1px 1px;">Login</h2><br>
             <form @submit.prevent="login">
@@ -36,8 +36,11 @@ export default {
         }
       })
         .then(({ data }) => {
-          console.log(data)
+          // console.log(data)
           localStorage.setItem('access_token', data.access_token)
+          localStorage.setItem('email', data.email)
+          localStorage.setItem('role', data.role)
+          this.$store.dispatch('fetchUserDetail', data)
           return this.$store.dispatch('toDashboard')
         })
         .catch(err => {

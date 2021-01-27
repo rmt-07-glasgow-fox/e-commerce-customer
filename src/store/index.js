@@ -10,7 +10,8 @@ export default new Vuex.Store({
     currentPage: 'productList',
     products: [],
     productDetail: {},
-    errors: []
+    errors: [],
+    userDetail: {}
   },
   mutations: {
     insertProducts (state, payload) {
@@ -28,6 +29,10 @@ export default new Vuex.Store({
     },
     insertErrors (state, payload) {
       state.errors = payload
+    },
+    insertUserDetail (state, payload) {
+      state.userDetail = payload
+      console.log(state.userDetail.role)
     }
   },
   actions: {
@@ -82,6 +87,12 @@ export default new Vuex.Store({
 
     getErrors (context, payload) {
       context.commit('insertErrors', payload)
+    },
+
+    fetchUserDetail (context, payload) {
+      // console.log('masuk action')
+      // console.log(payload)
+      context.commit('insertUserDetail', payload)
     }
   },
   modules: {
