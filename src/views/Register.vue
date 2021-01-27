@@ -51,13 +51,13 @@
 export default {
   data () {
     return {
-      inputRegister : {
-        email : '',
-        password : ''
+      inputRegister: {
+        email: '',
+        password: ''
       }
     }
   },
-  methods : {
+  methods: {
     toLogin () {
       this.$router.push('/login')
     },

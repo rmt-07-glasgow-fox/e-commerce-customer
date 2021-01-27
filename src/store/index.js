@@ -8,19 +8,15 @@ export default new Vuex.Store({
   state: {
     products: [],
     banners: [],
+    carts: [],
     baseURL: 'http://localhost:3000',
     isUserLogin: false
   },
   mutations: {
-    SET_PRODUCTS (state, payload) {
-      state.products = payload
-    },
-    SET_BANNERS (state, payload) {
-      state.banners = payload
-    },
-    SET_ISUSERLOGIN (state, payload) {
-      state.isUserLogin = payload
-    }
+    SET_PRODUCTS (state, payload) { state.products = payload },
+    SET_BANNERS (state, payload) { state.banners = payload },
+    SET_ISUSERLOGIN (state, payload) { state.isUserLogin = payload },
+    SET_CARTS (state, payload) { state.carts = payload }
   },
   actions: {
     async getAllProducts (context, payload) {
@@ -46,9 +42,8 @@ export default new Vuex.Store({
         const URL = this.state.baseURL + '/user/loginUser'
         const response = await axios.post(URL, payload)
 
-        console.log('>>> login : ',response.data)
+        console.log('>>> login : ', response.data)
         localStorage.setItem('access_token', response.data.access_token)
-        
       } catch (err) {
         console.log(err)
       }
@@ -60,19 +55,29 @@ export default new Vuex.Store({
       try {
         const URL = this.state.baseURL + '/user/register'
         const response = await axios.post(URL, payload)
-        
+
         // console.log('>>> login : ',response.data)
         localStorage.setItem('access_token', response.data.access_token)
-
       } catch (err) {
         console.log(err)
       }
     },
     isUserLogin (context, payload) {
-      if(!localStorage.access_token) {
+      if (!localStorage.access_token) {
         context.commit('SET_ISUSERLOGIN', false)
+        context.commit('SET_CARTS', [])
       } else {
         context.commit('SET_ISUSERLOGIN', true)
+        this.dispatch('cart')
+      }
+    },
+    async cart (context, payload) {
+      try {
+        const URL = this.state.baseURL + '/cart'
+        const response = await axios.get(URL, { headers: { access_token: localStorage.access_token } })
+        context.commit('SET_CARTS', response.data)
+      } catch (err) {
+        console.log(err)
       }
     }
   }

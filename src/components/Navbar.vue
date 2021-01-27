@@ -11,7 +11,7 @@
         <b>LOCALE SHOES ID</b>
       </button>
       <div>
-        <button class="btn text-primary mx-2"><b-icon icon="cart4"/> Cart </button>
+        <button v-if="isUserLogin" @click="toCart" class="btn text-primary mx-2"><b-icon icon="cart4"/> Cart </button>
         <button v-if="!isUserLogin" @click="toLogin" class="btn text-primary mx-2"><b-icon icon="person-circle"/> Login </button>
         <button v-if="isUserLogin" @click="logout" class="btn text-danger mx-2"><b-icon icon="person-circle"/> Logout </button>
       </div>
@@ -19,10 +19,10 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
-  methods : {
+  methods: {
     toLogin () {
       this.$router.push('/login')
     },
@@ -32,9 +32,12 @@ export default {
     logout () {
       this.$store.dispatch('logout')
       this.$router.push('/login')
+    },
+    toCart () {
+      this.$router.push('/cart')
     }
   },
-  computed: {...mapState(['isUserLogin'])}
+  computed: { ...mapState(['isUserLogin']) }
 }
 </script>
 
