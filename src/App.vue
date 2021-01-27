@@ -1,18 +1,14 @@
 <template>
   <div id="app" class="h-100">
-    <b-navbar variant="faded" type="light">
-      <b-navbar-brand href="#">
-        <img
-          src="https://placekitten.com/g/30/30"
-          class="d-inline-block align-top"
-          alt="Kitten"
-        />
-        BootstrapVue
-      </b-navbar-brand>
-    </b-navbar>
+    <Navbar/>
     <router-view />
   </div>
 </template>
 
-<style>
-</style>
+<script>
+import Navbar from './components/Navbar'
+
+export default {
+  components: { Navbar }
+}
+</script>
