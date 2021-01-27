@@ -1,7 +1,5 @@
 <template>
-  <div class="carousel-item active" data-bs-interval="2000">
-    <img :src="banner.image_url" class="d-block w-100" alt="...">
-  </div>
+  <img :src="banner.image_url" class="d-block w-100 img-carousel" :alt="banner.title">
 </template>
 
 <script>
@@ -12,5 +10,10 @@ export default {
 </script>
 
 <style>
-
+.img-carousel{
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  object-position: 50% 0%;
+}
 </style>

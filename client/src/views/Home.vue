@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <Banner/>
-    <div class="container">
+    <div class="container mb-4">
       <div class="row">
         <ProductList
           class="d-flex justify-content-center"

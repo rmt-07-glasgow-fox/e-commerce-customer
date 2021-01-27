@@ -7,22 +7,51 @@
       <router-link class="navbar-brand" to="/">Balanya</router-link>
       <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li>
+          <li v-if="statusLogin" >
             <router-link class="nav-link" to="/cart"><i class="fas fa-shopping-cart"></i></router-link>
           </li>
-          <li>
+          <li v-if="statusLogin" >
             <router-link class="nav-link" to="/history"><i class="fas fa-history"></i></router-link>
           </li>
         </ul>
-        <button class="btn btn-outline-light" type="button">Logout</button>
+        <button v-if="statusLogin" @click.prevent="logout" class="btn btn-sm btn-outline-light" type="button">Logout</button>
+        <button v-else @click.prevent="goToLoginPage" class="btn btn-sm btn-outline-light" type="button">Login</button>
       </div>
     </div>
   </nav>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
-  name: 'Navbar'
+  name: 'Navbar',
+  // data () {
+  //   return {
+  //     statusLogin: localStorage.access_token
+  //   }
+  // },
+  methods: {
+    logout () {
+      this.$store.commit('logout')
+    },
+    goToLoginPage () {
+      this.$router.push('/login')
+    },
+    checkstatus () {
+      if (localStorage.access_token) {
+        this.$store.state.statusLogin = true
+      }
+    }
+  },
+  computed: {
+    ...mapState([
+      'statusLogin'
+    ])
+  },
+  created () {
+    this.checkstatus()
+  }
 }
 </script>
 

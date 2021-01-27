@@ -2,7 +2,7 @@
   <div class="cart">
     <div class="container center">
       <h1>My Cart</h1>
-      <table class="table table-striped">
+      <table v-if="carts.length > 0" class="table table-striped">
         <thead>
           <th>#</th>
           <th>Name</th>
@@ -22,10 +22,14 @@
             <td></td>
             <td>Total:</td>
             <td>Rp. {{ totalBayar }},-</td>
-            <td><button type="button" class="btn btn-sm btn-warning"><i class="fas fa-dollar-sign"></i> Checkout</button></td>
+            <td><button @click.prevent="checkout" type="button" class="btn btn-sm btn-warning"><i class="fas fa-dollar-sign"></i> Checkout</button></td>
           </tr>
         </tbody>
       </table>
+      <div v-else>
+        <h2>Your Cart is empty, Lets shopping!</h2>
+        <img src="https://i.pinimg.com/originals/b8/de/0a/b8de0a75f8c0de506d822c82c4fd2ea3.png" height="300" width="300" class="imagi">
+      </div>
     </div>
   </div>
 </template>
@@ -42,6 +46,9 @@ export default {
   methods: {
     fetchCart () {
       this.$store.dispatch('fetchCart')
+    },
+    checkout () {
+      this.$store.dispatch('checkout')
     }
   },
   created () {
@@ -59,5 +66,8 @@ export default {
 <style>
 .center {
   text-align: center;
+}
+.imagi {
+  object-fit: cover;
 }
 </style>

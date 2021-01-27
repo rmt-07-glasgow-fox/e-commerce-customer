@@ -13,7 +13,8 @@ export default new Vuex.Store({
     products: [],
     carts: [],
     histories: [],
-    totalBayar: 0
+    totalBayar: 0,
+    statusLogin: false
   },
   mutations: {
     fillBanner (state, payload) {
@@ -31,6 +32,14 @@ export default new Vuex.Store({
     },
     setAccount (state, payload) {
       state.haveAccount = payload
+    },
+    logout (state) {
+      state.statusLogin = false
+      localStorage.clear()
+      router.push('/login')
+    },
+    login (state) {
+      state.statusLogin = true
     }
   },
   actions: {
@@ -69,6 +78,7 @@ export default new Vuex.Store({
       })
         .then(({ data }) => {
           localStorage.setItem('access_token', data.access_token)
+          context.commit('login')
           if (localStorage.access_token) {
             router.push('/')
           }
@@ -206,6 +216,38 @@ export default new Vuex.Store({
           Swal.fire({
             icon: 'error',
             title: 'FAIL UPDATE',
+            text: valid
+          })
+        })
+    },
+    checkout (context) {
+      axios({
+        method: 'PATCH',
+        url: '/carts/checkout',
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+        .then(({ data }) => {
+          router.push('/history')
+          context.dispatch('fetchCart')
+          context.dispatch('fetchHistory')
+          context.dispatch('fetchProduct')
+          Swal.fire(
+            'checkout success!',
+            'Burn your money',
+            'success'
+          )
+        })
+        .catch(err => {
+          let valid = ''
+          err.response.data.errors.forEach(el => {
+            valid += `${el}
+            `
+          })
+          Swal.fire({
+            icon: 'error',
+            title: 'FAIL CHECKOUT',
             text: valid
           })
         })
