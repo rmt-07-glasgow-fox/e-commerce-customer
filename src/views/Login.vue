@@ -1,49 +1,39 @@
 <template>
-  <div class="container">
-    <div class="sidenav">
-         <div class="login-main-text">
-            <h2>The Man Store<br>Login Page</h2>
-            <p>Login from here to access.</p>
-         </div>
-      </div>
-      <div class="main">
-         <div class="col-md-6 col-sm-12">
-            <div class="login-form">
-               <form>
-                   <div class="form-group">
-                       <p style="color: red">{{errHandler}}</p>
-                   </div>
-                  <div class="form-group">
-                     <label>Email</label>
-                     <input
-                     type="text"
-                     class="form-control"
-                     v-model="user.email"
-                     placeholder="Email Address">
-                  </div>
-                  <div class="form-group">
-                     <label>Password</label>
-                     <input
-                     type="password"
-                     class="form-control"
-                     v-model="user.password"
-                     placeholder="Password">
-                  </div>
-                  <button
-                  type="submit"
-                  class="btn btn-black"
-                  href="#"
-                  @click.prevent="login">Login</button>
-               </form>
-            </div>
-         </div>
-      </div>
-      </div>
+<div>
+    <Navbar/>
+    <div>
+    <div class="container" style="display: flex; flex-direction: column; height: 80vh; width: 35vw; justify-content: center; align-item:center;">
+      <h3 class="card-title" style="font-weight:bold">THE MAN STORE</h3>
+      <p>Login from here to access.</p>
+    <form>
+      <p style="color: black;">{{errHandler}}</p>
+    <div class="form-group" style="text-align:left">
+    <label for="exampleInputEmail1" >Email address</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" v-model="user.email" aria-describedby="emailHelp" placeholder="Enter email">
+    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+    <div class="form-group" style="text-align:left">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" v-model="user.password" id="exampleInputPassword1" placeholder="Password">
+    </div><br>
+        <div style="text-align:left">
+        <button type="submit" @click.prevent="login" class="btn btn-primary">Login</button>
+        <a href="#" class="link-primary p-2" @click.prevent="toRegister" style="text-decoration: none; float: right;">Don't have an account? Register</a>
+        </div>
+    </form>
+    </div>
+  </div>
+    <Footer/>
+</div>
 </template>
 
 <script>
+import Navbar from '../components/Navbar.vue'
+import Footer from '../components/Footer.vue'
+
 export default {
-  name: 'Login',
+  components: { Navbar, Footer },
+  name: 'Register',
   data () {
     return {
       user: {
@@ -55,26 +45,22 @@ export default {
   methods: {
     login () {
       this.$store.dispatch('login', this.user)
+    },
+    toRegister () {
+      this.$router.push('/register')
     }
   },
   computed: {
     errHandler () {
       return this.$store.state.errorData
     }
-
   }
 }
 </script>
 
 <style>
-body {
+.container {
     font-family: "Lato", sans-serif;
-}
-
-.main-head{
-    height: 150px;
-    background: #FFF;
-
 }
 
 .sidenav {
@@ -82,56 +68,6 @@ body {
     background-color: #000;
     overflow-x: hidden;
     padding-top: 20px;
-}
-
-.main {
-    padding: 0px 10px;
-}
-
-@media screen and (max-height: 450px) {
-    .sidenav {padding-top: 15px;}
-}
-
-@media screen and (max-width: 450px) {
-    .login-form{
-        margin-top: 10%;
-    }
-
-    .register-form{
-        margin-top: 10%;
-    }
-}
-
-@media screen and (min-width: 768px){
-    .main{
-        margin-left: 40%;
-    }
-
-    .sidenav{
-        width: 40%;
-        position: fixed;
-        z-index: 1;
-        top: 0;
-        left: 0;
-    }
-
-    .login-form{
-        margin-top: 80%;
-    }
-
-    .register-form{
-        margin-top: 20%;
-    }
-}
-
-.login-main-text{
-    margin-top: 20%;
-    padding: 60px;
-    color: #fff;
-}
-
-.login-main-text h2{
-    font-weight: 300;
 }
 
 .btn-black{

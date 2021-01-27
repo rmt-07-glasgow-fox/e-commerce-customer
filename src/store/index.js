@@ -7,12 +7,16 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    err: '',
     errorData: '',
     products: [],
     carts: [],
     wishlists: [],
     transactions: [],
-    banners: []
+    banners: [],
+    filterName: '',
+    isLogin: false,
+    checkCarts: false
   },
   mutations: {
     errHandler (state, payload) {
@@ -22,23 +26,56 @@ export default new Vuex.Store({
       state.products = payload
     },
     fetchAllCarts (state, payload) {
+      payload.forEach(el => {
+        if (el.quantity > 1) {
+          el.Product.price = el.Product.price * el.quantity
+          state.carts = payload
+        } else {
+          state.carts = payload
+        }
+      })
       state.carts = payload
     },
     fetchAllWishlists (state, payload) {
       state.wishlists = payload
     },
     fetchAllTransactions (state, payload) {
+      payload.forEach(el => {
+        if (el.quantity > 1) {
+          el.price = el.price * el.quantity
+          state.transactions = payload
+        } else {
+          state.transactions = payload
+        }
+      })
       state.transactions = payload
     },
     fetchAllBanners (state, payload) {
       state.banners = payload
+    },
+    setFilterByName (state, payload) {
+      state.filterName = payload
+    },
+    setIsLogin (state, payload) {
+      state.isLogin = payload
+    },
+    setCheckCarts (state, payload) {
+      state.checkCarts = payload
     }
   },
   actions: {
+    checkingLogin (context, payload) {
+      if (localStorage.access_token) {
+        context.commit('setIsLogin', true)
+        // console.log(this.state.isLogin)
+      } else {
+        context.commit('setIsLogin', false)
+      }
+    },
     logout (context, payload) {
       localStorage.clear()
       context.commit('errHandler', '')
-      router.push('/')
+      this.state.filterName = ''
     },
     login (context, payload) {
       axios
@@ -56,7 +93,9 @@ export default new Vuex.Store({
           for (let i = 0; i < msg.length; i++) {
             if (msg.length > 1) {
               temp.push(msg[i])
+
               const str = temp.join(', ')
+
               context.commit('errHandler', str)
             } else if (msg.length <= 1) {
               context.commit('errHandler', msg[i])
@@ -95,7 +134,7 @@ export default new Vuex.Store({
           { headers })
         .then(res => {
           console.log(res.data)
-
+          // for (let i = 0 ; i < res.data)
           context.commit('fetchAllProducts', res.data)
         })
         .catch(err => {
@@ -111,7 +150,11 @@ export default new Vuex.Store({
           { headers })
         .then(res => {
           console.log(res.data)
-
+          if (res.data.length !== 0) {
+            context.commit('setCheckCarts', true)
+          } else {
+            context.commit('setCheckCarts', false)
+          }
           context.commit('fetchAllCarts', res.data)
         })
         .catch(err => {
@@ -122,28 +165,79 @@ export default new Vuex.Store({
       const headers = { access_token: localStorage.access_token }
 
       axios
-        .post('/carts', payload, { headers })
+        .post('/carts', { id: payload }, { headers })
         .then(res => {
           context.commit('errHandler', '')
-          router.push('/')
+          context.dispatch('fetchProducts')
         })
         .catch(err => {
           console.log(err)
+
+          const msg = err.response.data.errors
+          const temp = []
+          for (let i = 0; i < msg.length; i++) {
+            if (msg.length > 1) {
+              temp.push(msg[i])
+              const str = temp.join(', ')
+              context.commit('errHandling', str)
+            } else if (msg.length <= 1) {
+              context.commit('errHandling', msg[i])
+            }
+          }
         })
     },
     // edit stock when add, or min
-    updateCarts (context, payload) {
+    plusCart (context, payload) {
       const headers = { access_token: localStorage.access_token }
 
       axios
-        .put(`/carts/${payload}`, { headers })
+        .patch('/carts/increase', { id: payload }, { headers })
         .then(res => {
-          context.commit('updateAllCarts', res.data)
+          context.commit('errHandler', '')
+          context.dispatch('fetchCarts')
         })
         .catch(err => {
           console.log(err)
+
+          const msg = err.response.data.errors
+          const temp = []
+          for (let i = 0; i < msg.length; i++) {
+            if (msg.length > 1) {
+              temp.push(msg[i])
+              const str = temp.join(', ')
+              context.commit('errHandling', str)
+            } else if (msg.length <= 1) {
+              context.commit('errHandling', msg[i])
+            }
+          }
         })
     },
+    minCart (context, payload) {
+      const headers = { access_token: localStorage.access_token }
+
+      axios
+        .patch('/carts/decrease', { id: payload }, { headers })
+        .then(res => {
+          context.commit('errHandler', '')
+          context.dispatch('fetchCarts')
+        })
+        .catch(err => {
+          console.log(err)
+
+          const msg = err.response.data.errors
+          const temp = []
+          for (let i = 0; i < msg.length; i++) {
+            if (msg.length > 1) {
+              temp.push(msg[i])
+              const str = temp.join(', ')
+              context.commit('errHandling', str)
+            } else if (msg.length <= 1) {
+              context.commit('errHandling', msg[i])
+            }
+          }
+        })
+    },
+
     deleteCarts (context, payload) {
       const headers = { access_token: localStorage.access_token }
 
@@ -176,7 +270,7 @@ export default new Vuex.Store({
       const headers = { access_token: localStorage.access_token }
 
       axios
-        .post('/wishlists', payload, { headers })
+        .post('/wishlists', { id: payload }, { headers })
         .then(res => {
           context.commit('errHandler', '')
           router.push('/')
@@ -199,7 +293,7 @@ export default new Vuex.Store({
     },
 
     // CRUD TRANSACTIONS
-    fetchTransactions (context, payload) {
+    fetchTrans (context, payload) {
       const headers = { access_token: localStorage.access_token }
       axios
         .get('/transactions',
@@ -213,13 +307,16 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
-    createTransactions (context, payload) {
-      const headers = { access_token: localStorage.access_token }
 
+    // checkouts
+    payedCarts (context, payload) {
+      const headers = { access_token: localStorage.access_token }
       axios
-        .post('/transactions', payload, { headers })
+        .post('/carts/pay', null, { headers })
         .then(res => {
+          console.log(res.data)
           context.commit('errHandler', '')
+          router.push('/transactions')
         })
         .catch(err => {
           console.log(err)
@@ -242,5 +339,16 @@ export default new Vuex.Store({
         })
     }
 
+  },
+  getters: {
+    filterByName: state => {
+      if (state.filterName === '' || state.filterName === 'allData') {
+        return state.products
+      } else {
+        return state.products.filter(product => {
+          return product.name === state.filterName
+        })
+      }
+    }
   }
 })

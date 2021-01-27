@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div id="nav">
+    <!-- <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About Us</router-link> |
       <router-link to="/login">Login</router-link> |
@@ -9,7 +9,7 @@
       <router-link to="/checkout">Check Out</router-link> |
       <router-link to="/wishlists">Wishlist</router-link> |
       <router-link to="/register">Register</router-link> |
-    </div>
+    </div> -->
     <router-view/>
   </div>
 </template>
@@ -21,6 +21,7 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  background-color: rgb(197, 197, 197);
 }
 
 #nav {
