@@ -8,16 +8,19 @@
           class="d-inline-block align-top mx-2"
           alt=""
         />
-        <b>Local Shoes</b>
+        <b>LOCALE SHOES ID</b>
       </button>
       <div>
-        <button class="btn btn-outline-primary mx-2"><b-icon icon="cart4"/> Cart </button>
-        <button @click="toLogin" class="btn btn-outline-primary mx-2"><b-icon icon="person-circle"/> Login </button>
+        <button class="btn text-primary mx-2"><b-icon icon="cart4"/> Cart </button>
+        <button v-if="!isUserLogin" @click="toLogin" class="btn text-primary mx-2"><b-icon icon="person-circle"/> Login </button>
+        <button v-if="isUserLogin" @click="logout" class="btn text-danger mx-2"><b-icon icon="person-circle"/> Logout </button>
       </div>
     </nav>
 </template>
 
 <script>
+import {mapState} from 'vuex'
+
 export default {
   methods : {
     toLogin () {
@@ -25,8 +28,13 @@ export default {
     },
     toHome () {
       this.$router.push('/')
+    },
+    logout () {
+      this.$store.dispatch('logout')
+      this.$router.push('/login')
     }
-  }
+  },
+  computed: {...mapState(['isUserLogin'])}
 }
 </script>
 

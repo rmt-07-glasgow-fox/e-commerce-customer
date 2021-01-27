@@ -8,8 +8,9 @@
             <div class="row">
               <div class="col-md-9 col-lg-8 mx-auto">
                 <h3 class="login-heading mb-4 text-center">Login using account ?</h3>
-                <form>
+                <form @submit.prevent="login">
                   <input
+                    v-model="inputLogin.email"
                     type="email"
                     placeholder="Email address"
                     class="form-control my-2"
@@ -17,6 +18,7 @@
                     autofocus
                   />
                   <input
+                    v-model="inputLogin.password"
                     type="password"
                     class="form-control my-2"
                     placeholder="Password"
@@ -47,10 +49,26 @@
 
 <script>
 export default {
+  data () {
+    return {
+      inputLogin : {
+        email : '',
+        password : ''
+      }
+    }
+  },
   methods : {
     toRegister () {
       this.$router.push('/register')
+    },
+    async login () {
+      console.log('>>> inputlogin', this.inputLogin)
+      await this.$store.dispatch('login', this.inputLogin)
+      this.$router.push('/')
     }
+  },
+  created () {
+    this.$store.dispatch('isUserLogin')
   }
 }
 </script>

@@ -27,8 +27,6 @@ export default new Vuex.Store({
       try {
         const URL = this.state.baseURL + '/products/customer'
         const response = await axios.get(URL)
-
-        console.log('>>> products : ', response.data)
         context.commit('SET_PRODUCTS', response.data)
       } catch (err) {
         console.log(err)
@@ -38,11 +36,43 @@ export default new Vuex.Store({
       try {
         const URL = this.state.baseURL + '/banners/customer'
         const response = await axios.get(URL)
-
-        console.log('>>> products : ', response.data)
         context.commit('SET_BANNERS', response.data)
       } catch (err) {
         console.log(err)
+      }
+    },
+    async login (context, payload) {
+      try {
+        const URL = this.state.baseURL + '/user/loginUser'
+        const response = await axios.post(URL, payload)
+
+        console.log('>>> login : ',response.data)
+        localStorage.setItem('access_token', response.data.access_token)
+        
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    logout (context, payload) {
+      localStorage.clear()
+    },
+    async register (context, payload) {
+      try {
+        const URL = this.state.baseURL + '/user/register'
+        const response = await axios.post(URL, payload)
+        
+        // console.log('>>> login : ',response.data)
+        localStorage.setItem('access_token', response.data.access_token)
+
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    isUserLogin (context, payload) {
+      if(!localStorage.access_token) {
+        context.commit('SET_ISUSERLOGIN', false)
+      } else {
+        context.commit('SET_ISUSERLOGIN', true)
       }
     }
   }

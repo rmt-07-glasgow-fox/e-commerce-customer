@@ -9,6 +9,9 @@
 import Navbar from './components/Navbar'
 
 export default {
-  components: { Navbar }
+  components: { Navbar },
+  created () {
+    this.$store.dispatch('isUserLogin')
+  }
 }
 </script>

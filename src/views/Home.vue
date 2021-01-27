@@ -20,6 +20,7 @@ export default {
   created () {
     this.$store.dispatch('getAllProducts')
     this.$store.dispatch('getAllBanners')
+    this.$store.dispatch('isUserLogin')
   },
   computed: { ...mapState(['products', 'banners']) },
   components: { CardProduct }
