@@ -28,10 +28,10 @@
               <router-link class="nav-link" to="/cart"><i class="fas fa-shopping-cart"></i></router-link>
             </li>
             <li class="nav-item">
-              <a class="nav-link disabled" href="#">Welcome, mity</a>
+              <a class="nav-link disabled">Welcome, mity</a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link" @click="handleLogout"><i class="fas fa-sign-out-alt"></i></a>
+              <a class="nav-link" @click="handleLogout"><i class="fas fa-sign-out-alt"></i></a>
             </li>
           </div>
         </ul>
@@ -58,6 +58,9 @@ export default {
 </script>
 
 <style scoped>
+a {
+  cursor: pointer;
+}
 
 #nav {
   padding: 10px;

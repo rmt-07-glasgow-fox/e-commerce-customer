@@ -11,7 +11,8 @@ export default new Vuex.Store({
     products: [],
     categories: [],
     isLoggedIn: false,
-    categoryName: ''
+    categoryName: '',
+    carts: []
   },
   mutations: {
     SET_BANNERS (state, payload) {
@@ -28,6 +29,9 @@ export default new Vuex.Store({
     },
     SET_CATEGORY_NAME (state, payload) {
       state.categoryName = payload
+    },
+    SET_CARTS (state, payload) {
+      state.carts = payload
     }
   },
   actions: {
@@ -105,12 +109,49 @@ export default new Vuex.Store({
     handleLogout (context, payload) {
       localStorage.clear()
       context.commit('SET_ISLOGGEDIN', payload)
+      this.state.categoryName = ''
       router.push('/')
+    },
+    handleAddProductToCart (context, payload) {
+      axios({
+        method: 'POST',
+        url: '/carts/' + payload.ProductId,
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
+        // data: {
+        //   amount: payload.amount
+        // }
+      })
+        .then(({ data }) => {
+          console.log(data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    fetchCarts (context, payload) {
+      axios({
+        method: 'GET',
+        url: '/carts',
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
+      })
+        .then(({ data }) => {
+          context.commit('SET_CARTS', data)
+        })
+        .catch(err => {
+          console.log(err.response)
+        })
+    },
+    addMoreQuantity (context, payload) {
+      console.log('from store', payload)
     }
   },
   getters: {
     filterByCategory: state => {
-      if (state.categoryName === '') {
+      if (state.categoryName === '' || state.categoryName === 'allData') {
         return state.products
       } else {
         return state.products.filter(product => {

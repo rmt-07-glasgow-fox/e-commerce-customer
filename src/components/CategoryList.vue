@@ -1,6 +1,10 @@
 <template>
   <div>
     <a
+      @click="filterByCategory('allData')">
+      All Products <br/>
+    </a>
+    <a
       v-for="category in categories"
       :key="category.id"
       @click="filterByCategory(category.name)">

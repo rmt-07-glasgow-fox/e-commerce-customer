@@ -4,9 +4,14 @@
       <img class="card-img-top" :src="product.image_url" alt="Card image cap" style="max-height:40vh">
       <div class="card-body">
         <h5 class="card-title">{{ product.name }}</h5>
-        <p class="card-text">{{ product.price }}</p>
+        <p class="card-text">Price: {{ product.price }}</p>
+        <p class="card-text">Stock: {{ product.stock }}</p>
         <p>{{ product.Category.name }}</p>
-        <a href="#" class="btn btn-primary">Add to cart</a>
+        <a
+          class="btn btn-primary text-white"
+          @click="addToCart(product.id)">
+          Add to cart
+        </a>
       </div>
     </div>
   </div>
@@ -15,10 +20,20 @@
 <script>
 export default {
   name: 'ProductCard',
-  props: ['product']
+  props: ['product'],
+  methods: {
+    addToCart (ProductId) {
+      // console.log('ALLO', ProductId)
+      this.$store.dispatch('handleAddProductToCart', {
+        ProductId
+      })
+    }
+  }
 }
 </script>
 
-<style>
-
+<style scoped>
+a {
+  cursor: pointer;
+}
 </style>
