@@ -1,5 +1,5 @@
 <template>
-  <div style="height: 100vh">
+  <div style="height: 90vh">
     <div>
       <header style='display: block; padding: 32px 0 9px; text-align: center; margin-bottom: 50px'>
         <router-link to='/'>E-Shop-E</router-link>
@@ -23,7 +23,7 @@
             </div>
             <div>
               Don't have an account?
-              <router-link to='/register'> Sign up>> </router-link>
+              <router-link to='/register'> Click here>> </router-link>
             </div>
         </form>
     </div>

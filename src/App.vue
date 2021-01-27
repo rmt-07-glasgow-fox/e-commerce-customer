@@ -1,20 +1,16 @@
 <template>
   <div id="app">
-    <div id="nav">
+    <div class="mb-4" id="nav">
       <div v-if="page !== 'login'">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgb(21, 32, 43); color: white;">
           <div class="container-fluid">
-            <a class="navbar-brand" href="#">E-Shop-E</a>
+            <a class="navbar-brand">E-Shop-E</a>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                   <router-link class="nav-link" to="/">Home</router-link>
                 </li>
               </ul>
-              <form class="d-flex mx-3">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-              </form>
               <div class="nav-item">
                   <div class="d-flex" v-if="status ===  'loggedout' ">
                     <router-link
@@ -30,8 +26,13 @@
                     Register
                     </router-link>
                   </div>
-                  <div v-else>
-                    <button class="btn btn-danger" v-on:click.prevent='logout'>Logout</button>
+                  <div v-else class="d-flex">
+                    <div>
+                      <button class="btn mx-1" style="color: white" v-on:click.prevent='toCart'>Show Cart</button>
+                    </div>
+                    <div>
+                      <button class="btn btn-danger" v-on:click.prevent='logout'>Logout</button>
+                    </div>
                   </div>
               </div>
             </div>
@@ -40,6 +41,13 @@
       </div>
     </div>
     <router-view/>
+    <footer class="footer py-3 bg-light mt-auto" style="position: fixed; left: 0; bottom: 0; width:100%">
+      <div class="container">
+        <p>
+          2020-2021 Company, Inc. ·
+        </p>
+      </div>
+    </footer>
   </div>
 </template>
 
@@ -48,6 +56,9 @@ export default {
   methods: {
     logout () {
       this.$store.dispatch('logout')
+    },
+    toCart () {
+      this.$router.push('/cart')
     }
   },
   computed: {
@@ -56,6 +67,11 @@ export default {
     },
     page () {
       return this.$store.state.page
+    }
+  },
+  created () {
+    if (localStorage.getItem('access_token')) {
+      this.$store.dispatch('changeStatus', 'loggedin')
     }
   }
 }
@@ -72,10 +88,10 @@ export default {
 
 #nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: white
 }
 
 #nav a.router-link-exact-active {
-  color: #42b983;
+  color: white;
 }
 </style>
