@@ -1,10 +1,10 @@
 <template>
-  <main class="d-flex align-items-center mt-5">
+  <main class="d-flex align-items-center my-5">
     <div class="container">
         <div class="row d-flex justify-content-center">
-          <div class="col-3">
+          <div class="col-4">
             <img src="https://images.pexels.com/photos/4890733/pexels-photo-4890733.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-            style="height:400px;object-fit:cover" alt="login" class="login-card-img">
+            style="width:100%;object-fit:cover" alt="login">
           </div>
           <div class="col-6 bg-light">
             <div class="card-body p-5">

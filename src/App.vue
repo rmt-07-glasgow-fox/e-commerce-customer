@@ -1,16 +1,20 @@
 <template>
   <div id="app">
-    <navbar/>
+    <Navbar/>
     <router-view/>
+    <Footer/>
   </div>
 </template>
 
 <script>
-import navbar from './components/Navbar'
+import Navbar from './components/Navbar'
+import Footer from './components/Footer'
 export default {
   name: 'App',
-  components: { navbar }
-
+  components: { Navbar, Footer },
+  created () {
+    this.$store.dispatch('getCartItems')
+  }
 }
 </script>
 
