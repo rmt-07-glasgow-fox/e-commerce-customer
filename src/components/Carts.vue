@@ -50,6 +50,7 @@ export default {
         }
       })
         .then(({ data }) => {
+          // localStorage.setItem(`isInCart-${this.cart.Product.id}`, 'false')
           this.$store.dispatch('fetchCarts')
         })
         .catch(err => {

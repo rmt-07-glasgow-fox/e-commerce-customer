@@ -8,7 +8,7 @@
         <p class="card-text">Stock: <span style="float: right">{{ product.stock }}</span></p>
         <button v-if="role == 'admin'" @click="toEditForm(product.id)" class="btn btn-success">Edit</button>
         <button v-if="role == 'admin'" @click="destroyProduct(product.id)" class="btn btn-success" style="float: right">Delete</button>
-        <button v-if="role == 'customer' && isInCart == false" @click="addToCart(product.id)" class="btn btn-success">Add To Cart</button>
+        <button v-if="role == 'customer'" @click="checkCart(product.id)" class="btn btn-success">Add To Cart</button>
       </div>
     </div>
   </div>
@@ -22,8 +22,8 @@ export default {
   data () {
     return {
       email: localStorage.email,
-      role: localStorage.role,
-      isInCart: false
+      role: localStorage.role
+      // isInCart: localStorage.getItem(`isInCart-${this.product.id}`)
     }
   },
   props: ['product', 'changePage'],
@@ -47,22 +47,60 @@ export default {
           console.log(err)
         })
     },
-    addToCart (id) {
+    checkCart (id) {
       axios({
-        method: 'POST',
-        url: '/carts',
+        method: 'GET',
+        url: `/carts/${id}`,
         headers: {
           access_token: localStorage.getItem('access_token')
-        },
-        data: {
-          ProductId: id
         }
       })
         .then(({ data }) => {
-          this.isInCart = true
-          console.log(this.isInCart)
-          this.$store.dispatch('fetchCarts')
-          this.changePage('cartList')
+          // console.log(data)
+          if (data.message === 'not in cart') {
+            return axios({
+              method: 'POST',
+              url: '/carts',
+              headers: {
+                access_token: localStorage.getItem('access_token')
+              },
+              data: {
+                ProductId: id
+              }
+            })
+              .then(({ data }) => {
+                this.$store.dispatch('fetchCarts')
+                this.changePage('cartList')
+              })
+              .catch(err => {
+                console.log(err)
+              })
+          } else {
+            // console.log(data)
+            if (data.quantity < this.product.stock) {
+              console.log('masuk axios edit')
+              return axios({
+                method: 'PUT',
+                url: `/carts/${id}`,
+                headers: {
+                  access_token: localStorage.getItem('access_token')
+                },
+                data: {
+                  quantity: data.quantity + 1,
+                  totalPrice: data.quantity * this.product.price
+                }
+              })
+                .then(({ data }) => {
+                  console.log('masuk then')
+                  this.$store.dispatch('fetchCarts')
+                })
+                .catch(err => {
+                  console.log(err)
+                })
+            } else {
+              console.log('quantity cannot exceed stock')
+            }
+          }
         })
         .catch(err => {
           console.log(err)
