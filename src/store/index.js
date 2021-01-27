@@ -118,16 +118,22 @@ export default new Vuex.Store({
         url: '/carts/' + payload.ProductId,
         headers: {
           access_token: localStorage.getItem('access_token')
+        },
+        data: {
+          amount: payload.amount
         }
-        // data: {
-        //   amount: payload.amount
-        // }
       })
         .then(({ data }) => {
           console.log(data)
+          context.dispatch('fetchCarts')
         })
         .catch(err => {
-          console.log(err)
+          console.log(err.response)
+          Vue.swal({
+            title: 'Oopsie!',
+            text: err.response.data.message,
+            icon: 'error'
+          })
         })
     },
     fetchCarts (context, payload) {
@@ -147,6 +153,29 @@ export default new Vuex.Store({
     },
     addMoreQuantity (context, payload) {
       console.log('from store', payload)
+    },
+    deleteCartById (context, payload) {
+      axios({
+        method: 'DELETE',
+        url: '/carts/' + payload,
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        },
+        data: {
+          status: false
+        }
+      })
+        .then(({ data }) => {
+          console.log(data)
+          context.dispatch('fetchCarts')
+        })
+        .catch(err => {
+          console.log(err.response)
+        })
+    },
+    checkoutCart (context) {
+      // axios
+      console.log('ALLO STORE')
     }
   },
   getters: {
