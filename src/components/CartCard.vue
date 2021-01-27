@@ -76,13 +76,12 @@ export default {
           this.$swal.fire({
             title: 'Cancelled!',
             toast: true,
-            confirmButton: false,
             timer: 1500
           })
         }
       })
         .then(({ data }) => {
-          this.$swal.fire(data.message.toString(), '', 'success')
+          this.$swal.fire(data.messages.toString(), '', 'success')
           this.$store.dispatch('fetchAllCarts')
         })
         .catch((err) => {

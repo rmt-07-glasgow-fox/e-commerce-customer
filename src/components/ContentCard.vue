@@ -58,10 +58,9 @@ export default {
       })
         .then(({ data }) => {
           this.$swal.fire({
-            title: data.message.toString(),
+            title: data.messages.toString(),
             toast: true,
             icon: 'success',
-            confirmButton: false,
             timer: 1500
           })
         })

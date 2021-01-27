@@ -74,7 +74,7 @@ export default new Vuex.Store({
           }
         })
         .then(({ data }) => {
-          console.log(data.message)
+          console.log(data.messages)
         })
         .catch((err) => {
           console.log(err.response.data.errors)
