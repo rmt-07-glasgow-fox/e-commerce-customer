@@ -10,7 +10,8 @@ export default new Vuex.Store({
     products: [],
     categories: [],
     filter: '',
-    search: ''
+    search: '',
+    carts: []
   },
   mutations: {
     insertProduct (state, payload) {
@@ -24,6 +25,9 @@ export default new Vuex.Store({
     },
     changeSearch (state, payload) {
       state.search = payload
+    },
+    insertCart (state, payload) {
+      state.carts = payload
     }
   },
   actions: {
@@ -85,6 +89,75 @@ export default new Vuex.Store({
         .catch(err => {
           console.log(err)
         })
+    },
+    fetchCarts ({ commit }) {
+      axios({
+        method: 'GET',
+        url: '/carts',
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+        .then(({ data }) => {
+          commit('insertCart', data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    addToCart (_, payload) {
+      axios({
+        method: 'POST',
+        url: '/carts',
+        headers: {
+          access_token: localStorage.access_token
+        },
+        data: {
+          ProductId: payload
+        }
+      })
+        .then(({ data }) => {
+          this.dispatch('fetchCarts')
+          console.log(data)
+        })
+        .catch(() => {
+          router.push('/login')
+        })
+    },
+    updateQuantity (_, payload) {
+      const { id, quantity } = payload
+      axios({
+        method: 'PATCH',
+        url: '/carts/' + id,
+        headers: {
+          access_token: localStorage.access_token
+        },
+        data: {
+          quantity
+        }
+      })
+        .then(({ data }) => {
+          console.log(data)
+          this.dispatch('fetchCarts')
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+    deleteCart (_, id) {
+      axios({
+        method: 'DELETE',
+        url: '/carts/' + id,
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+        .then(() => {
+          this.dispatch('fetchCarts')
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   },
   getters: {
@@ -99,6 +172,9 @@ export default new Vuex.Store({
           return e.CategoryId === state.filter
         })
       }
+    },
+    sortedCart: state => {
+      return state.carts.sort((a, b) => (a.id > b.id) ? 1 : ((b.id > a.id) ? -1 : 0))
     }
   }
 })

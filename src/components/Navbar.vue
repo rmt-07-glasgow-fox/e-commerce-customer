@@ -1,12 +1,19 @@
 <template>
   <nav class="navbar navbar-light bg-light px-3 fixed-top">
     <div class="container-fluid row">
-      <a class="navbar-brand col-2" @click="navigate">R-COMMERCE</a>
+      <a class="navbar-brand col-2" @click="navigate"><i class="fab fa-battle-net"></i> R-COMMERCE</a>
       <form class="d-flex col-7">
-        <input class="form-control me-2" type="search" placeholder="Search" v-model="search">
+        <input
+          v-if="$route.path == '/'"
+          class="form-control me-2" type="search" placeholder="Search" v-model="search">
       </form>
       <div class="d-flex col-2 justify-content-evenly align-items-center">
-        <div><i class="fas fa-shopping-cart"></i></div>
+        <div
+          @click="navigateToCart"
+        >
+          <i class="fas fa-shopping-cart"></i>
+          <span v-if="$route.path != '/login' && $route.path != '/register' && carts.length ">{{ carts.length }}</span>
+        </div>
         <div><i class="fas fa-history"></i></div>
         <button
           v-if="!access_token"
@@ -30,6 +37,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   data () {
     return {
@@ -44,12 +52,16 @@ export default {
     },
     search (value) {
       this.$store.commit('changeSearch', value)
+    },
+    access_token (value) {
+      this.fetchCarts()
     }
   },
   computed: {
-    categories () {
-      return this.$store.state.categories
-    }
+    ...mapState([
+      'categories',
+      'carts'
+    ])
   },
   methods: {
     showLoginForm () {
@@ -58,6 +70,9 @@ export default {
     navigate () {
       this.filter = ''
       if (this.$route.path !== '/') this.$router.push('/')
+    },
+    navigateToCart () {
+      if (this.$route.path !== '/cart') this.$router.push('/cart')
     },
     fetchCategory () {
       this.$store.dispatch('fetchCategory')
@@ -68,15 +83,20 @@ export default {
     logout () {
       localStorage.clear()
       this.$router.push('/login')
+    },
+    fetchCarts () {
+      if (this.access_token) this.$store.dispatch('fetchCarts')
     }
   },
   created () {
     this.access_token = localStorage.access_token
+    this.fetchCarts()
     this.fetchCategory()
     this.$store.commit('changeFilter', '')
   },
   updated () {
     this.access_token = localStorage.access_token
+    // this.fetchCarts()
   }
 }
 </script>
@@ -94,5 +114,8 @@ export default {
     cursor: pointer;
     font-size: 0.8em;
     font-weight: 800;
+  }
+  .navbar-brand{
+    font-size: 1.5em;
   }
 </style>

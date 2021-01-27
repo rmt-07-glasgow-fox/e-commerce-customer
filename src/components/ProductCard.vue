@@ -5,7 +5,10 @@
       <p class="card-title">{{ product.name }}</p>
       <div class="footer">
         <div>Rp. {{ product.price }}</div>
-        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-cart-plus"></i></button>
+        <button
+          @click.prevent="addToCart"
+          class="btn btn-sm btn-outline-primary"
+        ><i class="fas fa-cart-plus"></i></button>
       </div>
     </div>
   </div>
@@ -14,7 +17,12 @@
 <script>
 export default {
   name: 'ProductCard',
-  props: ['product']
+  props: ['product'],
+  methods: {
+    addToCart () {
+      this.$store.dispatch('addToCart', this.product.id)
+    }
+  }
 }
 </script>
 
@@ -22,7 +30,7 @@ export default {
   .card{
     padding: 0 !important;
     height: 280px;
-    border: 1px solid blue;
+    border: 1px solid #e3e3e3;
   }
   img{
     width: 100%;
