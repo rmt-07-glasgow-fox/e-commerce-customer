@@ -25,7 +25,8 @@ export default {
     addToCart (ProductId) {
       // console.log('ALLO', ProductId)
       this.$store.dispatch('handleAddProductToCart', {
-        ProductId
+        ProductId,
+        amount: 1
       })
     }
   }
