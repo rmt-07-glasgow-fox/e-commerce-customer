@@ -52,7 +52,7 @@ export default {
       this.$store.commit('setCartCount', 0)
       this.$store.commit('setIsLoggedIn', false)
       this.$store.commit('insertUserProducts', [])
-      this.$router.push('/')
+      this.$router.push('/auth')
     }
   },
   created () {

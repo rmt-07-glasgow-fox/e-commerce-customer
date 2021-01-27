@@ -1,24 +1,24 @@
 <template>
   <div class="container">
-    <div class="row" v-if="userProducts.length !== 0">
+    <div class="row" v-if="pendingUserProducts.length !== 0">
       <div class="col col-md-8">
         <cart-card
-          v-for="userProduct in userProducts"
-          :userProduct="userProduct"
-          :key="userProduct.id"></cart-card>
+          v-for="pendingUserProduct in pendingUserProducts"
+          :pendingUserProduct="pendingUserProduct"
+          :key="pendingUserProduct.id"></cart-card>
       </div>
       <div class="col col-md-4 mt-4">
         <div class="border p-4">
           <h5><strong>Order Summary</strong></h5>
           <div class="d-flex justify-content-between"
-            v-for="userProduct in userProducts"
-            :key="userProduct.id">
-            <p style="font-size: 15px">{{ money(userProduct.Product.price) }} x {{ userProduct.quantity }}</p>
-            <p style="font-size: 15px"><strong>{{ money(userProduct.totalPrice) }}</strong></p>
+            v-for="pendingUserProduct in pendingUserProducts"
+            :key="pendingUserProduct.id">
+            <p style="font-size: 15px">{{ money(pendingUserProduct.Product.price) }} x {{ pendingUserProduct.quantity }}</p>
+            <p style="font-size: 15px"><strong>{{ money(pendingUserProduct.totalPrice) }}</strong></p>
           </div>
           <hr>
           <div class="d-flex justify-content-between">
-            <p style="font-size: 15px">Total Payment ({{ userProducts.length }} items)</p>
+            <p style="font-size: 15px">Total Payment ({{ pendingUserProducts.length }} items)</p>
             <p style="font-size: 15px"><strong>{{money(totalPrice)}}</strong></p>
           </div>
           <button class="btn btn-primary w-100 mt-4"
@@ -50,32 +50,32 @@ export default {
       return string.substring(0, string.length - 3)
     },
     payNow () {
-      const userProducts = this.userProducts
+      const pendingUserProducts = this.pendingUserProducts
       const invoice = (Math.floor(Math.random() * 100000000000000000)).toString()
 
-      for (let i = 0; i < userProducts.length; i++) {
+      for (let i = 0; i < pendingUserProducts.length; i++) {
         this.$store.dispatch('updateCart', {
-          product: { id: userProducts[i].ProductId },
+          product: { id: pendingUserProducts[i].ProductId },
           quantity: 0,
           totalPrice: 0,
           paymentStatus: 'paid',
           invoice
         })
         this.$store.dispatch('updateStock', {
-          id: userProducts[i].Product.id,
-          stock: userProducts[i].Product.stock - userProducts[i].quantity
+          id: pendingUserProducts[i].Product.id,
+          stock: pendingUserProducts[i].Product.stock - pendingUserProducts[i].quantity
         })
       }
     }
   },
   computed: {
-    userProducts () {
-      return this.$store.state.userProducts
+    pendingUserProducts () {
+      return this.$store.state.pendingUserProducts
     },
     totalPrice () {
-      const userProducts = this.$store.state.userProducts
+      const pendingUserProducts = this.$store.state.pendingUserProducts
       let sum = 0
-      userProducts.forEach(e => {
+      pendingUserProducts.forEach(e => {
         sum += e.totalPrice
       })
 
@@ -84,7 +84,7 @@ export default {
   },
   created () {
     if (localStorage.access_token) {
-      this.$store.dispatch('fetchUserProducts', 'pending')
+      this.$store.dispatch('fetchUserProducts')
     }
   }
 }

@@ -30,6 +30,7 @@
 
 <script>
 import ProductDetail from '../components/ProductDetail'
+import Swal from 'sweetalert2'
 export default {
   name: 'ProductCard',
   components: {
@@ -41,6 +42,28 @@ export default {
     },
     addWishlist (id) {
       if (localStorage.access_token) {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 2000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        })
+
+        let title = ''
+        if (this.wishlistStatus) {
+          title = 'Remove from your wishlist'
+        } else {
+          title = 'Add to your wishlist'
+        }
+        Toast.fire({
+          icon: 'success',
+          title
+        })
         this.$store.dispatch('addWishlist', {
           ProductId: id,
           wishlist: !this.wishlistStatus
@@ -85,7 +108,7 @@ export default {
     opacity: 0.6;
   }
   .love-icon{
-     text-shadow: 0 0 1px #000;
+     text-shadow: 0 0 2px rgba(0, 0, 0, 1);
   }
   .love-icon:hover {
     cursor: pointer;

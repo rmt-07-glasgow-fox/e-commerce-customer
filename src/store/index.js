@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import ecommerceServer from '../api/ecommerceServer'
 import router from '../router'
+import Swal from 'sweetalert2'
 
 Vue.use(Vuex)
 
@@ -9,7 +10,10 @@ export default new Vuex.Store({
   state: {
     isLoggedIn: false,
     userProducts: [],
+    pendingUserProducts: [],
+    paidUserProducts: [],
     products: [],
+    banners: [],
     categories: [],
     authStatus: 'Login',
     name: '',
@@ -24,6 +28,18 @@ export default new Vuex.Store({
     },
     insertUserProducts (state, payload) {
       state.userProducts = payload
+    },
+    insertPendingUserProducts (state, payload) {
+      state.pendingUserProducts = payload
+        .filter(e => e.paymentStatus === 'pending')
+      state.cartCount = state.pendingUserProducts.length
+    },
+    insertPaidUserProducts (state, payload) {
+      state.paidUserProducts = payload
+        .filter(e => e.paymentStatus === 'paid')
+    },
+    insertBanners (state, payload) {
+      state.banners = payload.filter(e => e.status)
     },
     changeAuthStatus (state, payload) {
       state.authStatus = payload
@@ -54,14 +70,38 @@ export default new Vuex.Store({
         data: payload
       })
         .then(({ data }) => {
-          localStorage.access_token = data.access_token
-          localStorage.name = data.name
-          context.commit('setIsLoggedIn', true)
-          context.commit('setName', data.name)
-          router.push('/')
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+          Toast.fire({
+            icon: 'success',
+            title: 'Signed in successfully'
+          })
+          setTimeout(() => {
+            localStorage.access_token = data.access_token
+            localStorage.name = data.name
+            context.commit('setIsLoggedIn', true)
+            context.commit('setName', data.name)
+            router.push('/')
+          }, 1500)
         })
-        .catch(err => {
-          console.log(err.response)
+        .catch(() => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Invalid email / password',
+            timer: 2000,
+            showConfirmButton: false,
+            footer: '<a href="#">Have you register?</a>'
+          })
         })
     },
     register (context, payload) {
@@ -73,8 +113,30 @@ export default new Vuex.Store({
         .then(({ data }) => {
           context.dispatch('login', payload)
         })
+        .catch(() => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Invalid email / password',
+            timer: 2000,
+            showConfirmButton: false,
+            footer: '<a href="#">Your password must be at least 6 characters long</a>'
+          })
+        })
+    },
+    fetchBanners (context) {
+      ecommerceServer({
+        method: 'GET',
+        url: '/banners',
+        data: {
+          access_token: localStorage.access_token
+        }
+      })
+        .then(({ data }) => {
+          context.commit('insertBanners', data)
+        })
         .catch(err => {
-          console.log(err)
+          console.log(err.response)
         })
     },
     fetchProducts (context) {
@@ -110,17 +172,9 @@ export default new Vuex.Store({
         }
       })
         .then(({ data }) => {
-          if (payload === 'pending') {
-            data = data.filter(e => e.paymentStatus === payload)
-            context.commit('insertUserProducts', data)
-            context.commit('setCartCount', data.length)
-          } else if (payload === 'paid') {
-            data = data.filter(e => e.paymentStatus === payload)
-            context.commit('insertUserProducts', [])
-            context.commit('setCartCount', 0)
-          } else {
-            context.commit('insertUserProducts', data)
-          }
+          context.commit('insertPendingUserProducts', data)
+          context.commit('insertPaidUserProducts', data)
+          context.commit('insertUserProducts', data)
         })
         .catch(err => {
           console.log(err.response)
@@ -211,12 +265,9 @@ export default new Vuex.Store({
     deleteUserProduct (context, payload) {
       ecommerceServer({
         method: 'DELETE',
-        url: '/users/product',
+        url: '/users/products/' + payload,
         headers: {
           access_token: localStorage.access_token
-        },
-        data: {
-          ProductId: payload
         }
       })
         .then(({ data }) => {

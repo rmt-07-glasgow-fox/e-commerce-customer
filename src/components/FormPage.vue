@@ -15,7 +15,7 @@
                 v-model="user.name">
               </div>
               <div class="form-group first mb-4">
-                <label class="mb-2" for="username">Username</label>
+                <label class="mb-2" for="username">Email</label>
                 <input type="text" class="form-control" placeholder="johndoe@mail.com" id="username"
                 v-model="user.email">
               </div>
@@ -34,7 +34,6 @@
 
                 <input type="submit" value="Log In" class="btn btn-block btn-primary w-100">
               </div>
-
               <div v-else>
                 <div class="mb-4 align-items-center">
                   <span class="forgot-pass">Already have an account? </span>
@@ -44,6 +43,7 @@
 
                 <input type="submit" value="Register" class="btn btn-block btn-success w-100">
               </div>
+              <router-link to="/" type="submit" class="btn btn-block btn-danger w-100 mt-2 text-white d-flex" style="text-decoration: none"><span class="m-auto">Cancel</span></router-link>
             </form>
           </div>
         </div>

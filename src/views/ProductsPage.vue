@@ -1,5 +1,5 @@
 <template>
-  <div class="row mt-4">
+  <div class="row mt-4 mr-2 ml-2">
     <div class="col col-md-2">
       <category-page></category-page>
     </div>
