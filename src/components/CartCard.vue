@@ -3,7 +3,7 @@
     <div class="card mb-1">
       <div class="row">
         <div class="col-4">
-          <img :src="cart.Product.image_url" alt="">
+          <img :src="cart.Product.imageUrl" alt="">
         </div>
         <div class="col-8">
           <div class="card-title text-end m-1"><button type="button" class="btn-close" aria-label="Close" @click.prevent="doDeleteCart"></button></div>

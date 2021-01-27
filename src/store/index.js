@@ -73,42 +73,42 @@ export default new Vuex.Store({
     },
     fetchProd (context) {
       axios({
-        method: 'get',
-        url: '/products'
+        url: '/products',
+        method: 'GET'
         // headers: {
         //   access_token: localStorage.getItem('access_token')
         // }
       })
         .then(({ data }) => {
-          context.commit('setProducts', data.products)
-          // console.log(data)
+          context.commit('setProducts', data)
+          console.log(data)
         })
         .catch(error => {
           console.log(error.response.data)
         })
     },
-    getProducts ({ commit }, payload) {
-      axios({
-        method: 'GET',
-        url: '/products',
-        headers: {
-          access_token: localStorage.access_token
-        }
-      })
-        .then(({ data }) => {
-          commit('setProducts', data)
-        })
-        .catch(error => {
-          console.log(error.response.data)
-        })
-    },
+    // getProducts ({ commit }, payload) {
+    //   axios({
+    //     method: 'GET',
+    //     url: '/products',
+    //     headers: {
+    //       access_token: localStorage.access_token
+    //     }
+    //   })
+    //     .then(({ data }) => {
+    //       commit('setProducts', data)
+    //     })
+    //     .catch(error => {
+    //       console.log(error.response.data)
+    //     })
+    // },
     fetchCart (context, payload) {
       axios({
         url: '/carts',
         method: 'GET',
-        headers: {
-          access_token: localStorage.getItem('access_token')
-        }
+        // headers: {
+        //   access_token: localStorage.getItem('access_token')
+        // }
       })
         .then(({ data }) => {
           const { carts, totalPrice } = data

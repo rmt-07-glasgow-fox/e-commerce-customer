@@ -47,6 +47,11 @@
 <script>
 export default {
   name: 'Navbar',
+  computed: {
+    status () {
+      return this.$store.state.status
+    }
+  },
   methods: {
     logout () {
       this.$toasted.show('are you sure?', {
@@ -54,6 +59,7 @@ export default {
           {
             text: 'yes',
             onClick: (e, toastObject) => {
+              this.$store.commit('setStatus', 'loggedOut')
               localStorage.clear()
               this.$router.push('/login')
             }

@@ -1,6 +1,6 @@
 <template>
 	<div class="home">
-		<h1>this is product</h1>
+		<h1>Our Products</h1>
 		<!-- <ProductCard v-for="product in products" :key="product.id" :product="product"/> -->
 		<ProductCard/>
 		<!-- <ProductCard/> -->
@@ -8,10 +8,11 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
-import ProductCard from '../components/ProductCard'
+// import { mapActions, mapState } from 'vuex'
+import ProductCard from '../components/ProductCard.vue'
 export default {
   name: 'Home',
+  // props: ['product'],
   components: {
     ProductCard
   },
@@ -22,20 +23,22 @@ export default {
   // },
   created () {
     // this.$store.dispatch('fetchProd')
+    this.$store.dispatch('fetchProd')
     // this.fetch()
-    this.getProducts()
+    // this.getProducts()
   },
   computed: {
     // products () {
     // 	return this.$store.state.products
     // }
+
     // products () {
     //   return this.$store.state.products
     // }
-    ...mapState('products', ['products'])
+    // ...mapState('products', ['products'])
   },
   methods: {
-    ...mapActions('products', ['getProducts'])
+    // ...mapActions('products', ['getProducts'])
   }
 }
 </script>
