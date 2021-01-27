@@ -13,21 +13,15 @@
       </div>
       <div class="form-group">
         <label class="text-muted">Lastname</label
-        ><input type="text" class="form-control" v-model="email" placeholder="Enter lastname" />
+        ><input type="text" class="form-control" v-model="lastname" placeholder="Enter lastname" />
       </div>
       <div class="form-group">
-        <label class="text-muted" for="emailLogin">Email address</label
-        ><input
-          type="text"
-          class="form-control"
-          id="emailLogin"
-          v-model="lastname"
-          placeholder="Enter email"
-        />
+        <label class="text-muted">Email address</label
+        ><input type="text" class="form-control" v-model="email" placeholder="Enter email" />
       </div>
       <div class="form-group">
-        <label class="text-muted" for="passwordLogin">Password</label>
-        <div class="input-group" id="passwordInput">
+        <label class="text-muted">Password</label>
+        <div class="input-group">
           <input
             class="form-control"
             :type="passwordType"
@@ -69,7 +63,36 @@ export default {
     };
   },
   methods: {
-    register() {},
+    async register() {
+      const payload = {
+        firstname: this.firstname,
+        lastname: this.lastname,
+        email: this.email,
+        password: this.password,
+      };
+
+      try {
+        await this.$store.dispatch('register', payload);
+        this.clearForm();
+        this.$swal.fire('Success!', 'Your account successfully created!', 'success');
+        this.$router.replace('/login');
+      } catch (err) {
+        this.$swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: err,
+        });
+      }
+    },
+    clearForm() {
+      this.firstname = '';
+      this.lastname = '';
+      this.email = '';
+      this.password = '';
+    },
+    switchPassword() {
+      this.passwordType = this.passwordType === 'password' ? 'text' : 'password';
+    },
   },
 };
 </script>
