@@ -1,0 +1,29 @@
+<template>
+  <div>
+    LIST CART
+    <CartItem v-for="item in cart" :key="item.id" :item="item"/>
+  </div>
+</template>
+
+<script>
+import CartItem from '@/components/carts/CartItem.vue'
+import { mapState } from 'vuex'
+
+export default {
+  components: {
+    CartItem
+  },
+  computed: {
+    ...mapState({
+      cart: state => state.mCart.cart
+    })
+  },
+  created () {
+    this.$store.dispatch('fetchCart', null, true)
+  }
+}
+</script>
+
+<style>
+
+</style>
