@@ -12,8 +12,7 @@ export default new Vuex.Store({
   state: {
     products: [],
     carts: [],
-    banners: [],
-    totalPrice: ''
+    banners: []
   },
   mutations: {
     fetchAllProducts (state, payload) {
@@ -24,9 +23,6 @@ export default new Vuex.Store({
     },
     fetchAllCarts (state, payload) {
       state.carts = payload
-    },
-    totalPrice (state, payload) {
-      state.totalPrice = payload
     }
   },
   actions: {
@@ -224,22 +220,6 @@ export default new Vuex.Store({
             confirmButtonText: 'Okay'
           })
         })
-    },
-
-    totalPrice (context, payload) {
-      let totalPrice
-      console.log(this.state.carts)
-      for (let i = 0; i < this.state.carts.length; i++) {
-        let temp
-        if (this.state.carts[i].status === true) {
-          temp = this.state.carts[i].quantity * this.state.carts[i].Products.price
-          console.log(temp)
-        }
-        totalPrice += temp
-        temp = 0
-      }
-      console.log('ini toatl price', totalPrice)
-      context.commit('totalPrice', totalPrice)
     }
   },
   modules: {

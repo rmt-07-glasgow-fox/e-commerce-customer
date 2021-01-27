@@ -62,9 +62,6 @@ export default {
   computed: {
     carts () {
       return this.$store.state.carts
-    },
-    totalPrice () {
-      return this.$store.state.totalPrice
     }
   }
 }
