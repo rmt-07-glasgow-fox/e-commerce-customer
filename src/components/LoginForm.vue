@@ -1,23 +1,50 @@
 <template>
-  <div class="card-body">
-    <h5 class="card-title text-center">Login</h5>
-    <form class="form-signin" @submit.prevent="register">
+  <vs-card
+    type="3"
+    justify="center"
+    align="center"
+  >
+    <template #title>
+      <h3>Login</h3>
+    </template>
+    <template #img>
+      <img src="https://images.unsplash.com/photo-1591528287637-f3d5eaa83a3c?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1567&q=80" alt="">
+    </template>
+    <template #text>
+      <div class="center content-inputs">
+        <vs-input color="#7d33ff" shadow type="email" v-model="email" placeholder="Email">
+          <template #icon>
+            <i class='bx bx-user'></i>
+          </template>
+        </vs-input>
 
-      <div class="form-label-group">
-        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" v-model="user.email" required>
-        <label for="inputEmail">Email</label>
+        <vs-input color="#7d33ff" shadow type="password" v-model="password" placeholder="Password">
+          <template #icon>
+            <i class='bx bx-lock-open-alt'></i>
+          </template>
+        </vs-input>
+        <div class="center grid">
+          <vs-row
+            justify="space-around">
+            <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="6">
+              <vs-button @click.prevent="login">
+                Login
+              </vs-button>
+            </vs-col>
+            <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="6">
+              <vs-button
+                shadow
+              >
+                Register
+              </vs-button>
+            </vs-col>
+          </vs-row>
+        </div>
       </div>
-
-      <div class="form-label-group">
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" v-model="user.password" required>
-        <label for="inputPassword">Password</label>
-      </div>
-
-      <div class="btnGroup">
-        <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Login</button>
-      </div>
-    </form>
-  </div>
+    </template>
+    <template #interactions>
+    </template>
+  </vs-card>
 </template>
 
 <script>
@@ -25,18 +52,24 @@ export default {
   name: 'LoginForm',
   data () {
     return {
-      user: {
-        email: '',
-        password: ''
-      }
+      email: '',
+      password: '',
+      active: 0,
+      state: ''
     }
   },
   methods: {
     async login () {
       try {
-        await this.$store.dispatch('login', this.user)
-        this.user.email = ''
-        this.user.password = ''
+        const user = {
+          email: this.email,
+          password: this.password
+        }
+        await this.$store.dispatch('login', user)
+        console.log(this.$store.state.products, '<<<< dari state products')
+        this.$store.commit('fetchProducts', 'dari login')
+        this.email = ''
+        this.password = ''
         this.$router.replace('/')
       } catch (error) {
         this.$swal.fire({
@@ -45,6 +78,9 @@ export default {
           text: error
         })
       }
+    },
+    changeForm (payload) {
+      this.sign = payload
     }
   }
 }

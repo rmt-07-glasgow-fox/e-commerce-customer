@@ -1,18 +1,39 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <sidebar></sidebar>
+    <router-view></router-view>
+    <div>
+      <product-list></product-list>
+    </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import Sidebar from '@/components/Sidebar.vue'
+import ProductList from '@/components/ProductList.vue'
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld
+    Sidebar,
+    ProductList
+  },
+  created () {
+    this.$store.dispatch('fetchProducts')
+    this.$store.dispatch('fetchProduct', 1)
+    this.$store.dispatch('fetchBanners')
+  },
+  computed: {
+    products () {
+      return this.$store.state.products
+    },
+    product () {
+      return this.$store.state.product
+    },
+    banners () {
+      return this.$store.state.banners
+    }
   }
 }
 </script>
