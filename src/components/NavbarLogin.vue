@@ -1,0 +1,59 @@
+<template>
+    <div>
+    <nav class="navbar navbar-expand-lg fixed-top bg-white">
+      <h5 role="button" class="nav-link text-dark">
+        <b v-on:click="home()">Rolax</b>
+        </h5>
+        <button class="navbar-toggler">
+          <i class="fas fa-bars"></i>
+          </button>
+          <div id="navbarSupportedContent" class="collapse navbar-collapse">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <div>
+                  <button class="btn btn-light mx-2" v-on:click="history()">
+                    <b>History</b>
+                  </button>
+                  <button class="btn btn-light mx-2" v-on:click="cart()">
+                    <b>Cart</b>
+                  </button>
+                  <button class="btn btn-dark mr-4" v-on:click="logOut()">
+                    <b>Log Out</b>
+                  </button>
+                </div>
+              </li>
+            </ul>
+          </div>
+    </nav>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'NavbarLogin',
+  methods: {
+    cart () {
+      this.$router.push('/cart')
+    },
+    home () {
+      this.$router.push('/')
+    },
+    logOut () {
+      this.$store.dispatch('logOut')
+    },
+    history () {
+      this.$router.push('/history')
+    },
+    login () {
+      this.$router.push('/login')
+    },
+    register () {
+      this.$router.push('/register')
+    }
+  }
+}
+</script>
+
+<style>
+
+</style>
