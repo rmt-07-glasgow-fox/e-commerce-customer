@@ -1,7 +1,9 @@
 <template>
   <div>
-    <b-navbar toggleable="lg" type="light" variant="light" fixed="top">
-      <b-navbar-brand @click.prevent="$router.push('/')" href="#">Lapak Vue</b-navbar-brand>
+    <b-navbar toggleable="lg" class="bg-two" type="dark" fixed="top">
+      <b-navbar-brand class="custom" @click.prevent="goToHome" href="#" tag="h1"
+        >Lapak Vue</b-navbar-brand
+      >
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -11,7 +13,7 @@
         is-nav
       >
         <b-navbar-nav>
-          <b-nav-item href="#"> Home</b-nav-item>
+          <b-nav-item @click.prevent="goToHome" href="#"> Home</b-nav-item>
         </b-navbar-nav>
 
         <b-navbar-nav class="ml-auto">
@@ -54,6 +56,11 @@ export default {
         this.$router.push('/cart');
       } else {
         this.$router.push('/login');
+      }
+    },
+    goToHome() {
+      if (this.$route.path !== '/') {
+        this.$router.push('/');
       }
     },
     logout() {
