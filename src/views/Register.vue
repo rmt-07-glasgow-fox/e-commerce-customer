@@ -70,6 +70,7 @@ export default {
           localStorage.setItem('role', data.role)
           localStorage.setItem('id', data.id)
           this.$store.dispatch('fetchCart', data.id)
+          this.$store.commit('setBalance', 0)
           this.$store.commit('setIsLoggedIn', true)
           this.$router.push('/')
           Swal.fire(
