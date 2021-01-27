@@ -2,6 +2,8 @@
   <div>
     LIST CART
     <CartItem v-for="item in cart" :key="item.id" :item="item"/>
+
+    <button>CHECKOUT</button>
   </div>
 </template>
 

@@ -11,9 +11,7 @@
 export default {
   methods: {
     logout () {
-      this.$store.dispatch('logout')
-      // localStorage.clear()
-      // this.$router.push({ name: 'Home' })
+      this.$store.dispatch('logout', { currentRouteName: this.$route.name })
     },
     goTo (name) {
       this.$router.push({ name })

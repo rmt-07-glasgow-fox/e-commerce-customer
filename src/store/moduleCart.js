@@ -13,6 +13,11 @@ export default {
     },
     deleteCart (state, data) {
       state.cart = state.cart.filter(el => el.id !== data.id)
+    },
+    updateQty (state, data) {
+      state.cart.map(el => {
+        el.id === data.id && (el.quantity = data.quantity)
+      })
     }
   },
   actions: {
@@ -30,7 +35,6 @@ export default {
         })
     },
     createCart (context, data) {
-      console.log(data)
       axios({
         method: 'POST',
         url: '/carts',
@@ -47,12 +51,12 @@ export default {
     updateQty (context, data) {
       axios({
         method: 'PATCH',
-        url: '/carts',
+        url: '/carts/' + data.id,
         headers: { access_token: localStorage.access_token },
-        data: data
+        data: { quantity: data.quantity }
       })
         .then(({ data }) => {
-          // context.commit('updateQty', data)
+          context.commit('updateQty', data)
         })
         .catch(({ response }) => {
           console.log(response)

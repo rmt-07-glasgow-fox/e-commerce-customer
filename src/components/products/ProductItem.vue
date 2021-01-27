@@ -2,7 +2,9 @@
   <div>
     Name: {{ product.name }}
     Price: {{ product.price }}
-    <button @click="addCart(product.id)">ADD TO CART</button>
+    Qty: {{ product.stock }}
+    <button @click="addCart(product.id)" v-if="product.stock > 0">ADD TO CART</button>
+    <span v-else>Out Of Stock</span>
   </div>
 </template>
 

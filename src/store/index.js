@@ -39,6 +39,7 @@ export default new Vuex.Store({
     logout (context, data) {
       localStorage.clear()
       context.commit('logout')
+      data.currentRouteName !== 'Home' && router.push({ name: 'Home' })
     },
     register (context, data) {
       axios({
