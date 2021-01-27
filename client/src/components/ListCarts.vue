@@ -65,7 +65,7 @@
 import { mapState } from 'vuex'
 
 export default {
-  name: 'Carts',
+  name: 'ListCarts',
   methods: {
     totalPrice (price, qty) {
       const total = price * qty
@@ -99,7 +99,7 @@ export default {
     },
     totalPayment () {
       let total = 0
-      this.carts.forEach(el => {
+      this.filterCarts.forEach(el => {
         total += el.quantity * el.Product.price
       })
       return total
