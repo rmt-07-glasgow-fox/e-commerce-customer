@@ -12,6 +12,7 @@ export default new Vuex.Store({
     userProducts: [],
     pendingUserProducts: [],
     paidUserProducts: [],
+    category: '',
     products: [],
     banners: [],
     categories: [],
@@ -20,6 +21,9 @@ export default new Vuex.Store({
     cartCount: 0
   },
   mutations: {
+    changeCategory (state, payload) {
+      state.category = payload
+    },
     insertProducts (state, payload) {
       state.products = payload
     },
@@ -40,6 +44,11 @@ export default new Vuex.Store({
     },
     insertBanners (state, payload) {
       state.banners = payload.filter(e => e.status)
+    },
+    filterProducts (state, payload) {
+      console.log(payload.products)
+      state.products = payload.products.filter(e => e.Category.categoryName === payload.categoryName)
+      console.log(state.products)
     },
     changeAuthStatus (state, payload) {
       state.authStatus = payload
@@ -296,6 +305,15 @@ export default new Vuex.Store({
         })
     }
   },
-  modules: {
+  getters: {
+    filterCategory: state => {
+      if (!state.category) {
+        return state.products
+      } else {
+        return state.products.filter(e => {
+          return e.Category.categoryName === state.category
+        })
+      }
+    }
   }
 })
