@@ -16,9 +16,9 @@
               <div class='box'>
                 <ul>
                     <form>
-                    <li><button @click="substractQty" class='mr-1'>-</button></li>
+                    <li><button @click.prevent="substractQty" class='mr-1'>-</button></li>
                     <li><input type="text" size="2" v-model='cart.quantity' class='mr-1'></li>
-                    <li><button @click="addQty">+</button></li>
+                    <li><button @click.prevent="addQty">+</button></li>
                     </form>
                 </ul>
                 <button class='btn btn-outline-danger btn-sm' @click='removeCart(cart.id)'>Remove from cart</button>

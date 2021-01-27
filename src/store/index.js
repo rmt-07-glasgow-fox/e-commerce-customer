@@ -67,7 +67,6 @@ export default new Vuex.Store({
     },
     updateCart (context, payload) {
       const { CartId, ProductId, quantity } = payload
-      console.log('>>>>>', ProductId, CartId, quantity)
       axios
         .patch('/carts/' + CartId, { ProductId, quantity }, {
           headers: {
@@ -105,6 +104,10 @@ export default new Vuex.Store({
         .catch((err) => {
           context.commit('catchError', err.response.data.errors)
         })
+    },
+    register (context, payload) {
+      return axios
+        .post('/register', payload)
     }
   },
   modules: {
