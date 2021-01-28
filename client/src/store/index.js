@@ -209,7 +209,7 @@ export default new Vuex.Store({
       const accessToken = localStorage.getItem('access_token')
       axios({
         method: 'PUT',
-        url: '/carts/checkout',
+        url: '/carts',
         headers: {
           access_token: accessToken
         },

@@ -104,7 +104,7 @@ export default {
       })
     },
     checkoutCarts () {
-      this.$store.dispatch('checkoutCarts', this.filterCarts)
+      this.$store.dispatch('checkoutCarts')
     }
   },
   computed: {
