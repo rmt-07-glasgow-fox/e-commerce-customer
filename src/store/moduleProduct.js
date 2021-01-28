@@ -24,6 +24,8 @@ export default {
         })
         .catch(({ response }) => {
           console.log(response)
+          const msg = response.data.message
+          context.dispatch('toastMsg', { icon: 'error', title: msg })
         })
     },
     fetchOneProduct (context, id) {
@@ -37,6 +39,8 @@ export default {
         })
         .catch(({ response }) => {
           console.log(response)
+          const msg = response.data.message
+          context.dispatch('toastMsg', { icon: 'error', title: msg })
         })
     }
   }

@@ -16,7 +16,10 @@
             class="d-flex transition-fast-in-fast-out orange darken-2 v-card--reveal display-3 white--text"
             style="height: 100%;"
           >
-            <v-btn outlined="" color="white" :to="{name: 'Detail Product', params: {id: product.id}}">LOOK</v-btn>
+          <v-btn icon @click="addWishlist(product.id)">
+            <v-icon color="">mdi-heart</v-icon>
+          </v-btn>
+            <!-- <v-btn outlined="" color="white" >LOOK</v-btn> -->
           </div>
         </v-expand-transition>
       </v-img>
@@ -63,6 +66,10 @@ export default {
   methods: {
     addCart (ProductId) {
       localStorage.access_token ? this.$store.dispatch('createCart', { ProductId, quantity: 1 }, true)
+        : this.$router.push({ name: 'Login' })
+    },
+    addWishlist (ProductId) {
+      localStorage.access_token ? this.$store.dispatch('createWishlist', { ProductId }, true)
         : this.$router.push({ name: 'Login' })
     }
   }

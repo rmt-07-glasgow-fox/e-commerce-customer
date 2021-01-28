@@ -23,15 +23,27 @@ const routes = [
     }
   },
   {
-    path: '/products',
-    name: 'Products',
-    component: () => import('../views/Products.vue')
+    path: '/wishlist',
+    name: 'Wishlist',
+    component: () => import('../views/Wishlist.vue'),
+    beforeEnter (to, from, next) {
+      if (!localStorage.access_token) {
+        next({ name: 'Login' })
+      } else {
+        next()
+      }
+    }
   },
-  {
-    path: '/products/:id/detail',
-    name: 'Detail Product',
-    component: () => import('../components/products/ProductDetail.vue')
-  },
+  // {
+  //   path: '/products',
+  //   name: 'Products',
+  //   component: () => import('../views/Products.vue')
+  // },
+  // {
+  //   path: '/products/:id/detail',
+  //   name: 'Detail Product',
+  //   component: () => import('../components/products/ProductDetail.vue')
+  // },
   {
     path: '/login',
     name: 'Login',

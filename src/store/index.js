@@ -4,6 +4,8 @@ import axios from '@/api/axios'
 import router from '@/router'
 import moduleProduct from '@/store/moduleProduct'
 import moduleCart from '@/store/moduleCart'
+import moduleWishlist from '@/store/moduleWishlist'
+import Swal from 'sweetalert2'
 
 Vue.use(Vuex)
 
@@ -11,7 +13,8 @@ export default new Vuex.Store({
   state: {
     isLogin: localStorage.access_token,
     isLoadLogin: false,
-    isLoadRegister: false
+    isLoadRegister: false,
+    banners: []
   },
   mutations: {
     login (state) {
@@ -25,6 +28,9 @@ export default new Vuex.Store({
     },
     isLoadRegister (state, data) {
       state.isLoadRegister = data
+    },
+    fetchBanners (state, banners) {
+      state.banners = banners
     }
   },
   actions: {
@@ -54,6 +60,7 @@ export default new Vuex.Store({
       localStorage.clear()
       context.commit('logout')
       context.commit('clearCart', null, true)
+      context.commit('clearWishlist', null, true)
       data.currentRouteName !== 'Home' && router.push({ name: 'Home' })
     },
     register (context, payload) {
@@ -85,10 +92,40 @@ export default new Vuex.Store({
           }, 1000)
           console.log(response)
         })
+    },
+    fetchBanners (context) {
+      axios({
+        method: 'GET',
+        url: '/banners/active'
+      })
+        .then(({ data }) => {
+          console.log(data)
+          context.commit('fetchBanners', data)
+        })
+        .catch(err => {
+          console.log(err.response.data)
+          // const msg = err.response.data.message
+          // context.dispatch('toastMsg', { icon: 'error', title: msg })
+        })
+    },
+    toastMsg (context, payload) {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'bottom-end',
+        showConfirmButton: false,
+        timer: 5000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      })
+      Toast.fire({ icon: payload.icon, title: payload.title })
     }
   },
   modules: {
     mProducts: moduleProduct,
-    mCart: moduleCart
+    mCart: moduleCart,
+    mWishlist: moduleWishlist
   }
 })

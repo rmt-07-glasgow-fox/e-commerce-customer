@@ -39,10 +39,17 @@
         <v-icon>mdi-cart</v-icon>
       </v-btn>
     </v-badge>
-
-    <v-btn icon>
+    <v-badge
+      bordered
+      color="error"
+      overlap
+      :content="wishlist ? wishlist.length : ''"
+    >
+    <v-btn fab icon x-small :to="{ name: 'Wishlist' }">
       <v-icon>mdi-heart</v-icon>
     </v-btn>
+    </v-badge>
+
     <div v-if="!isLogin">
       <v-btn class="text-caption pa-0 ma-0" text plain color="grey" :to="{ name: 'Register' }">
         Register
@@ -155,7 +162,8 @@ export default {
       return this.$store.state.isLogin
     },
     ...mapState({
-      cart: state => state.mCart.cart
+      cart: state => state.mCart.cart,
+      wishlist: state => state.mWishlist.wishlist
     })
   }
 }

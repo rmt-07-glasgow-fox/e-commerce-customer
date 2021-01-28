@@ -41,6 +41,8 @@ export default {
         })
         .catch(({ response }) => {
           console.log(response)
+          const msg = response.data.message
+          context.dispatch('toastMsg', { icon: 'error', title: msg })
         })
     },
     createCart (context, data) {
@@ -52,10 +54,13 @@ export default {
       })
         .then(({ data }) => {
           console.log(data, '??')
+          context.dispatch('toastMsg', { icon: 'success', title: 'Success add to cart' })
           context.commit('createCart', data)
         })
         .catch(({ response }) => {
           console.log(response)
+          const msg = response.data.message
+          context.dispatch('toastMsg', { icon: 'error', title: msg })
         })
     },
     updateQty (context, data) {
@@ -71,6 +76,8 @@ export default {
         })
         .catch(({ response }) => {
           console.log(response)
+          const msg = response.data.message
+          context.dispatch('toastMsg', { icon: 'error', title: msg })
         })
     },
     deleteCart (context, id) {
@@ -86,6 +93,8 @@ export default {
         })
         .catch(({ response }) => {
           console.log(response)
+          const msg = response.data.message
+          context.dispatch('toastMsg', { icon: 'error', title: msg })
         })
     }
   }
