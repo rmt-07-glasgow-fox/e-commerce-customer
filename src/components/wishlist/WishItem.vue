@@ -16,26 +16,11 @@
     <v-card-text>
       <div class="text-caption">Rp. {{ item.Product && item.Product.price.toLocaleString("id-ID") }}</div>
     </v-card-text>
-    <v-card-text class="d-flex align-stretch">
-      <vue-numeric-input
-        v-model="quantity"
-        :min="1"
-        :max="item.Product && item.Product.stock"
-        :step="1"
-        :focus="true"
-        @change="updateQty(item.id)"
-      ></vue-numeric-input>
-      <!-- <button class="d-inline" @click="updateQty(item.id, -1)" :disabled="item.quantity <= 1">-</button> -->
-        <!-- <v-btn slot="append" plain>+</v-btn>
-      quantity: {{ item.quantity }} -->
-      <!-- <button class="d-inline" @click="updateQty(item.id, 1)" :disabled="item.Product && (item.quantity >= item.Product.stock)">+</button> -->
-    </v-card-text>
     <button @click="deleteWishlist(item.id)" >REMOVE</button>
   </v-card>
 </template>
 
 <script>
-import VueNumericInput from 'vue-numeric-input'
 
 export default {
   props: ['item'],
@@ -45,7 +30,6 @@ export default {
     }
   },
   components: {
-    VueNumericInput
   },
   methods: {
     deleteWishlist (id) {
