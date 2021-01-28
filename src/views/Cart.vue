@@ -19,6 +19,7 @@
           {{ this.maskPrice() }}
           <button
             class="btn btn-primary"
+            :disabled="!carts.length > 0"
             @click="checkoutCart">Checkout</button>
         </div>
       </div>
