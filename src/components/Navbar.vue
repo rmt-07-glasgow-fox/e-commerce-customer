@@ -2,23 +2,23 @@
   <div class="Navbar">
     <b-navbar id='navigasi' toggleable="lg" type="dark">
       <div class="col-lg-3 col-md-3" id="center-nav">
-        <b-navbar-brand href="#">
+        <b-navbar-brand>
           <img src="https://cdn.discordapp.com/emojis/596707359053840401.gif?v=1" alt="Kitten" width="25px" height="25px">
         </b-navbar-brand>
-        <b-navbar-brand href="#" @click.prevent="homeHandler">Munthe Commerce</b-navbar-brand>
+        <b-navbar-brand to="/">Munthe Commerce</b-navbar-brand>
       </div>
 
       <div class="col-lg-6 col-md-6" id="center-nav">
           <b-navbar-nav >
-            <b-nav-item href="#">Cart</b-nav-item>
+            <b-nav-item v-if="loginStatus == 'true' " to="/cart">Cart</b-nav-item>
           </b-navbar-nav>
       </div>
 
       <div class="col-lg-3 col-md-3" id="center-nav">
         <b-navbar-nav class="ml-auto">
-         <b-nav-item href="#" @click.prevent="loginHandler">Log in</b-nav-item>
-         <b-nav-item href="#" @click.prevent="registerHandler">Register</b-nav-item>
-         <b-nav-item href="#" @click.prevent="logoutHandler">Log Out</b-nav-item>
+         <b-nav-item v-if="loginStatus == 'false' " @click.prevent="loginHandler">Log in</b-nav-item>
+         <b-nav-item v-if="loginStatus == 'false' " @click.prevent="registerHandler">Register</b-nav-item>
+         <b-nav-item v-if="loginStatus == 'true'" @click.prevent="logoutHandler" >Log Out</b-nav-item>
         </b-navbar-nav>
       </div>
     </b-navbar>
@@ -41,7 +41,25 @@ export default {
     },
     registerHandler () {
       this.$router.push('/register')
+    },
+    checkLogin () {
+      if (!localStorage.getItem('access_token')) {
+        this.$store.commit('changeLoginStatus', 'false')
+      } else {
+        this.$store.commit('changeLoginStatus', 'true')
+      }
     }
+  },
+  computed: {
+    isLogin () {
+      return this.$route.name !== 'Login'
+    },
+    loginStatus () {
+      return this.$store.state.loginStatus
+    }
+  },
+  created () {
+    this.checkLogin()
   }
 }
 </script>

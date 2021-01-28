@@ -11,6 +11,11 @@ export default {
   name: 'Login',
   components: {
     LoginForm
+  },
+  computed: {
+    LoginPageStatus () {
+      return this.$store.state.loginPage
+    }
   }
 }
 </script>
