@@ -25,7 +25,7 @@
               <div class="mb-3 border-bottom">
                 <input type="password" class="form-control border border-0" placeholder="password" v-model="user.password">
               </div>
-              <button type="submit" class="btn btn-dark w-100 rounded-pill" id="submit-login">Login</button>
+              <button type="submit" class="btn btn-outline-dark w-100 rounded-0" id="submit-login">Login</button>
             </form>
           </div>
         </div>

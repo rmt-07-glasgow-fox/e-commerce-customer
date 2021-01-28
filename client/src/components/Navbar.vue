@@ -4,7 +4,7 @@
       <div class="d-flex justify-content-start">
         <router-link to="/" class="text-decoration-none">
           <a class="navbar-brand" href="#">
-            <span class="fs-3 text-white">BUKA PEDIA</span>
+            <span class="fs-4 text-white">BUKA PEDIA</span>
           </a>
         </router-link>
         <div class="mx-3 col-12 align-self-center">
@@ -21,13 +21,6 @@
             <small v-if="totalCarts !== 0" class="cart-num bg-danger text-white fw-bold rounded-circle position-absolute">{{ totalCarts }}</small>
           </button>
         </router-link>
-        <!-- <router-link to="/history">
-          <button class="align-self-center btn position-relative">
-            <svg class="cart-icon text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
-            </svg>
-          </button>
-        </router-link> -->
         <div class="nav-item dropdown">
           <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             {{ account }}
@@ -62,7 +55,6 @@ export default {
     logout () {
       localStorage.clear()
       this.$store.commit('setLogin', false)
-      this.$router.push('/')
     }
   },
   computed: {
