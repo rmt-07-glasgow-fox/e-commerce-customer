@@ -1,9 +1,12 @@
 <template>
   <div id="app">
-    <router-link to="/products">Products</router-link>
-    <router-view/>
+    <router-view />
   </div>
 </template>
+
+<script>
+
+</script>
 
 <style>
 #app {

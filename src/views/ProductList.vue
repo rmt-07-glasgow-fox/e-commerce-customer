@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-    <div class="row"></div>
+    <button class="btn btn-danger mt-2" @click="logout">Logout</button>
     <div class="row">
-      <ProductCard />
+      <ProductCard v-for="product in products" :key="product.id" :product="product"/>
     </div>
   </div>
 </template>
@@ -14,6 +14,23 @@ export default {
   name: 'ProductList',
   components: {
     ProductCard
+  },
+  computed: {
+    products () {
+      return this.$store.state.products
+    }
+  },
+  methods: {
+    fetchProducts () {
+      this.$store.dispatch('fetchProducts')
+    },
+    logout () {
+      localStorage.clear()
+      this.$router.push('/users/login')
+    }
+  },
+  created () {
+    this.fetchProducts()
   }
 }
 </script>

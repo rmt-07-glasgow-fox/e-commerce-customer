@@ -1,19 +1,17 @@
 <template>
-  <div class="col-3">
+  <div class="col-3 mt-5">
     <div class="card">
       <img
         class="card-img-top"
-        src="https://ecs7.tokopedia.net/img/cache/900/VqbcmM/2021/1/3/898d1107-3172-49e9-9a5e-22c1e51ccff9.jpg"
+        :src="product.image_url"
         style="width: 200px"
         alt="Card image cap"
       />
       <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
-        </p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <h5 class="card-title">{{ product.name }}</h5>
+        <p class="card-text">Price: {{ product.price }}</p>
+        <p class="card-text">Stok: {{ product.stock }}</p>
+        <a href="#" class="btn btn-primary" @click="addToCart">Add to Cart</a>
       </div>
     </div>
   </div>
@@ -21,7 +19,13 @@
 
 <script>
 export default {
-  name: 'ProductCard'
+  name: 'ProductCard',
+  props: ['product'],
+  methods: {
+    addToCart () {
+      this.$store.dispatch('addToCart', this.product)
+    }
+  }
 }
 </script>
 
