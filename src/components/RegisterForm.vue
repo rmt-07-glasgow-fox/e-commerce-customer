@@ -63,7 +63,7 @@ export default {
             text: 'Redirecting you to login page',
             timer: 1500
           })
-          this.$router.push('/login')
+          this.$router.push('/home/login')
         })
         .catch((err) => {
           this.$store.commit('catchError', err.response.data.errors)
