@@ -47,6 +47,10 @@ export default {
             text: err.response.data.message
           })
         })
+        this.$toast.default('added to cart!', {
+          position: 'top',
+          duration: 500
+        })
       } else {
         this.$store.commit('toggleLogin', !this.showLogin)
       }
