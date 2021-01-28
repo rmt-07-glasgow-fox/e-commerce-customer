@@ -6,7 +6,7 @@
         <h5 class="card-title">{{ product.name }}</h5>
       </div>
       <div class="card-body">
-        <p class="card-text">{{ product.price }}</p>
+        <p class="card-text">{{'Rp ' + product.price.toLocaleString('id-ID')}}</p>
       </div>
       <div class="card-body">
         <p class="card-text">{{ product.stock }}</p>
