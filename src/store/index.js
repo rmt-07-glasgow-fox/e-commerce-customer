@@ -11,6 +11,7 @@ export default new Vuex.Store({
     products: [],
     username: '',
     categories: [],
+    category: '',
     errors: [],
     carts: []
   },
@@ -34,6 +35,9 @@ export default new Vuex.Store({
     catchError (state, payload) {
       state.errors = []
       state.errors.push(payload)
+    },
+    changeCategory (state, payload) {
+      state.category = payload
     }
   },
   actions: {
@@ -104,6 +108,17 @@ export default new Vuex.Store({
     register (context, payload) {
       return axios
         .post('/register', payload)
+    }
+  },
+  getters: {
+    filterByCategory: state => {
+      if (state.category === '' || state.category === 'all') {
+        return state.products
+      } else {
+        return state.products.filter((value) => {
+          return value.category === state.category
+        })
+      }
     }
   },
   modules: {
