@@ -115,9 +115,10 @@ export default new Vuex.Store({
           context.commit('setValueEmail')
         })
         .catch(err => {
+          console.log(err.response.data.msg)
           Swal.fire({
-            icon: 'success',
-            title: `${err.response.msg}`,
+            icon: 'error',
+            title: `${err.response.data.msg}`,
             showConfirmButton: false,
             timer: 1500
           })
@@ -134,8 +135,8 @@ export default new Vuex.Store({
         })
         .catch(err => {
           Swal.fire({
-            icon: 'success',
-            title: `${err.response.msg}`,
+            icon: 'error',
+            title: `${err.response.data.msg}`,
             showConfirmButton: false,
             timer: 1500
           })
@@ -163,7 +164,7 @@ export default new Vuex.Store({
         .catch(err => {
           Swal.fire({
             icon: 'error',
-            title: `${err.response.msg}`,
+            title: `${err.response.data.msg}`,
             showConfirmButton: false,
             timer: 1500
           })
@@ -229,7 +230,7 @@ export default new Vuex.Store({
           if (err.response) {
             Swal.fire({
               icon: 'error',
-              title: `${err.response.msg}`,
+              title: `${err.response.data.msg}`,
               showConfirmButton: false,
               timer: 1500
             })
@@ -312,7 +313,7 @@ export default new Vuex.Store({
         .catch(err => {
           Swal.fire({
             icon: 'error',
-            title: `${err.response.msg}`,
+            title: `${err.response.data.msg}`,
             showConfirmButton: false,
             timer: 1500
           })
