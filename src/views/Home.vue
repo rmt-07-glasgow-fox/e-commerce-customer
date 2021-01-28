@@ -9,7 +9,7 @@
       <h2>Coffee first</h2>
       <h3>others will follow...</h3>
       <p>Are you a coffee addict?, so you come to the right place. Intoduce Doffee-Coffee, the only coffee paradise for the coffe lovers.</p>
-      <router-link to="/login">Login</router-link>
+      <router-link to="/login">Sign in</router-link>
     </div>
     <ul class="social">
       <li><a href="#"><img src="https://i.ibb.co/x7P24fL/facebook.png"></a></li>

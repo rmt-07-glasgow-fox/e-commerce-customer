@@ -22,18 +22,17 @@
                 <div class="relative z-10 h-auto p-8 py-10 overflow-hidden bg-white border-b-2 border-gray-300 rounded-lg shadow-2xl px-7">
                     <h4 class="mb-6 text-2xl font-medium text-center">Sign in to your Account</h4>
                     <div class="block mb-4 border border-gray-200 rounded-lg">
-                        <input type="text" name="email" id="email" class="block w-full px-4 py-3 border-2 border-transparent rounded-lg focus:border-blue-500 focus:outline-none" placeholder="Email address">
+                        <input v-model="userLogin.email" type="text" name="email" id="email" class="block w-full px-4 py-3 border-2 border-transparent rounded-lg focus:border-blue-500 focus:outline-none" placeholder="Email address">
                     </div>
                     <div class="block mb-4 border border-gray-200 rounded-lg">
-                        <input type="password" name="password" id="password" class="block w-full px-4 py-3 border-2 border-transparent rounded-lg focus:border-blue-500 focus:outline-none" placeholder="Password">
+                        <input v-model="userLogin.password" type="password" name="password" id="password" class="block w-full px-4 py-3 border-2 border-transparent rounded-lg focus:border-blue-500 focus:outline-none" placeholder="Password">
                     </div>
                     <div class="block">
-                        <button class="w-full px-3 py-4 font-medium text-white bg-gray-600 rounded-lg">Log Me In</button>
+                        <button @click="login" class="w-full px-3 py-4 font-medium text-white bg-gray-600 rounded-lg">Sign Me In</button>
                     </div>
-                    <p class="w-full mt-4 text-sm text-center text-gray-500">Don't have an account? <a href="#_" class="text-blue-500 underline">Sign up here</a></p>
+                    <p class="w-full mt-4 text-sm text-center text-gray-500">Don't have an account? <a href="" @click.prevent="register" class="text-blue-500 underline">Sign up here</a></p>
                 </div>
             </div>
-
         </div>
     </div>
 </section>
@@ -43,7 +42,23 @@
 
 <script>
 export default {
-  name: 'Home'
+  name: 'Login',
+  data () {
+    return {
+      userLogin: {
+        email: '',
+        password: ''
+      }
+    }
+  },
+  methods: {
+    login () {
+      this.$store.dispatch('login', this.userLogin)
+    },
+    register () {
+      this.$router.push('register')
+    }
+  }
 }
 </script>
 

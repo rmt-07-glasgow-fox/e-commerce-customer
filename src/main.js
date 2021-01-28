@@ -3,8 +3,11 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import './assets/index.css'
+import VueLodash from 'vue-lodash'
+import lodash from 'lodash'
 
 Vue.config.productionTip = false
+Vue.use(VueLodash, { name: 'custom', lodash: lodash })
 
 new Vue({
   router,
