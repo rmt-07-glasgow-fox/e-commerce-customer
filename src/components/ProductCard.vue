@@ -4,8 +4,8 @@
         <img class="card-img-top" :src="product.image_url" alt="Card image cap">
       </div>
       <div class="card-body bold">
-        <h5 class="card-title">{{product.name}} </h5>
         <table class="text-left" >
+        <i class="card-title text-left">{{product.name}} </i>
           <tr>
             <td>Rp {{price}}</td>
           </tr>
@@ -52,5 +52,9 @@ export default {
   }
   .bold{
     font-weight: bold !important;
+  }
+  .card-title{
+    font-style: normal !important;
+    font-size: 30px;
   }
 </style>

@@ -5,6 +5,7 @@ import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import CartsList from '../components/CartsList.vue'
 import ProductList from '../components/ProductList.vue'
+import HistoryList from '../components/HistoryList.vue'
 
 Vue.use(VueRouter)
 
@@ -23,6 +24,11 @@ const routes = [
         path: '/carts',
         name: 'CartsList',
         component: CartsList
+      },
+      {
+        path: '/histories',
+        name: 'HistoryList',
+        component: HistoryList
       }
     ]
   },

@@ -30,11 +30,6 @@ export default {
   components: {
     Cart
   },
-  data () {
-    return {
-
-    }
-  },
   methods: {
     checkout () {
       this.$store.dispatch('checkout')

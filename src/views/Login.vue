@@ -46,6 +46,8 @@ export default {
           localStorage.access_token = data.access_token
           this.$store.commit('statusLogin')
           this.$store.dispatch('getCarts')
+          this.$store.dispatch('getProducts')
+          this.$store.dispatch('getHistories')
           this.$router.push('/')
           this.$store.dispatch('sweetSuccess', 'Login Success')
         })
