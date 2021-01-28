@@ -87,7 +87,7 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
-    addToChart (context, payload) {
+    addToCart (context, payload) {
       return axios({
         method: 'POST',
         url: 'http://localhost:3000/cust-products/' + payload,

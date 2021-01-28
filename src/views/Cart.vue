@@ -80,10 +80,14 @@ export default {
     },
     checkOut () {
       this.$store.dispatch('checkOut')
+    },
+    cekStatus () {
+      this.$store.dispatch('cekStatus')
     }
   },
   created () {
     this.fetchCart()
+    this.cekStatus()
     this.$store.dispatch('totalShop')
   },
   watch: {
@@ -95,7 +99,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['dataCart', 'totalList'])
+    ...mapState(['dataCart', 'totalList', 'status'])
   }
 }
 </script>

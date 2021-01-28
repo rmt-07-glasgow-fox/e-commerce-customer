@@ -1,5 +1,6 @@
 <template>
 <div class="row container mt-5">
+  <navbar-login></navbar-login>
   <div class="col-md-4">
   <br><br><br>
     <img width="350" height="350" src="https://www.upgwholesale.com/downloads/image_library/Watches/GIFs/Relativity_animation_0219.gif" alt="" srcset="">
@@ -26,7 +27,10 @@
 
 <script>
 import Swal from 'sweetalert2'
+import NavbarLogin from '../components/NavbarLogin.vue'
+
 export default {
+  components: { NavbarLogin },
   name: 'Login',
   data () {
     return {
@@ -49,7 +53,13 @@ export default {
         .catch(err => {
           console.log(err)
         })
+    },
+    cekStatus () {
+      this.$store.dispatch('cekStatus')
     }
+  },
+  created () {
+    this.cekStatus()
   },
   watch: {
     error  (payload) {

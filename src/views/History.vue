@@ -30,9 +30,9 @@
         <div class="container mt-5 col-sm-3">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Total : <b>Rp. {{ totalList.toLocaleString('id-ID') }}</b> </h5>
-              <p class="card-text">We Apreciate your time and we want you to proceed immediately, so just checkout this</p>
-              <button class="btn btn-primary" v-on:click="checkOut">Check Out</button>
+              <h5 class="card-title"> <b>Thank You</b> </h5>
+              <p class="card-text">Thank you for all your purchase, we hope we can get new order from you</p>
+              <button class="btn -btn-danger btn-sm" v-on:click="shopMore()"> <u> Shop More </u></button>
             </div>
           </div>
         </div>
@@ -55,10 +55,17 @@ export default {
   methods: {
     fetchHistory () {
       this.$store.dispatch('fetchHistory')
+    },
+    shopMore () {
+      this.$router.push('/')
+    },
+    cekStatus () {
+      this.$store.dispatch('cekStatus')
     }
   },
   created () {
     this.fetchHistory()
+    this.cekStatus()
     this.$store.dispatch('totalShop')
   },
   watch: {
@@ -70,7 +77,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['dataCart', 'totalList'])
+    ...mapState(['dataCart', 'totalList', 'status'])
   }
 }
 </script>

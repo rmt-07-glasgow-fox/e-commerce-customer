@@ -12,15 +12,16 @@
           <img :src="product.image_url" class="card-img-top" alt="image">
           <div class="card-body">
             <p class="text-start"> <b>Condition :</b> {{ product.condition }}</p>
-            <p class="text-start"> <b>Price :</b> {{ product.price }}</p>
-            <p class="text-start"> <b>Condition :</b> {{ product.stock }}</p>
-            <button class="btn btn-primary btn-sm" v-if="logIn === false" v-on:click="addToChart(product.id)" >Add To Chart</button>
+            <p class="text-start"> <b>Price :</b> Rp. {{ product.price.toLocaleString('id-ID') }}</p>
+            <p class="text-start"> <b>Stock :</b> {{ product.stock }}</p>
+            <button class="btn btn-primary btn-sm" v-on:click="addToCart(product.id)" v-if="status === true" >Add To Chart</button>
           </div>
         </div>
         <br>
       </div>
     </div>
   </div>
+  <p v-if="status === false"> <b> Please Login first to purchase our collection, we wait you </b> </p>
 </div>
 </template>
 
@@ -35,21 +36,24 @@ export default {
   name: 'Home',
   data () {
     return {
-      activity: 0,
-      logIn: false
+      activity: 0
     }
   },
   methods: {
     fetchData () {
       this.$store.dispatch('fetchData')
     },
-    addToChart (id) {
+    addToCart (id) {
       this.activity++
-      this.$store.dispatch('addToChart', id)
+      this.$store.dispatch('addToCart', id)
+    },
+    cekStatus () {
+      this.$store.dispatch('cekStatus')
     }
   },
   created () {
     this.fetchData()
+    this.cekStatus()
   },
   watch: {
     activity (payload) {
@@ -67,7 +71,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['dataProduct'])
+    ...mapState(['dataProduct', 'status'])
   }
 }
 </script>

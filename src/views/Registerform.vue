@@ -1,5 +1,6 @@
 <template>
 <div class="row container mt-5">
+<navbar-login></navbar-login>
     <div class="col-md-5 mt-5"></div>
   <div class="col-md-5 mt-2">
     <br><br><br>
@@ -30,8 +31,10 @@
 
 <script>
 import Swal from 'sweetalert2'
+import NavbarLogin from '../components/NavbarLogin.vue'
 
 export default {
+  components: { NavbarLogin },
   name: 'register',
   data () {
     return {
@@ -54,7 +57,13 @@ export default {
         .catch(err => {
           console.log(err)
         })
+    },
+    cekStatus () {
+      this.$store.dispatch('cekStatus')
     }
+  },
+  created () {
+    this.cekStatus()
   },
   watch: {
     error  (payload) {

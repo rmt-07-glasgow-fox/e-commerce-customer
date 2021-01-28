@@ -11,15 +11,22 @@
             <ul class="navbar-nav ml-auto">
               <li class="nav-item">
                 <div>
-                  <button class="btn btn-light mx-2" v-on:click="history()">
+                  <button class="btn btn-light mx-2" v-on:click="history()" v-if="status === true">
                     <b>History</b>
                   </button>
-                  <button class="btn btn-light mx-2" v-on:click="cart()">
+                  <button class="btn btn-light mx-2" v-on:click="cart()" v-if="status === true">
                     <b>Cart</b>
                   </button>
-                  <button class="btn btn-dark mr-4" v-on:click="logOut()">
+                  <button class="btn btn-dark mr-4" v-on:click="logOut()" v-if="status === true">
                     <b>Log Out</b>
                   </button>
+                  <button class="btn btn-light mx-2" v-on:click="login()" v-if="status === false">
+                    <b>Login</b>
+                  </button>
+                  <button class="btn btn-dark mx-2" v-on:click="register()" v-if="status === false">
+                    <b>Register</b>
+                  </button>
+                  {{status}}
                 </div>
               </li>
             </ul>
@@ -29,6 +36,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'NavbarLogin',
   methods: {
@@ -50,6 +58,9 @@ export default {
     register () {
       this.$router.push('/register')
     }
+  },
+  computed: {
+    ...mapState(['status'])
   }
 }
 </script>
