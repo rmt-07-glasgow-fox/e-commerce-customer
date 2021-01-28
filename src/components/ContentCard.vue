@@ -1,7 +1,7 @@
 <template>
     <div class='col-3 pl-0 pr-0 ml-2 mr-2 mb-4'>
       <div class='card'>
-        <img :src="`${product.image_url}`" class="card-img-top img-fluid" alt="image not found" @click='productDetail(product.id)'>
+        <img :src="`${product.image_url}`" class="card-img-top img-fluid" alt="image not found">
         <div class='card-header'>
           <p class='text-weight-bold'>{{ product.name }}</p>
         </div>
@@ -10,7 +10,7 @@
           <p class="card-text">Price: {{ formatPrice(product.price) }}</p>
         </div>
         <div class="card-footer">
-          <button class="add-cart-large" @click='addToCart(product.id)'>Add To Cart</button>
+          <button class="add-cart-large" @click='checkAuth(product.id)'>Add To Cart</button>
         </div>
       </div>
     </div>
@@ -34,6 +34,19 @@ export default {
     }
   },
   methods: {
+    checkAuth (id) {
+      if (localStorage.getItem('access_token')) {
+        this.addToCart(id)
+      } else {
+        this.$swal.fire({
+          title: 'Login in first, please!',
+          text: 'Redirecting you to login page',
+          icon: 'info',
+          timer: 2000
+        })
+        this.$router.push('/home/login')
+      }
+    },
     formatPrice (price) {
       return 'IDR ' + price.toLocaleString('id')
     },
@@ -86,7 +99,6 @@ export default {
   text-transform: uppercase;
   font-weight: 700;
   padding: 10px;
-  font-family: "Open Sans", sans-serif;
   margin-top: 38px;
   -webkit-transition: all 200ms ease-out;
   -moz-transition: all 200ms ease-out;
