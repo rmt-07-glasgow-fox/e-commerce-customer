@@ -34,16 +34,12 @@ export default {
         this.$store.dispatch('createCart', id)
         this.stock = this.product.stock--
         this.$store.commit('readStock', this.stock)
-        const payload = {
-          id,
-          stock: this.newstock
-        }
-        this.$store.dispatch('updatestock', payload)
+        this.stock = this.$store.state.stocks
       }
     }
   },
   created () {
-    this.newstock = this.product.stock - 1
+    this.newstock = this.product.stock--
     this.$store.commit('readStock', this.product.stock)
   }
 }
