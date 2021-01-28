@@ -7,6 +7,7 @@
           </div>
       </div>
       <div class="flex justify-center items-center">
+          <div class="pr-8"> <span class="text-xs font-semibold">stock: {{cart.Product.stock}}</span> </div>
           <div class="pr-8 flex">
             <span @click="minusCart" role="button" class="font-semibold">-</span>
             <input type="text" class="focus:outline-none bg-gray-100 border h-6 w-10 rounded text-sm px-2 mx-2" min="1"
