@@ -79,6 +79,9 @@ export default {
           return e
         }
       })
+    },
+    balance () {
+      return this.$store.state.balance
     }
   },
   methods: {
@@ -96,47 +99,47 @@ export default {
       return formatRp(value)
     },
     checkout () {
-      console.log(this.toBePurchased, 'checkout')
-      let totalPrice = 0
-      this.toBePurchased.forEach((e, i) => {
-        const obj = {
-          quantity: e.quantity,
-          totalPrice: this.total
-        }
-        totalPrice += obj.totalPrice
-        eCommerceAPI.patch(`/products/${e.productId}`, obj, {
+      if (this.total < this.balance) {
+        console.log(this.toBePurchased, 'checkout')
+        let totalPrice = 0
+        this.toBePurchased.forEach((e, i) => {
+          const obj = {
+            quantity: e.quantity,
+            totalPrice: this.total
+          }
+          totalPrice += obj.totalPrice
+          eCommerceAPI.patch(`/products/${e.productId}`, obj, {
+            headers: { access_token: localStorage.access_token }
+          })
+            .then(({ data }) => {
+              // console.log(data, 'updated products')
+              return eCommerceAPI.delete(`/cart/${e.id}`, {
+                headers: { access_token: localStorage.access_token }
+              })
+                .then(data => {
+                  this.$store.dispatch('checkBalance')
+                  this.$store.dispatch('fetchCart')
+                  this.totalPriceFilter()
+                })
+                .catch(err => {
+                  console.log(err, 'error deleteFromCart')
+                })
+            })
+        })
+        totalPrice = totalPrice / (this.toBePurchased.length)
+        eCommerceAPI.patch('/user/balance/reduce', { balance: totalPrice }, {
           headers: { access_token: localStorage.access_token }
         })
-          .then(({ data }) => {
-            // console.log(data, 'updated products')
-            return eCommerceAPI.delete(`/cart/${e.id}`, {
-              headers: { access_token: localStorage.access_token }
-            })
-              .then(data => {
-                this.$store.dispatch('checkBalance')
-                this.totalPrice()
-              })
-              .catch(err => {
-                console.log(err, 'error deleteFromCart')
-              })
+          .then(data => {
+            this.$store.dispatch('fetchProducts')
+            this.$store.commit('setBalance', this.$store.state.totalPrice)
+            this.$store.commit('setTotalPrice', 0)
+            this.$store.dispatch('checkBalance')
           })
-      })
-      totalPrice = totalPrice / (this.toBePurchased.length)
-      eCommerceAPI.patch('/user/balance/reduce', { balance: totalPrice }, {
-        headers: { access_token: localStorage.access_token }
-      })
-        .then(data => {
-          this.$store.dispatch('fetchProducts')
-          this.$store.commit('setBalance', this.$store.state.totalPrice)
-          this.$store.commit('setTotalPrice', 0)
-          this.$store.dispatch('checkBalance')
-        })
-      this.$router.push('/')
-    }
-  },
-  watch: {
-    total (oldTotal, newTotal) {
-      console.log(oldTotal, newTotal, 'old new')
+        this.$router.push('/')
+      } else {
+        console.log('not enough balance')
+      }
     }
   },
   mounted () {

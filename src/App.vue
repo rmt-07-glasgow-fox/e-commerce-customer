@@ -88,7 +88,7 @@ export default {
         title: 'Input Amount to Add',
         icon: 'question',
         input: 'range',
-        inputLabel: 'Your age',
+        inputLabel: 'Amount of Balance',
         inputAttributes: {
           min: 50000,
           max: 100000000,
