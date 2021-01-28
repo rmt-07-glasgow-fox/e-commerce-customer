@@ -94,7 +94,7 @@ export default {
         price: '',
         stock: ''
       },
-      qty: 0,
+      qty: 1,
       cartId: '',
       total: 0
     }
@@ -108,7 +108,7 @@ export default {
     }
   },
   methods: {
-    async updateCart () {
+    updateCart () {
       const payload = {
         CartId: this.cartId,
         ProductId: this.product.id,
@@ -116,7 +116,7 @@ export default {
         currentPrice: this.product.price,
         accesstoken: localStorage.getItem('accesstoken')
       }
-      await this.$store.dispatch('updateCart', payload)
+      this.$store.dispatch('updateCart', payload)
     },
     plus () {
       if (this.qty < this.product.stock) {
@@ -124,11 +124,11 @@ export default {
       }
     },
     minus () {
-      if (this.qty > 0) {
+      if (this.qty > 1) {
         this.qty--
       }
     },
-    async findOne (id, qty, cartId) {
+    findOne (id, qty, cartId) {
       this.qty = qty
       this.cartId = cartId
       this.clear()
@@ -136,7 +136,7 @@ export default {
         product: id,
         accesstoken: this.getAccesstoken
       }
-      await this.$store.dispatch('findOne', data)
+      this.$store.dispatch('findOne', data)
     },
     clear () {
       this.product.id = ''
@@ -146,27 +146,27 @@ export default {
       this.product.stock = ''
       this.product.category = ''
     },
-    async destroy (ProductId, CartId) {
+    destroy (ProductId, CartId) {
       const payload = {
         CartId,
         ProductId,
         accesstoken: localStorage.getItem('accesstoken')
       }
-      await this.$store.dispatch('destroy', payload)
+      this.$store.dispatch('destroy', payload)
     },
-    async destroyCart (CartId) {
+    destroyCart (CartId) {
       const payload = {
         CartId,
         accesstoken: localStorage.getItem('accesstoken')
       }
-      await this.$store.dispatch('destroyCart', payload)
+      this.$store.dispatch('destroyCart', payload)
     },
-    async checkout (CartId) {
+    checkout (CartId) {
       const payload = {
         CartId,
         accesstoken: localStorage.getItem('accesstoken')
       }
-      await this.$store.dispatch('checkout', payload)
+      this.$store.dispatch('checkout', payload)
     }
   },
   created: function () {
@@ -177,7 +177,7 @@ export default {
   },
   watch: {
     carts: function () {
-      this.total = 0
+      this.total = 1
       this.carts.forEach(e => {
         this.total += (+e.price * +e.CartList.qty)
       })

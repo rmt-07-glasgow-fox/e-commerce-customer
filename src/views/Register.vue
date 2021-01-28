@@ -51,8 +51,8 @@ export default {
     }
   },
   methods: {
-    async register () {
-      await this.$store.dispatch('register', this.user)
+    register () {
+      this.$store.dispatch('register', this.user)
       this.user.firstname = ''
       this.user.lastname = ''
       this.user.email = ''

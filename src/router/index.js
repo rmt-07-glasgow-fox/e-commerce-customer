@@ -57,27 +57,22 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  console.log(localStorage.getItem('accesstoken'))
   if (to.name === 'Login' && localStorage.getItem('accesstoken')) next({ name: 'Home' })
   else next()
 })
 router.beforeEach((to, from, next) => {
-  console.log(localStorage.getItem('accesstoken'))
   if (to.name === 'Register' && localStorage.getItem('accesstoken')) next({ name: 'Home' })
   else next()
 })
 router.beforeEach((to, from, next) => {
-  console.log(localStorage.getItem('accesstoken'))
   if (to.name === 'Cart' && !localStorage.getItem('accesstoken')) next({ name: 'Home' })
   else next()
 })
 router.beforeEach((to, from, next) => {
-  console.log(localStorage.getItem('accesstoken'))
   if (to.name === 'WishList' && !localStorage.getItem('accesstoken')) next({ name: 'Home' })
   else next()
 })
 router.beforeEach((to, from, next) => {
-  console.log(localStorage.getItem('accesstoken'))
   if (to.name === 'History' && !localStorage.getItem('accesstoken')) next({ name: 'Home' })
   else next()
 })

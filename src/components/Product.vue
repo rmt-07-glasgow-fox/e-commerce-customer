@@ -77,7 +77,7 @@ export default {
         stock: '',
         category: ''
       },
-      qty: 0,
+      qty: 1,
       options: ['Fasion', 'Sport', 'Hobby', 'Drink', 'Food', 'Snack'],
       products: []
     }
@@ -105,7 +105,7 @@ export default {
       }
     },
     minus () {
-      if (this.qty > 0) {
+      if (this.qty > 1) {
         this.qty--
       }
     },
@@ -127,7 +127,7 @@ export default {
       this.product.price = ''
       this.product.stock = ''
       this.product.category = ''
-      this.qty = 0
+      this.qty = 1
     }
   },
   computed: {
