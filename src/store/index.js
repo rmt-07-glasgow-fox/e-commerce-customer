@@ -258,6 +258,11 @@ export default new Vuex.Store({
         })
     },
 
+    searchProduct (context, payload) {
+      context.commit('setFilterByName', payload)
+      console.log(this.state.filterName)
+    },
+
     deleteCarts (context, payload) {
       const headers = { access_token: localStorage.access_token }
 

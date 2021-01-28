@@ -39,7 +39,13 @@ export default {
   },
   computed: {
     products () {
-      return this.$store.state.products
+      if (this.$store.state.filterName) {
+        return this.$store.state.products.filter(data => {
+          return data.name.toLowerCase().includes(this.$store.state.filterName.toLowerCase())
+        })
+      } else {
+        return this.$store.state.products
+      }
     },
     err () {
       return this.$store.state.err

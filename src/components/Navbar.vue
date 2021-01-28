@@ -126,9 +126,10 @@ export default {
       this.$router.push('/login')
     },
     toSearch () {
+      this.$store.dispatch('searchProduct', this.search)
       this.$store.state.errorData = ''
       this.search = ''
-      this.$router.push('/')
+      // this.$router.push('/')
     }
   },
   computed: {

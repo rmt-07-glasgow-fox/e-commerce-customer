@@ -51,6 +51,7 @@ export default {
   },
   created () {
     this.$store.dispatch('fetchCarts')
+    console.log(this.filteredList)
   },
   methods: {
     paying () {
