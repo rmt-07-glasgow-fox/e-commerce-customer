@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from '../../api/axios'
+import Swal from 'sweetalert2'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    isAuth: false,
     products: [],
     product: {
       name: '',
@@ -20,9 +20,6 @@ export default new Vuex.Store({
     wishlists: []
   },
   mutations: {
-    toggleAuth (state, payload) {
-      state.isAuth = !state.isAuth
-    },
     fetchProducts (state, payload) {
       state.products = payload
     },
@@ -50,8 +47,7 @@ export default new Vuex.Store({
     async login (context, payload) {
       try {
         const response = await axios.post('/users/login', payload)
-        localStorage.setItem('access_token', response.access_token)
-        context.commit('toggleAuth')
+        localStorage.setItem('access_token', response.data.access_token)
       } catch (error) {
         throw new Error(error.response.data.errors)
       }
@@ -81,20 +77,71 @@ export default new Vuex.Store({
         throw new Error(error.response.data.errors)
       }
     },
+
+    // === Category ===
     async fetchCategories (context, payload) {
       try {
         const categories = await axios.get('/categories')
-        console.log(categories.data, '<<categories')
         context.commit('fetchCategories', categories.data)
       } catch (error) {
         throw new Error(error.response.data.errors)
       }
     },
+
+    // === Baner ===
     async fetchBanners (context, payload) {
       try {
         const banners = await axios.get('/banners')
         context.commit('fetchBanners', banners.data)
       } catch (error) {
+        throw new Error(error.response.data.errors)
+      }
+    },
+
+    // === Cart ===
+    async fetchCarts (context, payload) {
+      try {
+        const accessToken = localStorage.getItem('access_token')
+        const carts = await axios.get('/carts/user', { headers: { access_token: accessToken }, mode: 'cors' })
+        context.commit('fetchCarts', carts.data)
+      } catch (error) {
+        console.log(error)
+        throw new Error(error.response.data.errors)
+      }
+    },
+
+    async addCart (context, payload) {
+      try {
+        const accessToken = localStorage.getItem('access_token')
+        const data = {
+          qty: 1,
+          ProdId: payload
+        }
+        await axios.post('/carts', data, { headers: { access_token: accessToken }, mode: 'cors' })
+        this.fetchCarts
+        Swal.fire(
+          'Success',
+          'Added to Cart',
+          'success'
+        )
+      } catch (error) {
+        console.log(error)
+        throw new Error(error.response.data.errors)
+      }
+    },
+
+    async removeCart (context, payload) {
+      try {
+        const accessToken = localStorage.getItem('access_token')
+        await axios.delete('/carts/' + payload, { headers: { access_token: accessToken } })
+        this.fetchCarts
+        Swal.fire(
+          'Success',
+          'Added to Cart',
+          'success'
+        )
+      } catch (error) {
+        console.log(error)
         throw new Error(error.response.data.errors)
       }
     }

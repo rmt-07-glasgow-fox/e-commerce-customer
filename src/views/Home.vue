@@ -1,23 +1,22 @@
 <template>
   <div class="home">
     <sidebar></sidebar>
-    <router-view></router-view>
-    <div>
+    <router-view id="routerView"></router-view>
+    <!-- <div>
       <product-list></product-list>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import Sidebar from '@/components/Sidebar.vue'
-import ProductList from '@/components/ProductList.vue'
+// import ProductList from '@/components/ProductList.vue'
 
 export default {
   name: 'Home',
   components: {
-    Sidebar,
-    ProductList
+    Sidebar
   },
   created () {
     this.$store.dispatch('fetchProducts')
@@ -37,3 +36,8 @@ export default {
   }
 }
 </script>
+<style>
+  #routerView {
+    margin-top: 50px;
+  }
+</style>

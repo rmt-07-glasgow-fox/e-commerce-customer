@@ -1,5 +1,5 @@
 <template>
-  <div class="center grid" id="productList">
+  <div class="center grid">
     <vs-row>
       <product-card v-for="(product, i) in products" :key="i" :product="product"></product-card>
     </vs-row>
@@ -31,7 +31,4 @@ export default {
 </script>
 
 <style>
-  #productList {
-    margin-top: 50px;
-  }
 </style>
