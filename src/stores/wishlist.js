@@ -1,6 +1,18 @@
 import axios from '../api/axios'
 import Swal from 'sweetalert2'
 
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+})
+
 const state = {
   listWishlist: []
 }
@@ -28,11 +40,10 @@ const actions = {
       .post('/wishlist/add', payload)
       .then(({ data }) => {
         dispatch('getAllWishlist')
-        Swal.fire(
-          'Success',
-          'Successfully add item to wishlist',
-          'success'
-        )
+        Toast.fire({
+          icon: 'success',
+          title: 'Successfully add item to wishlist'
+        })
       })
       .catch(({ response }) => {
         Swal.fire(
@@ -57,11 +68,10 @@ const actions = {
           .delete(`/wishlist/${payload}`)
           .then(({ data }) => {
             dispatch('getAllWishlist')
-            Swal.fire(
-              'Success',
-              `${data.message}`,
-              'success'
-            )
+            Toast.fire({
+              icon: 'success',
+              title: `${data.message}`
+            })
           })
           .catch(({ response }) => {
             Swal.fire(

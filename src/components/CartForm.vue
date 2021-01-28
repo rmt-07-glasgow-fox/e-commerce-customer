@@ -9,10 +9,10 @@
             <th>Subtotal</th>
           </thead>
           <tbody>
-            <tr v-if="listCart[0].product.length === 0">
-              <td colspan="3"> no item in cart</td>
+              <tr v-if="listCart === null || !listCart.product">
+              <td> there's no item in cart</td>
             </tr>
-            <tr v-for="cart in listCart[0].product" :key="cart.id">
+            <tr v-else v-for="cart in listCart.product" :key="cart.id">
             <td>
               <div class="cart-info">
                 <img :src="cart.image_url" alt="">
@@ -23,7 +23,10 @@
               </div>
               </div>
             </td>
-            <td><input type="number" @change.prevent="listenChange(cart.id, cart.stock, cart.ProductCart.quantity, $event.target.value)"  :value="cart.ProductCart.quantity"></td>
+            <td><input type="number"
+            @change.prevent="listenChange(cart.id, cart.stock, cart.ProductCart.quantity, $event.target.value)"
+            :value="cart.ProductCart.quantity">
+            </td>
             <td>{{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(cart.ProductCart.totalPrice)}}</td>
             </tr>
           </tbody>
@@ -32,7 +35,7 @@
           <table>
             <tr>
               <td>Subtotal</td>
-              <td>{{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(listCart[0].totalPayment)}}</td>
+              <td v-if="listCart" >{{isNaN(listCart.totalPayment) === null  ? 0 : new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(listCart.totalPayment) }}</td>
             </tr>
           </table>
         </div>

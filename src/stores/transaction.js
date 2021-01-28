@@ -1,6 +1,18 @@
 import axios from '../api/axios'
 import Swal from 'sweetalert2'
 
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+})
+
 const state = {
   listTransaction: []
 }
@@ -37,11 +49,10 @@ const actions = {
           .post(`/checkout`)
           .then(({ data }) => {
             dispatch('cart/getAllCart', null, { root: true })
-            Swal.fire(
-              'Success',
-              `${data.message}`,
-              'success'
-            )
+            Toast.fire({
+              icon: 'success',
+              title: `${data.message}`
+            })
           })
           .catch(({ response }) => {
             Swal.fire(
