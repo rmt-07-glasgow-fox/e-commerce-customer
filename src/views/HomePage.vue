@@ -55,7 +55,7 @@ export default {
         products[ctr] = products[index]
         products[index] = temp
       }
-      return products
+      return products.slice(0, 4)
     }
   },
   methods: {

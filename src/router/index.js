@@ -14,6 +14,31 @@ const routes = [
   {
     path: '/',
     component: MainPage,
+    beforeEnter (to, from, next) {
+      if (!localStorage.access_token) {
+        switch (to.name) {
+          case 'WishlistPage':
+            next('/auth')
+            break
+
+          case 'HistoryPage':
+            next('/auth')
+            break
+
+          case 'CartPage':
+            next('/auth')
+            break
+
+          default:
+            next()
+        }
+      } else next()
+      // if (to.name === 'WishlistPage') {
+      //   next('/auth')
+      // } else {
+      //   next()
+      // }
+    },
     children: [
       {
         path: '',
@@ -25,6 +50,33 @@ const routes = [
         name: 'ProductsPage',
         component: ProductsPage
       },
+      // {
+      //   path: '',
+      //   children: [
+      //     {
+      //       path: 'wishlist',
+      //       name: 'WishlistPage',
+      //       component: WishlistPage
+      //     },
+      //     {
+      //       path: 'history',
+      //       name: 'HistoryPage',
+      //       component: HistoryPage
+      //     },
+      //     {
+      //       path: 'cart',
+      //       name: 'CartPage',
+      //       component: CartPage
+      //     }
+      //   ],
+      //   beforeEnter (to, from, next) {
+      //     if (localStorage.access_token) {
+      //       next()
+      //     } else {
+      //       next('/auth')
+      //     }
+      //   }
+      // }
       {
         path: 'wishlist',
         name: 'WishlistPage',
