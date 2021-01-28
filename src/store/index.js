@@ -14,6 +14,7 @@ export default new Vuex.Store({
     search: '',
     carts: [],
     transactions: [],
+    banners: [],
     Toast: Swal.mixin({
       toast: true,
       position: 'top',
@@ -44,6 +45,9 @@ export default new Vuex.Store({
     },
     insertTransaction (state, payload) {
       state.transactions = payload
+    },
+    insertBanner (state, payload) {
+      state.banners = payload
     }
   },
   actions: {
@@ -103,6 +107,18 @@ export default new Vuex.Store({
       })
         .then(({ data }) => {
           commit('insertProduct', data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    fetchBanner ({ commit }) {
+      axios({
+        method: 'GET',
+        url: '/banners'
+      })
+        .then(({ data }) => {
+          commit('insertBanner', data)
         })
         .catch(err => {
           console.log(err)

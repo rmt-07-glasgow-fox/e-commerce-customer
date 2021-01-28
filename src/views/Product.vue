@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <slider></slider>
     <div class="row d-flex justify-content-center">
       <div v-if="products.length < 1" class="fs-3">No Product Available</div>
       <product-card
@@ -13,13 +14,17 @@
 
 <script>
 import ProductCard from '../components/ProductCard.vue'
+import Slider from '../components/Slider.vue'
 
 export default {
-  components: { ProductCard },
+  components: { ProductCard, Slider },
   name: 'Product',
   methods: {
     fetchProduct () {
       this.$store.dispatch('fetchProduct')
+    },
+    fetchBanner () {
+      this.$store.dispatch('fetchBanner')
     }
   },
   computed: {
@@ -35,6 +40,7 @@ export default {
   },
   created () {
     this.fetchProduct()
+    this.fetchBanner()
   }
 }
 </script>
