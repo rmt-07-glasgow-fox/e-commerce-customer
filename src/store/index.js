@@ -88,6 +88,15 @@ export default new Vuex.Store({
           context.commit('SET_ISLOGGEDIN', true)
           localStorage.setItem('access_token', data.access_token)
           router.push('/')
+          Vue.swal({
+            title: 'Success login!',
+            icon: 'success',
+            toast: true,
+            position: 'top-end',
+            timer: 2000,
+            timerProgressBar: true,
+            showConfirmButton: false
+          })
         })
         .catch(err => {
           console.log(err.response)
@@ -103,8 +112,10 @@ export default new Vuex.Store({
         }
       })
         .then(({ data }) => {
-          console.log(data)
-          router.push('/login')
+          context.dispatch('handleLogin', {
+            email: payload.email,
+            password: payload.password
+          })
         })
         .catch(err => {
           console.log(err.response)
