@@ -97,6 +97,7 @@ export default {
   },
   methods: {
     toHome () {
+      this.$store.state.filterName = ''
       this.$store.state.errorData = ''
       this.$router.push('/')
     },
