@@ -38,6 +38,18 @@ export default {
       password: ''
     }
   },
+  watch: {
+    errors: function (val, oldVal) {
+      if (val.length > 0) {
+        this.$swal.fire({
+          icon: 'error',
+          title: 'Please try again',
+          text: this.errors[0],
+          footer: '<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400" target="_blank">400 Bad request</a>'
+        })
+      }
+    }
+  },
   methods: {
     login () {
       const payload = {
