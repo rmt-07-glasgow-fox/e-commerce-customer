@@ -47,7 +47,10 @@ export default {
       this.$router.push('/')
     },
     logOut () {
-      this.$store.dispatch('logOut')
+      localStorage.clear()
+      this.$store.dispatch('cekStatus')
+      this.$router.push('/')
+      this.$store.dispatch('fetchData')
     },
     history () {
       this.$router.push('/history')

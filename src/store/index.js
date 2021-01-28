@@ -157,7 +157,7 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
-    minusCart (context, payload) {
+    minusCart ({ dispatch, commit, state }, payload) {
       console.log(payload, 'axios delete')
       return axios({
         method: 'PUT',
@@ -168,13 +168,14 @@ export default new Vuex.Store({
       })
         .then(res => {
           console.log(res.data)
-          this.dispatch('fetchCart')
+          dispatch('fetchCart')
+          dispatch('totalShop')
         })
         .catch(err => {
           console.log(err)
         })
     },
-    checkOut (context, payload) {
+    checkOut ({ dispatch, commit, state }, payload) {
       console.log(payload, 'axios delete')
       return axios({
         method: 'PUT',
@@ -185,14 +186,14 @@ export default new Vuex.Store({
       })
         .then(res => {
           console.log(res.data)
-          this.dispatch('fetchCart')
+          dispatch('fetchCart')
           this.$router.push('/')
         })
         .catch(err => {
           console.log(err)
         })
     },
-    destroyCart (context, payload) {
+    destroyCart ({ dispatch, commit, state }, payload) {
       console.log(payload, 'axios delete')
       return axios({
         method: 'DELETE',
@@ -203,13 +204,13 @@ export default new Vuex.Store({
       })
         .then(res => {
           console.log(res.data)
-          this.dispatch('fetchCart')
+          dispatch('fetchCart')
         })
         .catch(err => {
           console.log(err)
         })
     },
-    plusCart (context, payload) {
+    plusCart ({ dispatch, commit, state }, payload) {
       console.log(payload, 'axios delete')
       return axios({
         method: 'PUT',
@@ -220,34 +221,12 @@ export default new Vuex.Store({
       })
         .then(res => {
           console.log(res.data)
-          this.dispatch('fetchCart')
+          dispatch('fetchCart')
+          dispatch('totalShop')
         })
         .catch(err => {
           console.log(err)
         })
-    },
-    deleteProduct (context, payload) {
-      console.log(payload, 'axios delete')
-      return axios({
-        method: 'DELETE',
-        url: 'http://localhost:3000/products/' + payload,
-        headers: {
-          access_token: localStorage.getItem('access_token')
-        }
-      })
-        .then(res => {
-          console.log(res.data)
-          this.dispatch('fetchData')
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    },
-    logOut () {
-      localStorage.clear()
-      this.dispatch('cekStatus')
-      this.$router.push('/')
-      this.dispatch('fetchData')
     }
   }
 })

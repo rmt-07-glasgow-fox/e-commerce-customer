@@ -37,7 +37,8 @@
         <div class="container mt-5 col-sm-3">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Total : <b>Rp. {{ totalList.toLocaleString('id-ID') }}</b> </h5>
+              <h5 class="card-title" v-if="totalList">Total : <b>Rp. {{ totalList.toLocaleString('id-ID') }}</b> </h5>
+              <h5 class="card-title" v-else>Total : <b>Rp. 0</b> </h5>
               <p class="card-text">We Apreciate your time and we want you to proceed immediately, so just checkout this</p>
               <button class="btn btn-primary" v-on:click="checkOut">Check Out</button>
             </div>
