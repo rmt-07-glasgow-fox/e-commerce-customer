@@ -1,5 +1,8 @@
 # ecommerce-client-customer
 
+link deploy : https://sepatu-lokal-by-rozakus.web.app/
+
+
 ## Project setup
 ```
 npm install
