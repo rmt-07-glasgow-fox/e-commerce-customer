@@ -3,8 +3,8 @@
         <div class='row content'>
             <div class='container'>
                 <div id="nav">
-                  <router-link to="/register"> Register </router-link> |
-                  <router-link to="/login"> Login </router-link>
+                  <router-link to="/home/register"> Register </router-link> |
+                  <router-link to="/home/login"> Login </router-link>
                 </div>
             </div>
             <div class='col-md-6 mb-3'>
