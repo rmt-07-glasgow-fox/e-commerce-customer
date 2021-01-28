@@ -25,7 +25,7 @@
                       <font-awesome-icon style="cursor: pointer" icon="minus-circle" @click="minus(i)" />
                     </div>
                     <div class="col-3" v-if="product.stock !== 0">
-                      <p class="text text-left" style="font-family: GraphikBold; font-size: 17px;">{{ product.qty > product.stock ? product.stock : product.qty }}</p>
+                      <p class="text text-left" style="font-family: GraphikBold; font-size: 17px;">{{ product.qty }}</p>
                     </div>
                     <div class="col-3" v-if="product.stock !== 0">
                       <font-awesome-icon icon="plus-circle" style="cursor: pointer"  @click="plus(i)" />
@@ -78,7 +78,7 @@ export default {
           console.log(response)
           status.push({
             productName: this.productCart[i].name,
-            status: 'Success'
+            status: 'Checkout Success'
           })
         } catch (error) {
           console.log(error.response.data)

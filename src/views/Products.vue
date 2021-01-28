@@ -4,8 +4,14 @@
   <div class="container-fluid bg" style="height: auto;">
   <div class="container pl-5">
     <h1 class="pt-4" style="padding-right: 60px">Products</h1>
+    <h4 class="pt-4" style="padding-right: 60px">Double click product to add wishlist</h4>
+    <transition name="fade">
+      <div style="padding-right: 60px; font-size: 70px" class="heart text-center" v-if="show">
+        <font-awesome-icon icon="heart" />
+      </div>
+    </transition>
     <div class="row mt-5">
-      <div class="col-4 pb-5" v-for="product in allProducts" :key="product.id">
+      <div class="col-4 pb-5" v-for="product in allProducts" :key="product.id" v-on:dblclick.prevent="addWishlist(product.id)">
         <div class="card bg-light trform" style="width: 18rem; padding: 10px;">
           <img class="card-img-top" :src="product.imageUrl" alt="Card image cap">
           <div class="card-body">
@@ -30,6 +36,11 @@ export default {
   components: {
     Navbar
   },
+  data () {
+    return {
+      show: false
+    }
+  },
   methods: {
     async fetchAllProducts () {
       await this.$store.dispatch('fetchAllProducts')
@@ -41,6 +52,19 @@ export default {
         const payload = { ProductId, qty: 1 }
         await this.$store.dispatch('addCart', payload)
         this.$router.push('/cart')
+      }
+    },
+    async addWishlist (ProductId) {
+      if (!localStorage.access_token) {
+        this.$router.push('/login')
+      } else {
+        this.show = true
+        const payload = { ProductId }
+        this.timeout = setTimeout(() => {
+          this.show = false
+        }, 500)
+        console.log('masukk')
+        await this.$store.dispatch('addWishlist', payload)
       }
     }
   },
@@ -69,5 +93,11 @@ export default {
   transition-duration: 0.6s, 0.6s;
   transition-timing-function: ease, ease;
   transition-delay: 0s, 0s;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 </style>

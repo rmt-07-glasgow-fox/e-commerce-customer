@@ -7,7 +7,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     products: [],
-    cart: []
+    cart: [],
+    wishlist: []
   },
   mutations: {
     SET_PRODUCTS (state, payload) {
@@ -15,6 +16,9 @@ export default new Vuex.Store({
     },
     SET_CART (state, payload) {
       state.cart = payload
+    },
+    SET_WISHLIST (state, payload) {
+      state.wishlist = payload
     }
   },
   actions: {
@@ -95,6 +99,45 @@ export default new Vuex.Store({
           }
         })
         // console.log(response)
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    async addWishlist (context, payload) {
+      try {
+        const response = await axios.post('/wishlist', payload, {
+          headers: {
+            access_token: localStorage.access_token
+          }
+        })
+        console.log(response)
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    async getWishlist (context) {
+      try {
+        const response = await axios.get('/wishlist', {
+          headers: {
+            access_token: localStorage.access_token
+          }
+        })
+        const payload = response.data
+        context.commit('SET_WISHLIST', payload)
+        console.log(response)
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    async deleteWishlist (context, payload) {
+      const id = payload
+      try {
+        const response = await axios.delete('/wishlist/' + id, {
+          headers: {
+            access_token: localStorage.access_token
+          }
+        })
+        console.log(response)
       } catch (err) {
         console.log(err)
       }
