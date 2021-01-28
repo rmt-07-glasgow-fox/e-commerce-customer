@@ -109,6 +109,7 @@ export default new Vuex.Store({
         .catch(err => console.log(err))
     },
     showProductOne (context, payload) {
+      console.log('test')
       axios({
         method: 'GET',
         url: `/customers/products/${payload.id}`,
@@ -162,7 +163,7 @@ export default new Vuex.Store({
               console.log('create')
             }
           })
-          .catch(err => console.log(err))
+          .catch(err => console.log(err.response))
       }
     },
     updateCartProduct (context, payload) {
