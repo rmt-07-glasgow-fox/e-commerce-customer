@@ -1,0 +1,45 @@
+[debug] [2021-01-28T05:29:44.921Z] ----------------------------------------------------------------------
+[debug] [2021-01-28T05:29:44.923Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\kiyai\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init hosting
+[debug] [2021-01-28T05:29:44.924Z] CLI Version:   9.2.0
+[debug] [2021-01-28T05:29:44.924Z] Platform:      win32
+[debug] [2021-01-28T05:29:44.924Z] Node Version:  v14.15.4
+[debug] [2021-01-28T05:29:44.925Z] Time:          Thu Jan 28 2021 12:29:44 GMT+0700 (Waktu Indonesia Barat)
+[debug] [2021-01-28T05:29:44.925Z] ----------------------------------------------------------------------
+[debug] [2021-01-28T05:29:44.925Z] 
+[debug] [2021-01-28T05:29:44.927Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2021-01-28T05:29:44.948Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-01-28T05:29:44.949Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  W:\hactiv8\pase2week3\ecommerce\ecommerce-client-customer
+
+[debug] [2021-01-28T05:29:46.301Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2021-01-28T05:29:46.301Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}
+[debug] [2021-01-28T05:43:06.329Z] ----------------------------------------------------------------------
+[debug] [2021-01-28T05:43:06.332Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\kiyai\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init hosting
+[debug] [2021-01-28T05:43:06.332Z] CLI Version:   9.2.0
+[debug] [2021-01-28T05:43:06.332Z] Platform:      win32
+[debug] [2021-01-28T05:43:06.332Z] Node Version:  v14.15.4
+[debug] [2021-01-28T05:43:06.333Z] Time:          Thu Jan 28 2021 12:43:06 GMT+0700 (Waktu Indonesia Barat)
+[debug] [2021-01-28T05:43:06.334Z] ----------------------------------------------------------------------
+[debug] [2021-01-28T05:43:06.334Z] 
+[debug] [2021-01-28T05:43:06.339Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-01-28T05:43:06.340Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  W:\hactiv8\pase2week3\ecommerce\ecommerce-client-customer
+

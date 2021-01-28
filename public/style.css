@@ -1,0 +1,116 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces&display=swap");
+* {
+  font-family: "Fraunces", serif;
+}
+.bottom-left-icon {
+  width: 10%;
+  position: absolute;
+  top: 8px;
+  right: 16px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.bottom-left {
+  position: absolute;
+  bottom: 50px;
+  left: 10px;
+  background-color: rgba(0, 0, 0, 0.57);
+  padding-top: 1px;
+  padding-bottom: 1px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.allign-left {
+  text-align: left;
+}
+
+.button-add-cart {
+  width: 100px;
+}
+
+.product-img {
+  align-self: center;
+  height: 200px;
+  object-fit: contain;
+}
+
+.font-table {
+  font-size: 15px;
+}
+
+.bg-content {
+  max-height: 500px;
+}
+
+.cart-img {
+  width: 20%;
+  object-fit: contain;
+  margin-left: 10px;
+}
+
+.cart-card {
+  flex-direction: unset;
+  height: 100px;
+  margin-bottom: 10px;
+}
+
+.cart-text {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.button-table {
+  display: none;
+  position: absolute;
+  right: 15px;
+  top: 5px;
+  height: 20px;
+}
+
+tr:hover td .button-table {
+  display: block;
+}
+
+.td-table {
+  position: relative;
+}
+
+.card-text {
+  font-size: 20px;
+}
+
+.up-left {
+  /* position: absolute;
+    top: 50px;
+    right: 200px; */
+  display: block;
+}
+
+.cartCard:hover .up-left {
+  display: block;
+}
+
+.form-container {
+  position: absolute;
+  top: 15vh;
+  background-color: rgba(255, 255, 255, 0.856);
+  padding: 30px;
+  width: 90%;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 0px #0000004d;
+}
+form input {
+  border-top-style: hidden !important;
+  border-right-style: hidden !important;
+  border-left-style: hidden !important;
+  border-bottom-style: groove !important;
+  background-color: rgba(238, 238, 238, 0) !important;
+  outline: none !important;
+  border-radius: 0% !important;
+}
+.nav-menu {
+  margin-left: 70%;
+}
