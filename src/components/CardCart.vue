@@ -7,8 +7,8 @@
       <div class="col-md-8">
         <div class="card-body">
           <h4 class="card-title">{{ cart.Product.name }}</h4>
-          <h5 class="card-title">Total : {{ cart.totalPrice }}</h5>
-          <small class="text-muted">Price : {{ cart.Product.price }}/pcs</small><br>
+          <h5 class="card-title">Total : {{ toRupiah(cart.totalPrice) }}</h5>
+          <small class="text-muted">Price : {{ toRupiah(cart.Product.price) }} / pcs</small><br>
           <small class="text-muted">Stock : {{ cart.Product.stock }}</small>
           <div class="my-2">
             <form @submit.prevent="updateCart(cart.id)">
@@ -55,6 +55,12 @@ export default {
       }
 
       await this.$store.dispatch('updateCart', body)
+    },
+    toRupiah (number) {
+      return number.toLocaleString('id-ID', {
+        style: 'currency',
+        currency: 'IDR'
+      })
     }
   },
   props: ['cart'],

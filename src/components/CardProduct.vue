@@ -8,7 +8,7 @@
       />
       <div class="card-body card-body text-light">
         <h6 class="card-title">{{product.name}}</h6>
-        <p class="card-text">Price : {{product.price}}</p>
+        <p class="card-text">Price : {{toRupiah(product.price)}}</p>
         <p class="card-text">Stock : {{product.stock}}</p>
         <button @click="addCart(product.id)" class="btn btn-warning bg-gradient btn-block shadow-lg"><b-icon icon="cart-plus-fill"/> Add to Cart</button>
       </div>
@@ -24,6 +24,12 @@ export default {
     async addCart (ProductId) {
       console.log('>>> addCart ', ProductId)
       this.$store.dispatch('addCart', ProductId)
+    },
+    toRupiah (number) {
+      return number.toLocaleString('id-ID', {
+        style: 'currency',
+        currency: 'IDR'
+      })
     }
   },
   props: ['product'],

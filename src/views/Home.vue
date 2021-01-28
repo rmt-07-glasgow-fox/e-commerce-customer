@@ -1,8 +1,5 @@
 <template>
   <b-container fluid class="h-100 w-100 py-5 bg-image">
-    <div class="container text-center">
-      <h1>Products</h1>
-    </div>
     <div class="row justify-content-start">
       <CardProduct v-for="(product, index) in products"
       :key="index"
