@@ -1,7 +1,14 @@
 <template>
   <div id="Navbar" class="sticky-top">
     <!-- navbar -->
-    <nav class="navbar navbar-light bg-light shadow" style="height: 56px">
+    <nav
+      class="navbar navbar-light bg-light shadow"
+      style="
+        height: 56px;
+        border-bottom-left-radius: 1.6em;
+        border-bottom-right-radius: 1.6em;
+      "
+    >
       <div class="container-fluid container-style">
         <router-link to="/" class="logo-pc">
           <img src="@/assets/img_logoLineC.svg" height="24" />
@@ -40,13 +47,7 @@
           <div class="dropdown">
             <!-- user-info -->
             <div
-              class="d-flex"
-              style="
-                background-color: #eeeeee;
-                border-radius: 2.5rem;
-                padding: 4px 8px;
-                margin-left: 8px;
-              "
+              class="d-flex user-btn"
               id="dropdownMenuButton"
               data-bs-toggle="dropdown"
               aria-expanded="false"
@@ -204,6 +205,10 @@ export default {
   background-color: #f7fafc;
 }
 
+.shadow {
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15) !important;
+}
+
 .container-style {
   margin: auto 32px;
 }
@@ -224,6 +229,22 @@ export default {
   .logo-mobile {
     display: block;
   }
+}
+
+.user-btn {
+  background-color: #eeeeee;
+  border-radius: 2.5rem;
+  padding: 4px 8px;
+  margin-left: 8px;
+}
+.user-btn:hover {
+  background-color: #e6e6e6;
+}
+.user-btn:active {
+  background-color: #d6d6d6;
+}
+.user-btn:focus-visible{
+  background-color: blue;
 }
 
 .nav-drop {

@@ -71,7 +71,8 @@
                     Login
                   </button>
                 </form>
-                <button
+                <!-- <button
+                  v-google-signin-button="this.clientid"
                   class="btn btn-outline-primary w-100"
                   style="margin-top: 16px"
                 >
@@ -81,7 +82,7 @@
                     style="margin-bottom: 4px; margin-right: 8px"
                   />
                   Login with Google
-                </button>
+                </button> -->
 
                 <p
                   style="margin-bottom: 0; margin-top: 24px"
@@ -113,12 +114,15 @@
 </template>
 
 <script>
+// import axios from '@/api/axios.js'
+// import router from '@/router/index.js'
 import { MailIcon, LockIcon } from 'vue-feather-icons'
 
 export default {
   name: 'LoginForm',
   data () {
     return {
+      // clientid: '823604279916-3c18fv7m0r4icev5ebcneasfl5mgee0c.apps.googleusercontent.com',
       payload: {
         email: '',
         password: ''
@@ -136,6 +140,22 @@ export default {
     },
     showPassword () {
       this.passwordType === 'password' ? this.passwordType = 'text' : this.passwordType = 'password'
+    // },
+    // OngoogleAuthSuccess (idToken) {
+    //   axios({
+    //     method: 'POST',
+    //     url: '/glogin',
+    //     headers: { id_token: idToken }
+    //   })
+    //     .then(result => {
+    //       this.$store.auth.commit('isLogin', true)
+    //       localStorage.setItem('access_token', result.access_token)
+    //       router.replace('/')
+    //     })
+    //     .catch(err => console.log(err))
+    // },
+    // OnGoogleAuthFail (error) {
+    //   console.log(error)
     }
   }
 }

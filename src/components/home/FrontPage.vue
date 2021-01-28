@@ -55,7 +55,7 @@
         <!-- product-card// -->
         <router-link
           to="/product"
-          style="margin: 32px auto; width: 240px"
+          style="margin: 32px auto; width: 240px; padding: 0"
           @click.native="scrollToTop"
         >
           <button

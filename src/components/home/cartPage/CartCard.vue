@@ -54,6 +54,7 @@
             <plus-icon size="1x"></plus-icon>
           </button>
         </div>
+        <br />
         <button
           class="btn btn-outline-danger"
           style="border-radius: 2.4em"

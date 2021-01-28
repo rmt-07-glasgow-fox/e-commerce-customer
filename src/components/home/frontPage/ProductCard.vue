@@ -96,7 +96,7 @@ export default {
   props: ['Product', 'isLogin'],
   data () {
     return {
-      wishlist: {}
+      wishlist: []
     }
   },
   components: {
@@ -134,7 +134,6 @@ export default {
         })
 
         this.wishlist = data
-        return console.log('OK')
       } catch (err) {
         console.log(err)
       }
