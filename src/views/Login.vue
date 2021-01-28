@@ -48,8 +48,8 @@ export default {
       this.$store.dispatch('login', this.user)
     },
     toRegister () {
-      this.$router.push('/register')
       this.$store.state.errorData = ''
+      this.$router.push('/register')
     }
   },
   computed: {
