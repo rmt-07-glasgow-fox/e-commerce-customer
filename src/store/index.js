@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from '../api/axios'
 import router from '../router'
-// import router from '../router'
+import Swal from 'sweetalert2'
 
 Vue.use(Vuex)
 
@@ -56,19 +56,31 @@ export default new Vuex.Store({
         }
       })
         .then((response) => {
-          console.log('Berhasil', response)
+          // console.log('Berhasil', response)
+          Swal.fire({
+            icon: 'success',
+            title: 'Login success'
+          })
           localStorage.setItem('access_token', response.data.access_token)
           router.push('/')
         })
         .catch((error) => {
-          console.log('Gagal', error)
+          // console.log('Gagal', error)
           console.log(error)
+          Swal.fire({
+            icon: 'error',
+            title: 'Login failed'
+          })
         })
     },
 
     logout (context, payload) {
       localStorage.clear()
       router.push('/login')
+      Swal.fire({
+        icon: 'success',
+        title: 'Logout success'
+      })
     },
 
     register (context, payload) {
@@ -83,9 +95,17 @@ export default new Vuex.Store({
       })
         .then((response) => {
           router.push('/login')
+          Swal.fire({
+            icon: 'success',
+            title: 'Success created new account'
+          })
         })
         .catch((error) => {
           console.log(error)
+          Swal.fire({
+            icon: 'error',
+            title: 'Create new account failed'
+          })
         })
     },
 
@@ -147,10 +167,18 @@ export default new Vuex.Store({
         }
       })
         .then((response) => {
-          console.log('INI DATA ADD TO CART', response.data)
+          // console.log('INI DATA ADD TO CART', response.data)
+          Swal.fire({
+            icon: 'success',
+            title: 'Success added product to your cart'
+          })
         })
         .catch((error) => {
           console.log(error)
+          Swal.fire({
+            icon: 'error',
+            title: 'Something went wrong, please try again later'
+          })
         })
     },
 
@@ -168,11 +196,31 @@ export default new Vuex.Store({
         }
       })
         .then(() => {
-          context.commit('removeCartItem', payload.CartItemId)
-          context.commit('setTotalCart')
+          Swal.fire({
+            title: 'Are you sure?',
+            text: 'You cant be able to revert this!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+            if (result) {
+              Swal.fire({
+                icon: 'success',
+                text: 'Product has been deleted'
+              })
+              context.commit('removeCartItem', payload.CartItemId)
+              context.commit('setTotalCart')
+            }
+          })
         })
         .catch((error) => {
           console.log(error)
+          Swal.fire({
+            icon: 'error',
+            text: 'Failed delete product'
+          })
         })
     },
 
@@ -196,9 +244,17 @@ export default new Vuex.Store({
           // }
 
           context.commit('updateTotal', response.data)
+          Swal.fire({
+            icon: 'success',
+            title: 'Quantity item updated'
+          })
         })
         .catch((error) => {
           console.log(error)
+          Swal.fire({
+            icon: 'error',
+            title: 'Something went wrong, please try again later'
+          })
         })
     }
   },

@@ -8,7 +8,7 @@
         <div class="row">
           <div class="col-md-2 mb-2">
             <input
-              v-model="quantity" type="number" min="1" max="10"
+              v-model="quantity" type="number" min="1" max="10" placeholder="[1-10]"
               class="form-control" width="10%">
           </div>
           <div class="col-md-2 mb-2">
