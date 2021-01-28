@@ -172,6 +172,7 @@ export default new Vuex.Store({
         })
         .catch((err) => {
           console.log(err)
+          Swal.fire('The quantity you wish to buy exceeds our stock!')
         })
     },
     fetchHistoryCarts (context, payload) {

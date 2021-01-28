@@ -9,7 +9,7 @@
           <p class="card-text"><b>Rp {{total.toLocaleString('id-ID')}}</b></p>
           <p class="text-danger" v-if="quantity > cart.Product.stock">Quantity exceeds stock</p>
           <p class="card-text">Quantity:
-            <input type="number" size="10px" min="1" v-model="quantity">
+            <input type="number" size="10px" min="1" :max="cart.Product.stock" v-model="quantity">
             (max: {{cart.Product.stock}})</p>
           <div>
             <a href="" class="btn-sm btn-danger" @click.prevent="removeCart(cart.id)">Remove from cart</a>
@@ -65,7 +65,7 @@ export default {
         quantity: +this.quantity
       }
       this.$store.dispatch('addToCart', payload)
-      // this.$store.dispatch('fetchCarts')
+      this.$store.dispatch('fetchCarts')
     }
   }
 }

@@ -16,7 +16,7 @@
 import CheckoutCard from '../components/CheckoutCard.vue'
 
 export default {
-  name: 'Cart',
+  name: 'Checkout',
   components: {
     CheckoutCard
   },
