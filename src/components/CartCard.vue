@@ -24,6 +24,8 @@
 </template>
 
 <script>
+import Vue from 'vue'
+
 export default {
   name: 'CartCard',
   props: ['cart'],
@@ -49,11 +51,29 @@ export default {
         ProductId: this.cart.ProductId,
         amount: -1
       })
+      Vue.swal({
+        title: `Success remove 1 ${this.cart.Product.name}`,
+        icon: 'success',
+        toast: true,
+        position: 'top-end',
+        timer: 2000,
+        timerProgressBar: true,
+        showConfirmButton: false
+      })
     },
     increaseAmount () {
       this.$store.dispatch('handleAddProductToCart', {
         ProductId: this.cart.ProductId,
         amount: 1
+      })
+      Vue.swal({
+        title: `Success add 1 ${this.cart.Product.name}`,
+        icon: 'success',
+        toast: true,
+        position: 'top-end',
+        timer: 2000,
+        timerProgressBar: true,
+        showConfirmButton: false
       })
     }
   }
