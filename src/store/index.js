@@ -121,7 +121,7 @@ export default new Vuex.Store({
         })
         .catch((err) => {
           console.log(err.response.data.message)
-          Swal.fire('Please login first!')
+          Swal.fire('Can\'t added to cart. Please login first if you haven\'t!')
         })
     },
     updateCart (context, payload) {
