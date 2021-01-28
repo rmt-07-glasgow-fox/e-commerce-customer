@@ -1,8 +1,11 @@
 <template>
   <div id="app">
-    <Navbar/>
-    <br>
-    <router-view/>
+    <div>
+      <Navbar/>
+      <div id="page">
+        <router-view/>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -38,4 +41,5 @@ export default {
   color: #42b983;
   margin-top: 5cm;
 }
+
 </style>

@@ -3,7 +3,7 @@
     <div class="container">
       <div class="card" style="width: 10rem;">
         <img class="card-img-top" :src="product.image_url" alt="...">
-        <div class="card-body">
+        <div id="underImg" class="card-body">
           <h5 class="card-title">{{product.name}}</h5>
           <p class="card-text">{{product.price}}</p>
           <p class="card-text">stock: {{ this.stock }}</p>
@@ -13,7 +13,6 @@
         </div>
       </div>
     </div>
-    <br>
   </div>
 </template>
 
@@ -23,7 +22,8 @@ export default {
   props: ['product'],
   data () {
     return {
-      stock: this.$store.state.stock
+      stock: this.product.stock,
+      newstock: 0
     }
   },
   methods: {
@@ -32,11 +32,18 @@ export default {
         return this.$router.replace('login')
       } else {
         this.$store.dispatch('createCart', id)
-        this.stock--
+        this.stock = this.product.stock--
+        this.$store.commit('readStock', this.stock)
+        const payload = {
+          id,
+          stock: this.newstock
+        }
+        this.$store.dispatch('updatestock', payload)
       }
     }
   },
   created () {
+    this.newstock = this.product.stock - 1
     this.$store.commit('readStock', this.product.stock)
   }
 }
@@ -45,5 +52,8 @@ export default {
 <style scoped>
   img{
     height: 10rem;
+  }
+  .col-2{
+    margin: auto;
   }
 </style>

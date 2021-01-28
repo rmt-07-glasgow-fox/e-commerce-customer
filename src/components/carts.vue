@@ -38,6 +38,7 @@ export default {
         quantity
       }
       if (quantity < 1) {
+        this.$store.commit('readStock', this.$store.state.stock++)
         return this.$store.dispatch('deleteCart', id)
       } else {
         this.$store.commit('increment')

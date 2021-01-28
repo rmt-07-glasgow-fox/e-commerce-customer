@@ -55,4 +55,7 @@ export default {
 </script>
 
 <style scoped>
+  .half{
+    margin-top: 150px;
+  }
 </style>

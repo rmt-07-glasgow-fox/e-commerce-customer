@@ -8,7 +8,7 @@
           <router-link to="/carts">Carts</router-link>
         </div>
       </div>
-      <div class="d-flex align-items-center">
+      <div v-show="page == 'login'" class="d-flex align-items-center">
         <div class="ml-auto p-2 bd-highlight">
           <button @click="logout" class="btn btn-danger btn-sm">Log Out</button>
         </div>
@@ -20,11 +20,28 @@
 <script>
 export default {
   name: 'Navbar',
+  data () {
+    return {
+      page: this.cekLogin
+    }
+  },
   methods: {
     logout () {
       localStorage.clear()
       this.$store.commit('removeCart')
       this.$router.replace('/')
+    }
+  },
+  created () {
+    if (!localStorage.access_token) {
+      this.$store.commit('btnLogout', 'unlogin')
+    } else {
+      this.$store.commit('btnLogout', 'login')
+    }
+  },
+  computed: {
+    cekLogin () {
+      return this.$store.state.login
     }
   }
 }

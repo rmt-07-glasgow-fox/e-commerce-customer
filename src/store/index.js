@@ -8,7 +8,8 @@ export default new Vuex.Store({
   state: {
     products: [],
     carts: [],
-    stock: 0
+    stock: 0,
+    login: ''
   },
   mutations: {
     readData (state, payload) {
@@ -16,6 +17,9 @@ export default new Vuex.Store({
     },
     readCart (state, payload) {
       state.carts = payload
+    },
+    btnLogout (state, payload) {
+      state.login = payload
     },
     removeCart (state) {
       state.carts = []
@@ -137,6 +141,27 @@ export default new Vuex.Store({
         .then(({ data }) => {
           console.log('Sucess deleted')
           context.dispatch('featchReadCart')
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    updatestock (context, payload) {
+      const id = payload.id
+      const newstock = payload.stock
+      axios({
+        method: 'put',
+        url: '/customer/products/' + id,
+        headers: {
+          access_token: localStorage.access_token
+        },
+        data: {
+          stock: newstock
+        }
+      })
+        .then(({ data }) => {
+          context.dispatch('featchReadAll', data)
+          console.log(data)
         })
         .catch(err => {
           console.log(err)

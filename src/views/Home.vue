@@ -7,6 +7,7 @@
           :key="product.id"
           :product="product"
         />
+        <br>
       </div>
     </div>
   </div>
@@ -31,3 +32,14 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .row{
+    margin: auto;
+  }
+  .home{
+    margin-bottom: 50px;
+    padding: 40px;
+    background-color: orangered;
+  }
+</style>
