@@ -8,7 +8,7 @@
       <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li v-if="statusLogin" >
-            <router-link class="nav-link" to="/cart"><i class="fas fa-shopping-cart"></i></router-link>
+            <router-link class="nav-link" to="/cart"><i class="fas fa-shopping-cart"></i><span v-if="carts.length > 0" class="badge rounded-pill bg-danger smallspan">{{ carts.length }}</span></router-link>
           </li>
           <li v-if="statusLogin" >
             <router-link class="nav-link" to="/history"><i class="fas fa-history"></i></router-link>
@@ -26,11 +26,6 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'Navbar',
-  // data () {
-  //   return {
-  //     statusLogin: localStorage.access_token
-  //   }
-  // },
   methods: {
     logout () {
       this.$store.commit('logout')
@@ -46,15 +41,19 @@ export default {
   },
   computed: {
     ...mapState([
-      'statusLogin'
+      'statusLogin',
+      'carts'
     ])
   },
   created () {
     this.checkstatus()
+    this.$store.dispatch('fetchCart')
   }
 }
 </script>
 
-<style>
-
+<style scoped>
+.smallspan {
+  font-size: 8px;
+}
 </style>
