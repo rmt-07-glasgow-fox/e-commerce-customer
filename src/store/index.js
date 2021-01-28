@@ -9,6 +9,7 @@ export default new Vuex.Store({
     products: [],
     banners: [],
     carts: [],
+    totalPayment: 0,
     baseURL: 'http://localhost:3000',
     isUserLogin: false
   },
@@ -16,7 +17,8 @@ export default new Vuex.Store({
     SET_PRODUCTS (state, payload) { state.products = payload },
     SET_BANNERS (state, payload) { state.banners = payload },
     SET_ISUSERLOGIN (state, payload) { state.isUserLogin = payload },
-    SET_CARTS (state, payload) { state.carts = payload }
+    SET_CARTS (state, payload) { state.carts = payload },
+    SET_TOTALPAYMENT (state, payload) { state.totalPayment = payload }
   },
   actions: {
     async getAllProducts (context, payload) {
@@ -66,6 +68,7 @@ export default new Vuex.Store({
       if (!localStorage.access_token) {
         context.commit('SET_ISUSERLOGIN', false)
         context.commit('SET_CARTS', [])
+        context.commit('SET_TOTALPAYMENT', 0)
       } else {
         context.commit('SET_ISUSERLOGIN', true)
         this.dispatch('getCart')
@@ -76,6 +79,12 @@ export default new Vuex.Store({
         const URL = this.state.baseURL + '/cart'
         const response = await axios.get(URL, { headers: { access_token: localStorage.access_token } })
         context.commit('SET_CARTS', response.data)
+        let totalPayment = 0
+        this.state.carts.length > 0 ? this.state.carts.forEach(cart => {
+          totalPayment += cart.totalPrice
+        }) : (totalPayment = 0)
+        // console.log('>>> total :', totalPayment)
+        context.commit('SET_TOTALPAYMENT', totalPayment)
       } catch (err) {
         console.log(err)
       }

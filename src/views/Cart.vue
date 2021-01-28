@@ -10,8 +10,9 @@
       </div>
       <div class="col-md-8 col-lg-4 p-5">
         <form>
-          <h1>Total : </h1>
-          <button class="btn btn-primary">Checkout</button>
+          <h1>Total payment : </h1>
+          <h1>{{totalPayment}}</h1>
+          <button class="btn btn-success"> <b-icon icon="cart-plus-fill"/> Checkout</button>
         </form>
       </div>
     </div>
@@ -24,7 +25,7 @@ import CardCart from '../components/CardCart'
 
 export default {
   components: { CardCart },
-  computed: { ...mapState(['carts']) }
+  computed: { ...mapState(['carts', 'totalPayment']) }
 }
 </script>
 
