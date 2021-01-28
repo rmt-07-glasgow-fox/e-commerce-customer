@@ -45,7 +45,7 @@
     <hr />
     <div class="mt-2">
       Already have an account?
-      <router-link to="/login"> Login here</router-link>
+      <router-link to="/login" style="color: blue;"> Login here</router-link>
     </div>
   </b-container>
 </template>

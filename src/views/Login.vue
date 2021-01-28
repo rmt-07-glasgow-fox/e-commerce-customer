@@ -39,7 +39,7 @@
     <hr />
     <div class="mt-2">
       Don't have an account?
-      <router-link to="/register"> Register here</router-link>
+      <router-link to="/register" style="color: blue;"> Register here</router-link>
     </div>
   </b-container>
 </template>
