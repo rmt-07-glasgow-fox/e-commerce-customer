@@ -54,6 +54,9 @@ export default {
         }
       }
       return totalPrice.toLocaleString('id-ID')
+    },
+    checkout () {
+      this.$store.checkout()
     }
   },
   created () {

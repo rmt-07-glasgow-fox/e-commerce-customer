@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2'
 
 export default {
   name: 'CartCard',
@@ -47,7 +48,21 @@ export default {
       this.$store.dispatch('increase', id)
     },
     removeItem (id) {
-      this.$store.dispatch('removeItem', id)
+      Swal.fire({
+        title: 'Are you sure?',
+        text: 'Item will be permanently deleted from your cart',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, remove item!'
+      })
+        .then(result => {
+          if (result.isConfirmed) {
+            this.$store.dispatch('removeItem', id)
+          }
+        })
+        .catch(err => console.log(err))
     }
   }
 }
