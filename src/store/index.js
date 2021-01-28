@@ -5,6 +5,7 @@ import bannersModule from './modules/banners/index';
 import categoriesModule from './modules/categories/index';
 import productsModule from './modules/products/index';
 import cartsModule from './modules/carts/index';
+import ordersModule from './modules/orders/index';
 
 Vue.use(Vuex);
 
@@ -15,5 +16,6 @@ export default new Vuex.Store({
     categories: categoriesModule,
     products: productsModule,
     carts: cartsModule,
+    orders: ordersModule,
   },
 });
