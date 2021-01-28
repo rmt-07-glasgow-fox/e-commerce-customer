@@ -6,10 +6,10 @@
       img-alt="Image"
       img-top
       tag="article"
-      style="width: 200px;"
+      style="width: 200px; height: 450px; "
       class="mb-2 m-2"
     >
-      <b-card-text>
+      <b-card-text >
         <p>Rp. {{ new Intl.NumberFormat('id-ID').format(product.price) }}</p>
         <p>stock: {{ product.stock}}</p>
       </b-card-text>
@@ -114,6 +114,10 @@ a {
 .image {
   background-color: #42b983;
   border-radius: 8px;
+}
+
+b-card {
+  text-overflow: ellipsis;
 }
 
 </style>

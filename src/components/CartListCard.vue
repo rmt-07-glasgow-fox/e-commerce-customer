@@ -6,7 +6,7 @@
       </div>
       <b-card-text style="text-align: left;">
         <h3><b>{{ cartOne.Product.name }}</b></h3>
-        <h4>Rp. {{ new Intl.NumberFormat('id-ID').format(cartOne.Product.price * cartOne.quantity) }}</h4>
+        <h4>subtotal: Rp. {{ new Intl.NumberFormat('id-ID').format(cartOne.Product.price * cartOne.quantity) }}</h4>
         <h5>quantity: {{ cartOne.quantity }} </h5>
         <p>stock: {{ cartOne.Product.stock }} </p>
         <b-button v-b-toggle.my-collapse variant="primary" size="sm">update quantity</b-button>
