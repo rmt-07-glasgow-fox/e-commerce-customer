@@ -64,6 +64,11 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    getUser (context, payload) {
+      const username = payload.split('@')
+      localStorage.setItem('username', username[0])
+      // console.log(localStorage.username)
+    },
     checkingLogin (context, payload) {
       if (localStorage.access_token) {
         context.commit('setIsLogin', true)
@@ -83,24 +88,31 @@ export default new Vuex.Store({
         .then(res => {
           console.log(res.data)
 
-          localStorage.setItem('access_token', res.data.access_token)
-          context.commit('errHandler', '')
-          router.push('/')
+          if (res.data.msg) {
+            context.commit('errHandler', 'Invalid email / password')
+          } else {
+            localStorage.setItem('access_token', res.data.access_token)
+            context.commit('errHandler', '')
+            router.push('/')
+          }
         })
         .catch(err => {
-          const msg = err.res.data.errors
-          const temp = []
-          for (let i = 0; i < msg.length; i++) {
-            if (msg.length > 1) {
-              temp.push(msg[i])
+          context.commit('errHandler', 'Invalid Email / password')
+          console.log(err)
+          router.push('/login')
+          // const msg = err.errors
+          // const temp = []
+          // for (let i = 0; i < msg.length; i++) {
+          //   if (msg.length > 1) {
+          //     temp.push(msg[i])
 
-              const str = temp.join(', ')
+          //     const str = temp.join(', ')
 
-              context.commit('errHandler', str)
-            } else if (msg.length <= 1) {
-              context.commit('errHandler', msg[i])
-            }
-          }
+          //     context.commit('errHandler', str)
+          //   } else if (msg.length <= 1) {
+          //     context.commit('errHandler', msg[i])
+          //   }
+          // }
         })
     },
     register (context, payload) {
@@ -112,17 +124,22 @@ export default new Vuex.Store({
           router.push('/login')
         })
         .catch(err => {
-          const msg = err.res.data.errors
-          const temp = []
-          for (let i = 0; i < msg.length; i++) {
-            if (msg.length > 1) {
-              temp.push(msg[i])
-              const str = temp.join(', ')
-              context.commit('errHandler', str)
-            } else if (msg.length <= 1) {
-              context.commit('errHandler', msg[i])
-            }
-          }
+          context.commit('errHandler', 'Invalid Email / password')
+          router.push('/register')
+          console.log(err)
+          // const msg = err.data.errors
+
+          // console.log(msg)
+          // const temp = []
+          // for (let i = 0; i < msg.length; i++) {
+          //   if (msg.length > 1) {
+          //     temp.push(msg[i])
+          //     const str = temp.join(', ')
+          //     context.commit('errHandler', str)
+          //   } else if (msg.length <= 1) {
+          //     context.commit('errHandler', msg[i])
+          //   }
+          // }
         })
     },
 
@@ -171,19 +188,20 @@ export default new Vuex.Store({
           context.dispatch('fetchProducts')
         })
         .catch(err => {
+          context.commit('errHandler', 'Error Datas')
           console.log(err)
 
-          const msg = err.response.data.errors
-          const temp = []
-          for (let i = 0; i < msg.length; i++) {
-            if (msg.length > 1) {
-              temp.push(msg[i])
-              const str = temp.join(', ')
-              context.commit('errHandling', str)
-            } else if (msg.length <= 1) {
-              context.commit('errHandling', msg[i])
-            }
-          }
+          // const msg = err.response.data.errors
+          // const temp = []
+          // for (let i = 0; i < msg.length; i++) {
+          //   if (msg.length > 1) {
+          //     temp.push(msg[i])
+          //     const str = temp.join(', ')
+          //     context.commit('errHandling', str)
+          //   } else if (msg.length <= 1) {
+          //     context.commit('errHandling', msg[i])
+          //   }
+          // }
         })
     },
     // edit stock when add, or min
@@ -197,19 +215,20 @@ export default new Vuex.Store({
           context.dispatch('fetchCarts')
         })
         .catch(err => {
+          context.commit('errHandler', 'Error Addding to Carts')
           console.log(err)
 
-          const msg = err.response.data.errors
-          const temp = []
-          for (let i = 0; i < msg.length; i++) {
-            if (msg.length > 1) {
-              temp.push(msg[i])
-              const str = temp.join(', ')
-              context.commit('errHandling', str)
-            } else if (msg.length <= 1) {
-              context.commit('errHandling', msg[i])
-            }
-          }
+          // const msg = err.response.data.errors
+          // const temp = []
+          // for (let i = 0; i < msg.length; i++) {
+          //   if (msg.length > 1) {
+          //     temp.push(msg[i])
+          //     const str = temp.join(', ')
+          //     context.commit('errHandling', str)
+          //   } else if (msg.length <= 1) {
+          //     context.commit('errHandling', msg[i])
+          //   }
+          // }
         })
     },
     minCart (context, payload) {
@@ -222,19 +241,20 @@ export default new Vuex.Store({
           context.dispatch('fetchCarts')
         })
         .catch(err => {
+          context.commit('errHandler', 'Error minus to Carts')
           console.log(err)
 
-          const msg = err.response.data.errors
-          const temp = []
-          for (let i = 0; i < msg.length; i++) {
-            if (msg.length > 1) {
-              temp.push(msg[i])
-              const str = temp.join(', ')
-              context.commit('errHandling', str)
-            } else if (msg.length <= 1) {
-              context.commit('errHandling', msg[i])
-            }
-          }
+          // const msg = err.response.data.errors
+          // const temp = []
+          // for (let i = 0; i < msg.length; i++) {
+          //   if (msg.length > 1) {
+          //     temp.push(msg[i])
+          //     const str = temp.join(', ')
+          //     context.commit('errHandling', str)
+          //   } else if (msg.length <= 1) {
+          //     context.commit('errHandling', msg[i])
+          //   }
+          // }
         })
     },
 
@@ -261,6 +281,7 @@ export default new Vuex.Store({
           console.log(res.data)
 
           context.commit('fetchAllWishlists', res.data)
+          console.log(this.state.transactions)
         })
         .catch(err => {
           console.log(err)

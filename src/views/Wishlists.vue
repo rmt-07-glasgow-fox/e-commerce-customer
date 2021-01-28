@@ -45,7 +45,7 @@ export default {
       return this.$store.state.wishlists
     },
     err () {
-      return this.$store.state.err
+      return this.$store.state.errorData
     }
   }
 }

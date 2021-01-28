@@ -19,7 +19,7 @@
       style="font-weight:bold">
       Checkout
       </button>
-      <p style="color: red;">{{err}}</p>
+      <p style="color: red; font-weight:bold; padding-top:10px;">{{err}}</p>
       <div class="row" style="margin-top: -15px">
         <CartCard
         v-for="item in carts"
@@ -65,7 +65,7 @@ export default {
       return this.$store.state.carts
     },
     err () {
-      return this.$store.state.err
+      return this.$store.state.errorData
     }
   }
 }

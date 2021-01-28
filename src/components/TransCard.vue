@@ -5,7 +5,7 @@
     <div class="card-body">
     <h5 class="card-title">{{transaction.name}}</h5>
     <p class="card-text text-muted">Quantity: {{transaction.quantity}}</p>
-    <p class="card-text" >Rp. {{transaction.price}}</p>
+    <p class="card-text" >Total Rp. {{transaction.price}}</p>
     <div style="text-align: center; padding-left:20px">
     </div>
     </div>

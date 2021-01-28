@@ -28,10 +28,18 @@ export default {
   props: ['product'],
   methods: {
     addToCart (id) {
-      this.$store.dispatch('createCarts', id)
+      if (!localStorage.access_token) {
+        this.$router.push('/login')
+      } else {
+        this.$store.dispatch('createCarts', id)
+      }
     },
     addToWishlist (id) {
-      this.$store.dispatch('createWishlists', id)
+      if (!localStorage.access_token) {
+        this.$router.push('/login')
+      } else {
+        this.$store.dispatch('createWishlists', id)
+      }
     }
   }
 }

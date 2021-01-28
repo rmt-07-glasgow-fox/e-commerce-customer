@@ -51,6 +51,10 @@
           style="border:none;">
             <img alt="Vue logo" src="../assets/cart-img.png" height="27px">
           </a>
+          <p v-if="setAccess"
+          style="width: 350px; margin-bottom:-2px; font-weight:bold">
+            Hello, {{setName}}
+          </p>
           <div style="font-weight:bold; font-color:black">
           <a
             class="nav-link btn btn-outline-dark"
@@ -71,7 +75,7 @@
           <a
             class="nav-link btn btn-outline-dark"
             href="#"
-            v-if="$route.name == 'Home' || $route.name == 'Banners' ||  $route.name == 'Carts' ||  $route.name == 'Transactions' || $route.name == 'Wishlists'"
+            v-if="setAccess || $route.name == 'Banners' ||  $route.name == 'Carts' ||  $route.name == 'Transactions' || $route.name == 'Wishlists'"
             @click.prevent="toLogout"
             style="border:none;font-weight:bold;">Logout</a>
           </div>
@@ -93,30 +97,46 @@ export default {
   },
   methods: {
     toHome () {
+      this.$store.state.errorData = ''
       this.$router.push('/')
     },
     toLogin () {
+      this.$store.state.errorData = ''
       this.$router.push('/login')
     },
     toRegister () {
+      this.$store.state.errorData = ''
       this.$router.push('/register')
     },
     toWish () {
+      this.$store.state.errorData = ''
       this.$router.push('/wishlists')
     },
     toCarts () {
+      this.$store.state.errorData = ''
       this.$router.push('/carts')
     },
     toHistory () {
+      this.$store.state.errorData = ''
       this.$router.push({ name: 'Transactions' })
     },
     toLogout () {
+      this.$store.state.errorData = ''
       this.$store.dispatch('logout')
       this.$router.push('/login')
     },
     toSearch () {
+      this.$store.state.errorData = ''
       this.search = ''
       this.$router.push('/')
+    }
+  },
+  computed: {
+    setName () {
+      return localStorage.username
+    },
+    setAccess () {
+      return localStorage.access_token
     }
   }
 }

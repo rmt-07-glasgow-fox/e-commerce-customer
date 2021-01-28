@@ -5,7 +5,7 @@
     <div style="margin-top: 20px">
       <h4 style="font-weight:bold; padding-bottom: 26px; padding-top:20px">Your History Transaction</h4>
     </div>
-      <p style="color: red;"></p>
+      <p style="color: red;">{{err}}</p>
       <div class="row" style="margin-top: -15px">
       <TransCard
       v-for="transaction in transactions"
@@ -30,15 +30,15 @@ export default {
     Footer,
     TransCard
   },
-  create () {
+  created () {
     this.$store.dispatch('fetchTrans')
   },
-  methods: {
+  computed: {
     transactions () {
       return this.$store.state.transactions
     },
     err () {
-      return this.$store.state.err
+      return this.$store.state.errorData
     }
   }
 }

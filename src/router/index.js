@@ -7,6 +7,7 @@ import Checkout from '../views/Checkout'
 import Transactions from '../views/Transactions'
 import Wishlists from '../views/Wishlists'
 import Register from '../views/Register'
+import NotFound from '../views/NotFound'
 
 Vue.use(VueRouter)
 
@@ -45,17 +46,35 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: Register
+  },
+  {
+    path: '*',
+    name: 'notFound',
+    component: NotFound
   }
 ]
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
+  scrollBehavior: (to, from, savedPosition) => {
+    if (savedPosition) {
+      return savedPosition
+    } else if (to.hash) {
+      return {
+        selector: to.hash
+      }
+    } else {
+      return { x: 0, y: 0 }
+    }
+  }
 })
 
 router.beforeEach((to, from, next) => {
   if (!localStorage.access_token && to.name === 'Register') {
+    next()
+  } else if (!localStorage.access_token && to.name === 'Home') {
     next()
   } else if (!localStorage.access_token && to.name !== 'Login') {
     next({ name: 'Login' })

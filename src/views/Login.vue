@@ -6,7 +6,7 @@
       <h3 class="card-title" style="font-weight:bold">THE MAN STORE</h3>
       <p>Login from here to access.</p>
     <form>
-      <p style="color: black;">{{errHandler}}</p>
+      <p style="color: red; font-weight: bold">{{errHandler}}</p>
     <div class="form-group" style="text-align:left">
     <label for="exampleInputEmail1" >Email address</label>
     <input type="email" class="form-control" id="exampleInputEmail1" v-model="user.email" aria-describedby="emailHelp" placeholder="Enter email">
@@ -44,10 +44,12 @@ export default {
   },
   methods: {
     login () {
+      this.$store.dispatch('getUser', this.user.email)
       this.$store.dispatch('login', this.user)
     },
     toRegister () {
       this.$router.push('/register')
+      this.$store.state.errorData = ''
     }
   },
   computed: {
