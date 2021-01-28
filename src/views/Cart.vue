@@ -5,10 +5,10 @@
         <CardCart v-for="(cart, index) in carts" :key="index" :cart="cart" />
       </div>
       <div class="col-md-8 col-lg-4 p-5">
-        <form>
+        <form @submit.prevent="checkout">
           <h1>Total payment :</h1>
           <h1>{{ toRupiah(totalPayment) }}</h1>
-          <button class="btn btn-success btn-block my-2">
+          <button type="submit" class="btn btn-success btn-block my-2">
             <b-icon icon="wallet" /> Checkout
           </button>
         </form>
@@ -28,6 +28,9 @@ export default {
         style: 'currency',
         currency: 'IDR'
       })
+    },
+    checkout () {
+      console.log('updated soon')
     }
   },
   components: { CardCart },
