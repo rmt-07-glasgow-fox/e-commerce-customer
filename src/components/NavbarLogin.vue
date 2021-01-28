@@ -26,7 +26,6 @@
                   <button class="btn btn-dark mx-2" v-on:click="register()" v-if="status === false">
                     <b>Register</b>
                   </button>
-                  {{status}}
                 </div>
               </li>
             </ul>
