@@ -16,10 +16,12 @@ const routes = [
     children: [
       {
         path: 'login',
+        name: 'Login',
         component: Login
       },
       {
         path: 'register',
+        name: 'Register',
         component: Register
       }
     ],
@@ -42,7 +44,14 @@ const routes = [
   {
     path: '/carts',
     name: 'CartPage',
-    component: CartPage
+    component: CartPage,
+    beforeEnter (to, from, next) {
+      if (localStorage.getItem('access_token')) {
+        next()
+      } else {
+        next({ name: 'Login' })
+      }
+    }
   },
   {
     path: '*',
