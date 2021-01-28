@@ -117,9 +117,11 @@ export default new Vuex.Store({
       })
         .then((response) => {
           console.log('SUCCESS addToCart', { data: response.data })
+          Swal.fire('Added to cart!')
         })
         .catch((err) => {
           console.log(err.response.data.message)
+          Swal.fire('Please login first!')
         })
     },
     updateCart (context, payload) {

@@ -27,7 +27,6 @@ export default {
         quantity: 1
       }
       this.$store.dispatch('addToCart', payload)
-      Swal.fire('Added to cart!')
     }
   }
 }
