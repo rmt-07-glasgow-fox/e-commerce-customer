@@ -30,7 +30,7 @@
           />
           <div class="input-group-append">
             <span class="input-group-text"
-              ><a href="#" @click.prevent="switchPassword">
+              ><a href="#" style="color: blue;" @click.prevent="switchPassword">
                 <b-icon :icon="passwordType === 'password' ? 'eye-slash' : 'eye'"></b-icon> </a
             ></span>
           </div>
