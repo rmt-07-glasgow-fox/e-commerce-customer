@@ -64,6 +64,10 @@ export default {
             timer: 1500
           })
           this.$router.push('/home/login')
+          return this.$store.dispatch('sendConfirmationEmail', payload)
+        })
+        .then(({ data }) => {
+          console.log(data)
         })
         .catch((err) => {
           this.$store.commit('catchError', err.response.data.errors)
