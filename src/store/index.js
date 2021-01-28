@@ -78,7 +78,7 @@ export default new Vuex.Store({
     fetchCart (context, payload) {
       axios({
         url: '/carts',
-        method: 'GET',
+        method: 'GET'
       })
         .then(({ data }) => {
           const { carts, totalPrice } = data

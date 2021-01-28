@@ -1,8 +1,8 @@
 <template>
-	<div class="home">
-		<h1>Our Products</h1>
-		<ProductCard/>
-	</div>
+<div class="home">
+<h1>Our Products</h1>
+	<ProductCard/>
+</div>
 </template>
 
 <script>

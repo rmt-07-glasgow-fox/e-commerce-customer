@@ -1,8 +1,8 @@
 <template>
-	<div class="container">
-	<div class="row">
-		<div class="column is-one-fifth" v-for="product in products" :key="product.id" :product="product">
-		<div class="card" >
+<div class="container">
+<div class="row">
+<div class="column is-one-fifth" v-for="product in products" :key="product.id" :product="product">
+<div class="card" >
   <div class="card-image">
     <figure class="image">
       <img :src="product.imageUrl" alt="Placeholder image">
@@ -18,15 +18,15 @@
     </div>
 
     <div class="content">
-			<!-- <button v-if="status === 'loggedIn'" @click.prevent="doCreateUpdate" :disabled="product.stock === 0"></button> -->
+<!-- <button v-if="status === 'loggedIn'" @click.prevent="doCreateUpdate" :disabled="product.stock === 0"></button> -->
       <b-button variant="primary" v-if="status === 'loggedIn'" @click.prevent="doCreateUpdate" :disabled="product.stock === 0"><b-icon icon="plus-square" ></b-icon>Add to cart</b-button>
       <br>
     </div>
   </div>
 </div>
-	</div>
-	</div>
-	</div>
+</div>
+</div>
+</div>
 </template>
 
 <script>
@@ -37,8 +37,8 @@ export default {
     status () {
       return this.$store.state.status
     },
-     products () {
-    	return this.$store.state.products
+    products () {
+      return this.$store.state.products
     }
   },
   methods: {
@@ -50,7 +50,7 @@ export default {
       this.$store.dispatch('changeQuantity', payload)
       this.$toasted.success('added')
     }
-  },
+  }
 }
 </script>
 
