@@ -1,0 +1,27 @@
+body {
+  background-image: url('https://images.unsplash.com/photo-1521619717319-20a72822e833?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1165&q=80');
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: relative
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+.carousel {
+  width:940px;
+  height:250px;
+}
+.carou {
+  max-width: 900px;
+}
+.imgCar {
+  height: 200px;
+}
+
+h3 {
+  color: aliceblue;
+}
