@@ -16,18 +16,12 @@
           </thead>
           <tbody>
             <HistoryContent
-              v-for="(cart, n) in carts"
-              :key="cart.id"
-              :cart="cart"
+              v-for="(history, n) in histories"
+              :key="history.id"
+              :history="history"
               :n="n + 1"
             />
           </tbody>
-          <tr class="table">
-            <th scope="row"></th>
-            <td colspan="2">Total</td>
-            <td>{{ price }}</td>
-            <td><button type="button" class="btn btn-sm btn-outline-primary">Checkout</button></td>
-          </tr>
         </table>
       </div>
     </div>
@@ -45,16 +39,12 @@ export default {
     HistoryContent
   },
   computed: {
-    carts () {
-      return this.$store.state.carts
-    },
-    price () {
-      return this.$store.state.price
+    histories () {
+      return this.$store.state.histories
     }
   },
   created () {
-    this.$store.dispatch('fetchCarts')
-    this.$store.dispatch('totalPrice')
+    this.$store.dispatch('fetchHistories')
   }
 
 }

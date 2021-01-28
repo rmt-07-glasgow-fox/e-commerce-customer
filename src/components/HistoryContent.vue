@@ -1,21 +1,24 @@
 <template>
   <tr>
     <th scope="row">{{ n }}</th>
-    <td class="product d-flex justify-content-even"><img :src="cart.Product.image_url"> {{ cart.Product.name }}</td>
-    <td>
-      <a href="" @click.prevent="decrease(cart.id)"><i class="bi bi-dash-circle"></i></a>
-      <input type="text" v-model="quantity" disabled>
-      <a href="" @click.prevent="increase(cart.id)"><i class="bi bi-plus-circle"></i></a>
-    </td>
-    <td>{{ cart.Product.price * cart.quantity }}</td>
-    <td><a href="" @click.prevent="deleteCart(cart.id)"><i class="bi bi-trash"></i></a></td>
+    <td class="product d-flex justify-content-even"><img :src="history.Product.image_url"> {{ history.Product.name }}</td>
+    <td>{{ history.quantity }}</td>
+    <td>{{'Rp ' + (history.Product.price * history.quantity).toLocaleString('id-ID')}}</td>
+    <td>{{ date }}</td>
   </tr>
 </template>
 
 <script>
-export default {
-  name: 'HistoryContent'
+import moment from 'moment'
 
+export default {
+  name: 'HistoryContent',
+  data () {
+    return {
+      date: moment(this.history.updatedAt).format('LLL')
+    }
+  },
+  props: ['history', 'n']
 }
 </script>
 

@@ -1,7 +1,6 @@
 <template>
   <div id="nav" class="fixed-top">
     <nav v-if="$route.path === '/login' && $route.path === '/register'"><h1>E-Disc-Store</h1></nav>
-  <!-- <h1>E-Disc-Store</h1> -->
     <nav class="navbar navbar-expand-lg" v-if="$route.path !== '/login' && $route.path !== '/register'">
       <div class="container-fluid">
         <a @click.prevent="$router.push('/')" class="navbar-brand" href="#">E-M-Store</a>
@@ -19,9 +18,6 @@
                 <li><a class="dropdown-item" href="#" @click.prevent="logout">Log Out</a></li>
               </ul>
             </div>
-
-            <!-- <div class="btn"><i class="bi bi-cart4"></i></div>
-            <a @click.prevent="logout" class="navbar-brand" href="#">Log Out</a> -->
           </div>
         </div>
       </div>

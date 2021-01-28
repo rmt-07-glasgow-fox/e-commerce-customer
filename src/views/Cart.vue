@@ -22,11 +22,11 @@
               :n="n + 1"
             />
           </tbody>
-          <tr class="table">
+          <tr class="table" v-if="carts.length !== 0">
             <th scope="row"></th>
             <td colspan="2">Total</td>
             <td>{{'Rp ' + price.toLocaleString('id-ID')}}</td>
-            <td><button type="button" class="btn btn-sm btn-outline-primary">Checkout</button></td>
+            <td><button type="button" class="btn btn-sm btn-outline-primary" @click.prevent="checkout">Checkout</button></td>
           </tr>
         </table>
       </div>
@@ -45,13 +45,13 @@ export default {
     CartContent
   },
   methods: {
-    checkout (id) {
-      this.$store.dispatch('buy', id)
+    checkout () {
+      this.$store.dispatch('buy')
     }
   },
   computed: {
     carts () {
-      return this.$store.getters.unpaid
+      return this.$store.state.carts
     },
     price () {
       return this.$store.state.price

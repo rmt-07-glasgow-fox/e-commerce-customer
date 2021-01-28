@@ -10,7 +10,8 @@ export default new Vuex.Store({
   state: {
     products: [],
     carts: [],
-    price: null
+    histories: [],
+    price: 0
   },
   mutations: {
     storeProducts (state, payload) {
@@ -21,6 +22,9 @@ export default new Vuex.Store({
     },
     setPrice (state, payload) {
       state.price = payload
+    },
+    storeHistories (state, payload) {
+      state.histories = payload
     }
   },
   actions: {
@@ -89,7 +93,7 @@ export default new Vuex.Store({
     fetchCarts (context) {
       axios({
         method: 'GET',
-        url: '/carts',
+        url: '/carts/unpaid',
         headers: {
           access_token: localStorage.getItem('access_token')
         }
@@ -146,6 +150,7 @@ export default new Vuex.Store({
       })
         .then(response => {
           context.dispatch('fetchCarts')
+          context.dispatch('totalPrice')
         })
         .catch(err => {
           const errorMsg = err.response.data.errors.join(' ')
@@ -166,12 +171,13 @@ export default new Vuex.Store({
       })
         .then(response => {
           context.dispatch('fetchCarts')
+          context.dispatch('totalPrice')
           swal.fire({
             position: 'top',
             icon: 'success',
-            title: 'Current item is successfully added 1',
+            title: response.data.message,
             showConfirmButton: false,
-            timer: 1500
+            timer: 1000
           })
         })
         .catch(err => {
@@ -193,12 +199,13 @@ export default new Vuex.Store({
       })
         .then(response => {
           context.dispatch('fetchCarts')
+          context.dispatch('totalPrice')
           swal.fire({
             position: 'top',
             icon: 'success',
-            title: 'Current item is successfully trhowed 1',
+            title: response.data.message,
             showConfirmButton: false,
-            timer: 1500
+            timer: 1000
           })
         })
         .catch(err => {
@@ -213,13 +220,13 @@ export default new Vuex.Store({
     totalPrice (context, payload) {
       axios({
         method: 'GET',
-        url: '/carts',
+        url: '/carts/unpaid',
         headers: {
           access_token: localStorage.getItem('access_token')
         }
       })
         .then(response => {
-          let total = null
+          let total = 0
           response.data.forEach(el => {
             total += el.quantity * el.Product.price
           })
@@ -235,7 +242,39 @@ export default new Vuex.Store({
         })
     },
     buy (context, payload) {
-
+      axios({
+        method: 'PUT',
+        url: '/carts',
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
+      })
+        .then(response => {
+          context.dispatch('fetchCarts')
+          swal.fire({
+            position: 'top',
+            icon: 'success',
+            title: 'Thank you, your transaction is done',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          context.dispatch('totalPrice')
+          router.push('/carts')
+        })
+        .catch(console.log)
+    },
+    fetchHistories (context) {
+      axios({
+        method: 'GET',
+        url: '/carts/paid',
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
+      })
+        .then(response => {
+          context.commit('storeHistories', response.data)
+        })
+        .catch(console.log)
     }
   },
   getters: {

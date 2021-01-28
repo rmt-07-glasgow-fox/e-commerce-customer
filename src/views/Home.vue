@@ -5,7 +5,8 @@
     <div class="container-fluid content">
       <Sidebar/>
       <div class="row">
-        <div class="col-lg d-flex flex-wrap justify-content-start align-items-center">
+        <Banner/>
+        <div class="col-lg d-flex flex-wrap justify-content-start align-items-center product">
           <Product
             v-for="product in products.data"
             :key="product.id"
@@ -21,6 +22,7 @@
 // @ is an alias to /src
 import Navbar from '@/components/Navbar.vue'
 import Sidebar from '@/components/Sidebar.vue'
+import Banner from '@/components/Banner.vue'
 import Product from '@/components/Product.vue'
 
 export default {
@@ -28,6 +30,7 @@ export default {
   components: {
     Navbar,
     Sidebar,
+    Banner,
     Product
   },
   methods: {
@@ -48,7 +51,10 @@ export default {
 
 <style scoped>
 .content {
-  margin-top: 70px
+  margin-top: 70px;
+}
+.product {
+  margin-top: 10px;
 }
 .row {
   /* margin-top: px; */
