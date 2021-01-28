@@ -31,6 +31,14 @@ export default {
       return this.$store.state.transactions
     }
   },
+  methods: {
+    fetchTransaction () {
+      if (localStorage.access_token) this.$store.dispatch('fetchTransaction')
+    }
+  },
+  created () {
+    this.fetchTransaction()
+  },
   beforeRouteEnter (to, from, next) {
     if (to.path === '/history' && !localStorage.access_token) next({ name: 'Login' })
     else next()
