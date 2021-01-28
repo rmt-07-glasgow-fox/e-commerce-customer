@@ -28,7 +28,7 @@
               <router-link class="nav-link" to="/cart"><i class="fas fa-shopping-cart"></i></router-link>
             </li>
             <li class="nav-item">
-              <a class="nav-link disabled">Welcome, mity</a>
+              <a class="nav-link disabled">{{ this.$store.state.userLoggedIn }}</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" @click="handleLogout"><i class="fas fa-sign-out-alt"></i></a>

@@ -14,6 +14,7 @@ export default {
   created () {
     if (localStorage.getItem('access_token')) {
       this.$store.commit('SET_ISLOGGEDIN', true)
+      this.$store.commit('SET_USER_LOGGED_IN', localStorage.getItem('email'))
     } else {
       this.$store.commit('SET_ISLOGGEDIN', false)
     }
