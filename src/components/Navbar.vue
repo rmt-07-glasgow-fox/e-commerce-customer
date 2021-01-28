@@ -8,7 +8,7 @@
           class="d-inline-block align-top mx-2"
           alt=""
         />
-        <b>LOCALE SHOES ID</b>
+        <b>SEPATU LOKAL</b>
       </button>
       <div>
         <button v-if="isUserLogin" @click="toCart" class="btn text-primary mx-2"><b-icon icon="cart4"/> Cart </button>
