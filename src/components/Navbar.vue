@@ -8,10 +8,9 @@
       <div class="nav__menu" id="nav-menu">
         <ul class="nav__list">
           <router-link tag="li" :to="{ name: 'Home' }" class="nav__item"><a class="nav__link">Home</a></router-link>
-          <li class="nav__item"><a href="#featured" class="nav__link">All Product</a></li>
-          <router-link tag="li" :to="{ name: 'Wishlist' }" class="nav__item"><a class="nav__link">Wishlist</a></router-link>
-          <router-link  tag="li" :to="{name: 'Cart'}" class="nav__item"> <a class="nav__link">Cart</a></router-link>
-          <router-link  tag="li" :to="{name: 'History'}" class="nav__item"> <a class="nav__link">History</a></router-link>
+          <router-link v-show="isAuth" tag="li" :to="{ name: 'Wishlist' }" class="nav__item"><a class="nav__link">Wishlist</a></router-link>
+          <router-link  v-show="isAuth" tag="li" :to="{name: 'Cart'}" class="nav__item"> <a class="nav__link">Cart</a></router-link>
+          <router-link  v-show="isAuth" tag="li" :to="{name: 'History'}" class="nav__item"> <a class="nav__link">History</a></router-link>
           <router-link v-show="!isAuth" tag="li" :to="{ name: 'Login' }" class="nav__item"><a class="nav__link">Login</a></router-link>
           <li v-show="isAuth" class="nav__item"><a @click.prevent="logout" style="cursor:pointer" type="button" class="nav__link">Logout</a></li>
         </ul>

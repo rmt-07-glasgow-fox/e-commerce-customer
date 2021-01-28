@@ -12,7 +12,7 @@
             <span class="home__new">New in</span>
             <h1 class="home__title">YEZZY BOOST <br> SPLY - 350</h1>
             <p class="home__description">Explore the new collections of sneakers</p>
-            <a href="#" class="button">Explore now</a>
+            <a href="#featured" class="button">Explore now</a>
           </div>
       </div>
     </section>

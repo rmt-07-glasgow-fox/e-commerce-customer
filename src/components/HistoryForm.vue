@@ -6,6 +6,7 @@
           <thead>
             <th>Product</th>
             <th>Quantity</th>
+            <th>Date</th>
             <th>Subtotal</th>
           </thead>
           <tbody>
@@ -23,6 +24,7 @@
               </div>
             </td>
             <td><p>{{transaction.quantity}}</p></td>
+            <td><p>{{transaction.createdAt}}</p></td>
             <td>{{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(transaction.quantity * transaction.productPrice)}}</td>
             </tr>
           </tbody>
