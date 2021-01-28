@@ -11,6 +11,7 @@
        v-else @click.prevent="logout">Logout</button>
     </div>
     <router-view/>
+    <div id="footer">Copyright &copy; 2021 by FDR</div>
   </div>
 </template>
 
@@ -31,6 +32,7 @@ export default {
       localStorage.clear()
       this.$store.commit('assignUser', '')
       this.$store.commit('authenticate')
+      if (this.$router.name !== 'Home') this.$router.push('/')
     }
   },
   computed: {
@@ -42,6 +44,12 @@ export default {
 </script>
 
 <style>
+#footer {
+  position: fixed;
+  bottom: 0;
+  left: 42%;
+}
+
 #brand {
   float: left;
 }

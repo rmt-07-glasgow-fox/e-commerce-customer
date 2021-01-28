@@ -11,7 +11,9 @@ export default new Vuex.Store({
     products: [],
     user: '',
     page: '',
-    regResult: ''
+    regResult: '',
+    categories: [],
+    banners: []
   },
   mutations: {
     assignPage (state, payload) {
@@ -30,6 +32,12 @@ export default new Vuex.Store({
     },
     assignRegResult (state, payload) {
       state.regResult = payload
+    },
+    assignCategories (state, payload) {
+      state.categories = payload
+    },
+    assignBanners (state, payload) {
+      state.banners = payload
     }
   },
   actions: {
@@ -65,6 +73,22 @@ export default new Vuex.Store({
         .post('/register', payload)
         .then(({ data }) => {
           context.commit('assignRegResult', data)
+        })
+        .catch(err => console.log(err.response))
+    },
+    fetchCategories (context) {
+      axios
+        .get('/categories')
+        .then(({ data }) => {
+          context.commit('assignCategories', data)
+        })
+        .catch(err => console.log(err.response))
+    },
+    fetchBanners (context) {
+      axios
+        .get('/banners')
+        .then(({ data }) => {
+          context.commit('assignBanners', data)
         })
         .catch(err => console.log(err.response))
     }
