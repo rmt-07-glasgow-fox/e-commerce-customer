@@ -25,6 +25,7 @@
               v-for="Product in fetchProducts"
               :key="Product.id"
               :Product="Product"
+              :isLogin="isLogin"
             />
           </div>
         </div>
@@ -39,6 +40,7 @@ import { mapGetters } from 'vuex'
 
 export default {
   name: 'Product',
+  props: ['isLogin'],
   components: {
     ProductCardPage
   },

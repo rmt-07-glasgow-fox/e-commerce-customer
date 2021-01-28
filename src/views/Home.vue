@@ -1,6 +1,6 @@
 <template>
   <div id="Home">
-    <router-view />
+    <router-view :isLogin="isLogin" />
   </div>
 </template>
 
@@ -8,7 +8,8 @@
 // @ is an alias to /src
 
 export default {
-  name: 'Home'
+  name: 'Home',
+  props: ['isLogin']
 }
 </script>
 

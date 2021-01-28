@@ -1,10 +1,7 @@
 <template>
-  <div id="Navbar" class=" sticky-top">
+  <div id="Navbar" class="sticky-top">
     <!-- navbar -->
-    <nav
-      class="navbar navbar-light bg-light shadow"
-      style="height: 56px"
-    >
+    <nav class="navbar navbar-light bg-light shadow" style="height: 56px">
       <div class="container-fluid container-style">
         <router-link to="/" class="logo-pc">
           <img src="@/assets/img_logoLineC.svg" height="24" />
@@ -177,6 +174,7 @@ import { mapGetters } from 'vuex'
 
 export default {
   name: 'Navbar',
+  props: ['isLogin'],
   components: {
     HeartIcon,
     ShoppingCartIcon,
@@ -189,7 +187,6 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'isLogin',
       'fetchUserInfo'
     ])
   },

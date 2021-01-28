@@ -1,8 +1,11 @@
 <template>
   <div id="App">
-    <Navbar v-if="$route.name !== 'Login' && $route.name !== 'Register'" />
+    <Navbar
+      v-if="$route.name !== 'Login' && $route.name !== 'Register'"
+      :isLogin="isLogin"
+    />
 
-    <router-view />
+    <router-view :isLogin="isLogin" />
 
     <Footer v-if="$route.name === 'Home'" />
   </div>
@@ -11,12 +14,18 @@
 <script>
 import Navbar from '@/components/layout/Navbar.vue'
 import Footer from '@/components/layout/Footer.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'App',
   components: {
     Navbar,
     Footer
+  },
+  computed: {
+    ...mapGetters([
+      'isLogin'
+    ])
   }
 }
 </script>

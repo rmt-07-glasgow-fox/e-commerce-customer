@@ -1,7 +1,7 @@
 <template>
   <div class="col-6 col-md-3">
     <router-link
-      to="/category"
+      to="/product"
       style="text-decoration: none"
       @click.native="scrollToTop"
     >

@@ -100,7 +100,7 @@ export default {
       wishlist: {}
     }
   },
-  props: ['Product'],
+  props: ['Product', 'isLogin'],
   components: {
     ShoppingCartIcon,
     HeartIcon
@@ -120,10 +120,12 @@ export default {
       return 'Sold'
     },
     addCart (id) {
-      this.$store.dispatch('addCart', id)
+      if (this.isLogin) return this.$store.dispatch('addCart', id)
+      return this.$router.push('/login')
     },
     addWishlist (id) {
-      this.$store.dispatch('addWishlist', id)
+      if (this.isLogin) return this.$store.dispatch('addWishlist', id)
+      return this.$router.push('/login')
     },
     async fetchOneWishlist (id) {
       try {
@@ -133,15 +135,15 @@ export default {
           headers: { access_token: localStorage.getItem('access_token') }
         })
 
-        this.fetchOneWishlist(this.Product.id)
         this.wishlist = data
+        // this.fetchOneWishlist(this.Product.id)
       } catch (err) {
         console.log(err)
       }
     }
   },
   created () {
-    this.fetchOneWishlist(this.Product.id)
+    if (this.isLogin) return this.fetchOneWishlist(this.Product.id)
   }
 }
 </script>

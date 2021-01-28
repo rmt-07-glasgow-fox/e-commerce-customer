@@ -35,8 +35,6 @@ export default {
         headers: { access_token: localStorage.getItem('access_token') },
         data: { ProductId }
       })
-
-      this.dispatch('fetchWishlists')
     } catch (err) {
       console.log(err)
     }

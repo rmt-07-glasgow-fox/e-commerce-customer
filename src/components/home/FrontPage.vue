@@ -14,6 +14,7 @@
               :key="HomeCategory.id"
               :HomeCategory="HomeCategory"
               :i="i"
+              :isLogin="isLogin"
             />
             <div class="col-6 col-md-3">
               <router-link
@@ -47,6 +48,7 @@
               v-for="Product in fetchHomeProducts"
               :key="Product.id"
               :Product="Product"
+              :isLogin="isLogin"
             />
           </div>
         </div>
@@ -77,6 +79,7 @@ import { mapGetters } from 'vuex'
 
 export default {
   name: 'FrontPage',
+  props: ['isLogin'],
   components: {
     Carousel,
     CategoryCard,
