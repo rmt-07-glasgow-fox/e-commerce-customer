@@ -82,11 +82,7 @@ export default new Vuex.Store({
     },
     fetchProducts (context) {
       axios
-        .get('/products', {
-          headers: {
-            access_token: localStorage.getItem('access_token')
-          }
-        })
+        .get('/products')
         .then(({ data }) => {
           context.commit('insertProducts', data)
           context.commit('insertCategories', data)
@@ -99,7 +95,7 @@ export default new Vuex.Store({
         .then(({ data }) => {
           localStorage.setItem('access_token', data.access_token)
           context.commit('getUserName', payload)
-          router.push('/main')
+          router.push('/')
         })
         .catch((err) => {
           context.commit('catchError', err.response.data.errors)
