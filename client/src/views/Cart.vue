@@ -5,7 +5,7 @@
       <table v-if="carts.length > 0" class="table table-striped">
         <thead>
           <th>#</th>
-          <th>Name</th>
+          <th>Product</th>
           <th>Quantity</th>
           <th>Price</th>
           <th>Delete</th>
