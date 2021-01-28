@@ -228,6 +228,13 @@ export default new Vuex.Store({
       })
         .then(({ data }) => {
           context.dispatch('fetchProducts')
+          Swal.fire({
+            icon: 'success',
+            title: `Hi, ${localStorage.name}`,
+            text: 'Thank your for purchasing our products!',
+            timer: 2000,
+            showConfirmButton: true
+          })
         })
         .catch(err => {
           console.log(err.response)
@@ -250,6 +257,13 @@ export default new Vuex.Store({
       })
         .then(({ data }) => {
           context.dispatch('fetchUserProducts', payload.paymentStatus)
+          Swal.fire({
+            icon: 'success',
+            title: `Hi, ${localStorage.name}`,
+            text: 'Thank your for purchasing our products!',
+            timer: 2000,
+            showConfirmButton: true
+          })
         })
         .catch(err => {
           console.log(err.response)
