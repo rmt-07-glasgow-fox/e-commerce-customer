@@ -8,6 +8,9 @@
         NO DATA
       </v-col>
     </v-row>
+    <v-btn
+      elevation="2"
+    >CHECKOUT</v-btn>
   </div>
 </template>
 
@@ -25,7 +28,6 @@ export default {
     })
   },
   created () {
-    console.log('ok')
     this.$store.dispatch('fetchCart', null, true)
   }
 }

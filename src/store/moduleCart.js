@@ -53,7 +53,7 @@ export default {
         data: data
       })
         .then(({ data }) => {
-          console.log(data, '??')
+          console.log(data)
           context.dispatch('toastMsg', { icon: 'success', title: 'Success add to cart' })
           context.commit('createCart', data)
         })
@@ -81,7 +81,6 @@ export default {
         })
     },
     deleteCart (context, id) {
-      console.log(id)
       axios({
         method: 'DELETE',
         url: '/carts/' + id,

@@ -42,7 +42,7 @@ export default {
         data: { ProductId: data.ProductId }
       })
         .then(({ data }) => {
-          console.log(data, '??')
+          console.log(data)
           context.dispatch('toastMsg', { icon: 'success', title: 'Success add to wishlist' })
           context.commit('createWishlist', data)
         })
@@ -53,7 +53,6 @@ export default {
         })
     },
     deleteWishlist (context, id) {
-      console.log(id)
       axios({
         method: 'DELETE',
         url: '/wishlists/' + id,

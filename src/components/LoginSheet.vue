@@ -23,7 +23,7 @@
         :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
         :type="showPassword ? 'text' : 'password'"
         label="Password"
-        hint="At least 8 characters"
+        hint="Input right password"
         @click:append="showPassword = !showPassword"
         outlined
         dense

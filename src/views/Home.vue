@@ -25,6 +25,8 @@ export default {
     this.$store.dispatch('fetchCart', null, true)
     localStorage.access_token &&
     this.$store.dispatch('fetchWishlist', null, true)
+    localStorage.access_token &&
+    this.$store.dispatch('fetchAllProducts', null, true)
   }
 }
 </script>

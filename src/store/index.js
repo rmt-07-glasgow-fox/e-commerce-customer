@@ -46,12 +46,15 @@ export default new Vuex.Store({
           setTimeout(() => {
             context.commit('login')
             context.commit('isLoadLogin', false)
+            context.dispatch('toastMsg', { icon: 'success', title: 'Login Success!' })
             router.push({ name: 'Home' })
           }, 1000)
         })
         .catch(({ response }) => {
           setTimeout(() => {
             context.commit('isLoadLogin', false)
+            const msg = response.data.message
+            context.dispatch('toastMsg', { icon: 'error', title: msg })
           }, 1000)
           console.log(response)
         })
@@ -61,6 +64,7 @@ export default new Vuex.Store({
       context.commit('logout')
       context.commit('clearCart', null, true)
       context.commit('clearWishlist', null, true)
+      context.dispatch('toastMsg', { icon: 'success', title: 'Successfully logged out!' })
       data.currentRouteName !== 'Home' && router.push({ name: 'Home' })
     },
     register (context, payload) {
@@ -83,12 +87,15 @@ export default new Vuex.Store({
           setTimeout(() => {
             context.commit('login')
             context.commit('isLoadRegister', false)
+            context.dispatch('toastMsg', { icon: 'success', title: 'Register Success!' })
             router.push({ name: 'Home' })
           }, 1000)
         })
         .catch(({ response }) => {
           setTimeout(() => {
             context.commit('isLoadRegister', false)
+            const msg = response.data.message
+            context.dispatch('toastMsg', { icon: 'error', title: msg })
           }, 1000)
           console.log(response)
         })
@@ -99,13 +106,12 @@ export default new Vuex.Store({
         url: '/banners/active'
       })
         .then(({ data }) => {
-          console.log(data)
           context.commit('fetchBanners', data)
         })
-        .catch(err => {
-          console.log(err.response.data)
-          // const msg = err.response.data.message
-          // context.dispatch('toastMsg', { icon: 'error', title: msg })
+        .catch(({ response }) => {
+          console.log(response.data)
+          const msg = response.data.message
+          context.dispatch('toastMsg', { icon: 'error', title: msg })
         })
     },
     toastMsg (context, payload) {

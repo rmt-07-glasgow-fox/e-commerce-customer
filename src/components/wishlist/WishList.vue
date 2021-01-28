@@ -25,7 +25,6 @@ export default {
     })
   },
   created () {
-    console.log('ok')
     this.$store.dispatch('fetchWishlist', null, true)
   }
 }
