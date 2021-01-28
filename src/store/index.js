@@ -12,7 +12,8 @@ export default new Vuex.Store({
     productDetail: {},
     errors: [],
     userDetail: {},
-    carts: []
+    carts: [],
+    wishlist: []
   },
   mutations: {
     insertProducts (state, payload) {
@@ -38,6 +39,10 @@ export default new Vuex.Store({
     insertUserDetail (state, payload) {
       state.userDetail = payload
       console.log(state.userDetail.role)
+    },
+    insertWishlist (state, payload) {
+      state.wishlist = payload
+      // console.log(state.products)
     }
   },
   actions: {
@@ -113,6 +118,24 @@ export default new Vuex.Store({
           // console.log('ini dari then')
           // console.log(data)
           context.commit('insertCarts', data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    fetchWishlist (context, payload) {
+      // console.log('masuk fetch products')
+      axios({
+        method: 'GET',
+        url: '/wishlist',
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
+      })
+        .then(({ data }) => {
+          // console.log('ini dari then')
+          // console.log(data)
+          context.commit('insertWishlist', data)
         })
         .catch(err => {
           console.log(err)

@@ -66,6 +66,11 @@ export default {
   flex-wrap: wrap;
 }
 
+.wishlist {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .col-3 {
   padding: 0%;
 }

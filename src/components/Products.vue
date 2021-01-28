@@ -9,6 +9,7 @@
         <button v-if="role == 'admin'" @click="toEditForm(product.id)" class="btn btn-success">Edit</button>
         <button v-if="role == 'admin'" @click="destroyProduct(product.id)" class="btn btn-success" style="float: right">Delete</button>
         <button v-if="role == 'customer'" @click="checkCart(product.id)" class="btn btn-success">Add To Cart</button>
+        <button v-if="role == 'customer'" @click="checkWishlist(product.id)" class="btn btn-success" style="float: right"><i class="fa fa-heart"></i></button>
       </div>
     </div>
   </div>
@@ -100,6 +101,42 @@ export default {
             } else {
               console.log('quantity cannot exceed stock')
             }
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    checkWishlist (id) {
+      axios({
+        method: 'GET',
+        url: `/wishlist/${id}`,
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
+      })
+        .then(({ data }) => {
+          // console.log(data)
+          if (data.message === 'not in wishlist') {
+            return axios({
+              method: 'POST',
+              url: '/wishlist',
+              headers: {
+                access_token: localStorage.getItem('access_token')
+              },
+              data: {
+                ProductId: id
+              }
+            })
+              .then(({ data }) => {
+                this.$store.dispatch('fetchWishlist')
+                this.changePage('wishList')
+              })
+              .catch(err => {
+                console.log(err)
+              })
+          } else {
+            console.log('already in wishlist')
           }
         })
         .catch(err => {

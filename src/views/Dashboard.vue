@@ -23,6 +23,7 @@
             <h1 v-if="currentPage == 'addForm'">Add Product</h1>
             <h1 v-if="currentPage == 'editForm'">Edit Product</h1>
             <h1 v-if="currentPage == 'cartList'">Cart</h1>
+            <h1 v-if="currentPage == 'wishList'">Wishlist</h1>
           </div>
           <div class="col-4" style="display: flex; justify-content: flex-end">
             <button v-if="currentPage == 'productList' && role == 'admin'" @click.prevent="changePage('addForm')" class="btn btn-success" style="padding-top: 8px">Add Product</button>
@@ -46,6 +47,14 @@
           :changePage="changePage"
           />
         </div>
+        <div v-if="currentPage == 'wishList'" class="wishlist">
+          <Wishlist
+          v-for="wish in wishlist"
+          :key="wish.id"
+          :wish="wish"
+          :changePage="changePage"
+          />
+        </div>
         <div v-if="currentPage == 'addForm'">
           <AddForm :changePage="changePage"/>
         </div>
@@ -63,6 +72,7 @@ import Product from '../components/Products'
 import AddForm from '../components/AddForm'
 import EditForm from '../components/EditForm'
 import Cart from '../components/Carts'
+import Wishlist from '../components/Wishlist'
 
 export default {
   name: 'Dashboard',
@@ -76,7 +86,8 @@ export default {
     Product,
     AddForm,
     EditForm,
-    Cart
+    Cart,
+    Wishlist
   },
   methods: {
     changePage (page) {
@@ -95,10 +106,14 @@ export default {
     },
     userDetail () {
       return this.$store.state.userDetail
+    },
+    wishlist () {
+      return this.$store.state.wishlist
     }
   },
   created () {
     this.$store.dispatch('fetchCarts')
+    this.$store.dispatch('fetchWishlist')
     return this.$store.dispatch('fetchProducts')
   }
 }
