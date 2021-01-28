@@ -17,6 +17,9 @@
         </div>
       </div>
     </form>
+    <div id="login-link" class="text-center mt-3">
+      Didn't have an account? <a href="#" @click="() => this.$router.push('/register')">Register here</a>
+    </div>
   </div>
 </template>
 
