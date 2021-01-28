@@ -9,8 +9,15 @@
       </v-col>
     </v-row>
     <v-btn
-      elevation="2"
-    >CHECKOUT</v-btn>
+        type="submit"
+        width="100%"
+        color="blue-grey"
+        class="white--text"
+        @click="checkout"
+      >
+        CHECKOUT
+        <v-icon right dark>mdi-cart-plus</v-icon>
+      </v-btn>
   </div>
 </template>
 
@@ -26,6 +33,11 @@ export default {
     ...mapState({
       cart: state => state.mCart.cart
     })
+  },
+  methods: {
+    checkout () {
+      this.$store.dispatch('checkout', null, true)
+    }
   },
   created () {
     this.$store.dispatch('fetchCart', null, true)

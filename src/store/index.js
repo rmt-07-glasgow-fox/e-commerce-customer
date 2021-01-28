@@ -5,6 +5,7 @@ import router from '@/router'
 import moduleProduct from '@/store/moduleProduct'
 import moduleCart from '@/store/moduleCart'
 import moduleWishlist from '@/store/moduleWishlist'
+import moduleTransaction from '@/store/moduleTransaction'
 import Swal from 'sweetalert2'
 
 Vue.use(Vuex)
@@ -132,6 +133,7 @@ export default new Vuex.Store({
   modules: {
     mProducts: moduleProduct,
     mCart: moduleCart,
-    mWishlist: moduleWishlist
+    mWishlist: moduleWishlist,
+    mTransaction: moduleTransaction
   }
 })

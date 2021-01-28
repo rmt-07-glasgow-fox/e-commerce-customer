@@ -1,4 +1,5 @@
 import axios from '@/api/axios'
+import router from '@/router'
 
 export default {
   state: () => ({
@@ -24,6 +25,9 @@ export default {
       state.cart.map(el => {
         el.id === data.id && (el.quantity = data.quantity)
       })
+    },
+    checkout (state, data) {
+      state.cart = []
     },
     clearCart (state) {
       state.cart = []
@@ -89,6 +93,24 @@ export default {
         .then(({ data }) => {
           console.log(data)
           context.commit('deleteCart', { id })
+        })
+        .catch(({ response }) => {
+          console.log(response)
+          const msg = response.data.message
+          context.dispatch('toastMsg', { icon: 'error', title: msg })
+        })
+    },
+    checkout (context) {
+      axios({
+        method: 'POST',
+        url: '/carts/checkout',
+        headers: { access_token: localStorage.access_token }
+      })
+        .then(({ data }) => {
+          console.log(data)
+          context.commit('checkout')
+          context.dispatch('toastMsg', { icon: 'success', title: 'Checkout success!' })
+          router.push({ name: 'History Transaction' })
         })
         .catch(({ response }) => {
           console.log(response)

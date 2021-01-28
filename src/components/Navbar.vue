@@ -23,7 +23,7 @@
       flat
       hide-no-data
       hide-details
-      label="What state are you from?"
+      label="What you looking for?"
       solo-inverted
       :append-icon="'mdi-magnify'"
     ></v-autocomplete>
@@ -49,6 +49,9 @@
       <v-icon>mdi-heart</v-icon>
     </v-btn>
     </v-badge>
+    <v-btn fab icon x-small :to="{ name: 'History Transaction' }">
+      <v-icon>mdi-history</v-icon>
+    </v-btn>
 
     <div v-if="!isLogin">
       <v-btn class="text-caption pa-0 ma-0" text plain color="grey" :to="{ name: 'Register' }">

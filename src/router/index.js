@@ -34,6 +34,18 @@ const routes = [
       }
     }
   },
+  {
+    path: '/transaction',
+    name: 'History Transaction',
+    component: () => import('../views/Transactions.vue'),
+    beforeEnter (to, from, next) {
+      if (!localStorage.access_token) {
+        next({ name: 'Login' })
+      } else {
+        next()
+      }
+    }
+  },
   // {
   //   path: '/products',
   //   name: 'Products',
