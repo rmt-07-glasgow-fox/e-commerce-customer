@@ -12,6 +12,8 @@
     </div>
     <div class="col-md-5">
       <h1>total checkout</h1>
+      <h3>Total Price = {{ getTotalPrice }}</h3>
+      <button class="btn btn-primary">Checkout</button>
     </div>
   </div>
 </template>
@@ -27,6 +29,11 @@ export default {
   computed: {
     cartItems () {
       return this.$store.state.carts
+    },
+    getTotalPrice () {
+      let output = 'Rp.'
+      output = output + this.$store.state.totalPrice.toLocaleString('id-ID')
+      return output
     }
   },
   created () {

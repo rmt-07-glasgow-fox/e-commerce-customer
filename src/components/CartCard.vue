@@ -3,14 +3,16 @@
     <div class="card">
       <h3>{{ cartItem.Product.name }}</h3>
       <h6>Total Price = {{ getProductPrice }} X {{ quantity }} = {{ getTotalPrice }}</h6>
-      <div class="quantity">
-        <button v-if="minQty" @click="minus" class="min-btn btn-secondary">-</button>
-        <button v-if="!minQty" @click="minus" class="min-btn btn-success">-</button>
-        <h5>{{ quantity }}</h5>
-        <button v-if="!maxQty" @click="plus" class="plus-btn btn-success">+</button>
-        <button v-if="maxQty" @click="plus" class="plus-btn btn-secondary">+</button>
+      <div class="bottom-card">
+        <div class="quantity">
+          <button v-if="minQty" @click="minus" class="min-btn btn-secondary">-</button>
+          <button v-if="!minQty" @click="minus" class="min-btn btn-success">-</button>
+          <h5>{{ quantity }}</h5>
+          <button v-if="!maxQty" @click="plus" class="plus-btn btn-success">+</button>
+          <button v-if="maxQty" @click="plus" class="plus-btn btn-secondary">+</button>
+        </div>
+        <button @click="removeItem" class="remove-btn">remove item from cart</button>
       </div>
-      <button @click="removeItem" class="remove-btn">remove item from cart</button>
     </div>
   </div>
 </template>
@@ -70,6 +72,11 @@ export default {
   },
   created () {
     this.quantity = this.cartItem.quantity
+    if (this.quantity === 1) {
+      this.minQty = true
+    } else if (this.quantity === this.cartItem.quantity) {
+      this.maxQty = true
+    }
   }
 }
 </script>
@@ -85,7 +92,15 @@ export default {
     margin: 0px;
   }
 
+  .bottom-card {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 15px;
+  }
+
   .remove-btn {
+    margin-left: 15px;
     border: none;
+    color: red;
   }
 </style>

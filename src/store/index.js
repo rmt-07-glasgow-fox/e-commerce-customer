@@ -11,7 +11,8 @@ export default new Vuex.Store({
     role: 'customer',
     products: [],
     carts: [],
-    totalCartItems: ''
+    totalCartItems: '',
+    totalPrice: 0
   },
   mutations: {
     changeStatus (state, payload) {
@@ -30,6 +31,12 @@ export default new Vuex.Store({
         totalCartItems += item.quantity
       })
       state.totalCartItems = totalCartItems
+      let totalPrice = 0
+      payload.carts.forEach(cart => {
+        const price = cart.quantity * cart.Product.price
+        totalPrice += price
+      })
+      state.totalPrice = totalPrice
     }
   },
   actions: {
