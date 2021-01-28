@@ -1,7 +1,6 @@
 <template>
 <div>
   <navbar/>
-  <transition name="fade">
   <div class="container-fluid bg">
   <div class="row justify-content-center">
     <div class="col-12 pt-5 pb-3">
@@ -29,7 +28,6 @@
     </div>
     </div>
   </div>
-  </transition>
 </div>
 </template>
 
@@ -99,6 +97,7 @@ h1 {
   font-size: 40px;
 }
 .bg {
+  position: relative;
   height: 100vh;
   background-color: #F7F7F9;
 }
@@ -134,5 +133,4 @@ h1 {
   text-indent: 16px;
   color: #272C35;
 }
-
 </style>
