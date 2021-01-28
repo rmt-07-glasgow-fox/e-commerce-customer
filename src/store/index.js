@@ -106,10 +106,10 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
-    updateCart (context, dataProduct) {
+    updateCart ({ dispatch }, dataProduct) {
       axios({
         method: 'PATCH',
-        url: `/products/customer/${dataProduct.id}`,
+        url: `/products/customer/${dataProduct.cartId}`,
         headers: {
           access_token: localStorage.access_token
         },
@@ -120,14 +120,14 @@ export default new Vuex.Store({
       })
         .then(({ data }) => {
           if (data) {
-            router.push('/cart')
+            dispatch('fetchCart')
           }
         })
         .catch(err => {
           console.log(err)
         })
     },
-    deleteCart (context, dataProduct) {
+    deleteCart ({ dispatch }, dataProduct) {
       axios({
         method: 'DELETE',
         url: `/products/customer/${dataProduct.cartId}`,
@@ -137,6 +137,7 @@ export default new Vuex.Store({
       })
         .then(({ data }) => {
           if (data) {
+            dispatch('fetchCart')
           }
         })
         .catch(err => {

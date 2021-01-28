@@ -7,7 +7,7 @@
       <div class="flex flex-col justify-between ml-4 flex-grow">
         <span class="font-bold text-sm">{{ cart.Product.name }}</span>
         <a href="" @click.prevent="updateQ" class="text-red-500 text-xs">Update Quantity</a>
-        <a href="" @click="deleteCart" class="font-semibold hover:text-red-500 text-gray-500 text-xs">Remove</a>
+        <a href="" @click.prevent="deleteCart" class="font-semibold hover:text-red-500 text-gray-500 text-xs">Remove</a>
       </div>
     </div>
     <div class="flex justify-center w-1/5">
