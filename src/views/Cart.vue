@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="min-height: 80vh">
     <h1>Your Cart</h1>
     <div v-show="!products.length">
       <div>
@@ -9,12 +9,13 @@
         <router-link to="/">Go shopping</router-link>
       </div>
     </div>
-    <table class="table is-striped" v-show="products.length">
+    <table class="table" v-show="products.length">
       <thead>
         <tr>
           <td>Name</td>
           <td>Price</td>
           <td>Quantity</td>
+          <td></td>
         </tr>
       </thead>
       <tbody>
@@ -26,11 +27,23 @@
             {{ product.Quantity}}
             <button v-on:click.prevent='addProduct(product.id)' class="btn btn-outline-success btn-sm">+</button>
           </td>
+          <td>
+            <button v-on:click.prevent='removeProduct(product.id)' class="btn btn-outline-danger btn-sm">Remove</button>
+          </td>
         </tr>
         <tr>
           <td><b>Total:</b></td>
           <td></td>
+          <td></td>
           <td><b>{{ total }}</b></td>
+        </tr>
+        <tr>
+          <td><b></b></td>
+          <td></td>
+          <td></td>
+          <td>
+           <button v-on:click.prevent="checkout(total)" class="btn btn-outline-primary btn-sm">Checkout</button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -48,6 +61,15 @@ export default {
     addProduct (id) {
       this.$store.dispatch('addProduct', id)
       this.$store.dispatch('filterCart')
+    },
+    removeProduct (id) {
+      console.log('masuk methods')
+      this.$store.dispatch('removeProduct', id)
+      this.$store.dispatch('filterCart')
+    },
+    checkout (total) {
+      console.log(total)
+      this.$store.dispatch('checkout', total)
     }
   },
   computed: {

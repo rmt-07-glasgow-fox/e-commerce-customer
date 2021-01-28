@@ -1,12 +1,12 @@
 <template>
-  <div style="height: 90vh">
+  <div style="min-height: 87vh;">
     <div>
-      <header style='display: block; padding: 32px 0 9px; text-align: center; margin-bottom: 50px'>
-        <router-link to='/'>E-Shop-E</router-link>
+      <header style='display: block; padding: 32px 0 9px; text-align: center; margin-bottom: 1rem'>
+        <router-link style="text-decoration: none; font-size: 200%; color: rgb(21, 32, 43); text-transform: uppercase" to='/'>E-Shop-E</router-link>
       </header>
     </div>
-    <div style='display: block; margin: 0 auto;'>
-          <form class="border rounded shadow" style="position: relative; display: block; width:368px; margin: 0 auto; padding: 40px 32px 12px;">
+    <div style='display: flex; margin: 0 auto; background-color: rgb(21, 32, 43); height: 30rem; align-items: center'>
+          <form class="border rounded shadow" style="display: block; width:368px; margin: 0 auto; padding: 40px 32px 12px; background-color: white">
             <div style="text-align: left">
               <h4>Login</h4>
             </div>
@@ -46,6 +46,8 @@ export default {
         password: this.password
       }
       this.$store.dispatch('login', user)
+      this.email = ''
+      this.password = ''
     }
   },
   created () {

@@ -36,7 +36,7 @@ export default new Vuex.Store({
   },
   actions: {
     login (context, payload) {
-      axios({
+      return axios({
         method: 'POST',
         url: '/login',
         data: {
@@ -50,7 +50,7 @@ export default new Vuex.Store({
           router.push('/')
         })
         .catch(err => {
-          console.log(err)
+          Swal.fire(err.response.data.message)
         })
     },
     logout (context, payload) {
@@ -145,6 +145,58 @@ export default new Vuex.Store({
         const newCart = noChange.concat(newConcat)
         context.commit('editCart', newCart)
       }
+    },
+    removeProduct (context, payload) {
+      console.log('masuk store')
+      const products = this.state.cart
+      const noChange = []
+      const change = []
+      for (let i = 0; i < products.length; i++) {
+        if (products[i].id === payload) {
+          change.push(products[i])
+        } else {
+          noChange.push(products[i])
+        }
+      }
+      context.commit('editCart', noChange)
+    },
+    register (context, payload) {
+      axios({
+        method: 'POST',
+        url: '/register',
+        data: {
+          email: payload.email,
+          password: payload.password
+        }
+      })
+        .then(({ data }) => {
+          Swal.fire('Thank you for registering')
+          router.push('/login')
+        })
+        .catch(err => {
+          Swal.fire(err.response.data.errors[0])
+        })
+    },
+    checkout (context, payload) {
+      console.log(payload, 'di store')
+      Swal.fire({
+        title: 'Are you sure?',
+        text: `Your total checkout is Rp. ${payload}`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, checkout!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire(
+            'Thank you for you purchase!'
+          )
+          const newCart = []
+          context.commit('editCart', newCart)
+          router.push('/')
+        }
+      })
     }
   }
 })

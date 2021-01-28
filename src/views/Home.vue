@@ -1,6 +1,6 @@
 <template>
-  <div class="home">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="home" style="min-height: 80vh">
+    <HelloWorld msg="Welcome to E-Shop-E"/>
     <div class="row d-flex justify-content-center">
       <!-- content card  -->
       <ProductCards

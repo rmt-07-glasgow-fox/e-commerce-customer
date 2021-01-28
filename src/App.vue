@@ -41,7 +41,7 @@
       </div>
     </div>
     <router-view/>
-    <footer class="footer py-3 bg-light mt-auto" style="position: fixed; left: 0; bottom: 0; width:100%">
+    <footer class="footer py-3 bg-light mt-auto" style="left: 0; bottom: 0; width:100%">
       <div class="container">
         <p>
           2020-2021 Company, Inc. ·
