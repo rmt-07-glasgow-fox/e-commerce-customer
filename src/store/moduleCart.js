@@ -9,7 +9,13 @@ export default {
       state.cart = data
     },
     createCart (state, data) {
-      state.cart.push(data)
+      const filter = state.cart.filter(el => el.id === data.id)
+      filter.length > 0
+        ? state.cart.map(el => {
+          el.id === data.id && (el.quantity = data.quantity)
+        })
+        : state.cart.push(data)
+      console.log(state.cart)
     },
     deleteCart (state, data) {
       state.cart = state.cart.filter(el => el.id !== data.id)
@@ -18,6 +24,9 @@ export default {
       state.cart.map(el => {
         el.id === data.id && (el.quantity = data.quantity)
       })
+    },
+    clearCart (state) {
+      state.cart = []
     }
   },
   actions: {
@@ -42,6 +51,7 @@ export default {
         data: data
       })
         .then(({ data }) => {
+          console.log(data, '??')
           context.commit('createCart', data)
         })
         .catch(({ response }) => {
@@ -56,6 +66,7 @@ export default {
         data: { quantity: data.quantity }
       })
         .then(({ data }) => {
+          console.log(data)
           context.commit('updateQty', data)
         })
         .catch(({ response }) => {
@@ -70,6 +81,7 @@ export default {
         headers: { access_token: localStorage.access_token }
       })
         .then(({ data }) => {
+          console.log(data)
           context.commit('deleteCart', { id })
         })
         .catch(({ response }) => {

@@ -1,9 +1,13 @@
 <template>
-  <div>
-    LIST CART
-    <CartItem v-for="item in cart" :key="item.id" :item="item"/>
-
-    <button>CHECKOUT</button>
+  <div class="">
+    <v-row v-if="cart.length > 0">
+      <CartItem v-for="item in cart" :key="item.id" :item="item"/>
+    </v-row>
+    <v-row v-else>
+      <v-col cols="12" align="center" justify="center">
+        NO DATA
+      </v-col>
+    </v-row>
   </div>
 </template>
 
@@ -21,6 +25,7 @@ export default {
     })
   },
   created () {
+    console.log('ok')
     this.$store.dispatch('fetchCart', null, true)
   }
 }

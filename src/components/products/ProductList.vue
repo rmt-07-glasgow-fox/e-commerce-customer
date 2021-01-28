@@ -1,7 +1,13 @@
 <template>
-  <div>
-    Products Recomendation
-    <ProductItem v-for="product in products" :key="product.id" :product="product"/>
+  <div class="">
+    <v-row v-if="products.length > 0" align="center" justify="center">
+      <ProductItem v-for="product in products" :key="product.id" :product="product"/>
+    </v-row>
+    <v-row v-else>
+      <v-col cols="12" align="center" justify="center">
+        NO DATA
+      </v-col>
+    </v-row>
   </div>
 </template>
 

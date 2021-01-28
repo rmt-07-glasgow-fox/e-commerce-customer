@@ -1,8 +1,7 @@
 <template>
-  <div>
-    CART
+  <v-container fluid>
     <CartList/>
-  </div>
+  </v-container>
 </template>
 
 <script>

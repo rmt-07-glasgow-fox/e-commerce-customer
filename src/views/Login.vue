@@ -1,32 +1,17 @@
 <template>
-  <div>
-    <form @submit.prevent="login">
-      <input type="text" v-model="user.email" >
-      <input type="password" v-model="user.password" >
-      <button type="submit">LOGIN</button>
-    </form>
-  </div>
+  <v-container fluid >
+    <div align="center" justify="center" class="mt-15">
+      <LoginSheet/>
+    </div>
+  </v-container>
 </template>
 
 <script>
+import LoginSheet from '@/components/LoginSheet.vue'
+
 export default {
-  data: () => ({
-    user: {
-      email: '',
-      password: ''
-    }
-  }),
-  methods: {
-    login () {
-      this.$store.dispatch('login', this.user)
-    },
-    clear () {
-      this.user.email = ''
-      this.user.password = ''
-    }
-  },
-  created () {
-    this.clear()
+  components: {
+    LoginSheet
   }
 }
 </script>
