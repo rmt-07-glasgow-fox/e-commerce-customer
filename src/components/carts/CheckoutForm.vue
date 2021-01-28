@@ -56,7 +56,7 @@
             >
           </b-row>
           <span>I agree to the terms and conditions.</span>
-          <b-button type="submit" class="bg-fourth mt-4 text-center w-100"
+          <b-button :disabled="getQty === 0" type="submit" class="bg-fourth mt-4 text-center w-100"
             ><strong>Checkout</strong></b-button
           >
         </form>
