@@ -14,7 +14,6 @@ const Toast = Swal.mixin({
   }
 })
 
-
 const actions = {
   login ({ commit, dispatch }, payload) {
     localStorage.setItem('access_token', null)
