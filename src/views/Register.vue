@@ -54,11 +54,16 @@ export default {
           text: 'Email/Password is required'
         })
       } else {
-        this.$store.dispatch('register', this.payload)
+        this.$store.dispatch('registerSubmit', this.payload)
           .then(data => {
             this.$router.push('/login')
           })
           .catch(err => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Email is already used'
+            })
             console.log(err)
           })
       }

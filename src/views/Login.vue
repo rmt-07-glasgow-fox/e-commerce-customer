@@ -61,6 +61,11 @@ export default {
             this.$router.push('/')
           })
           .catch(err => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Email/Password is wrong'
+            })
             console.log(err)
           })
       }
