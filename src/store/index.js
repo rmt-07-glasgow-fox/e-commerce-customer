@@ -14,6 +14,7 @@ export default new Vuex.Store({
     paidUserProducts: [],
     category: '',
     products: [],
+    randomProducts: [],
     banners: [],
     categories: [],
     authStatus: 'Login',
@@ -26,6 +27,24 @@ export default new Vuex.Store({
     },
     insertProducts (state, payload) {
       state.products = payload
+    },
+    randomizeProducts (state, payload) {
+      const products = []
+      payload.forEach(e => {
+        products.push(e)
+      })
+      let ctr = products.length
+      let temp
+      let index
+
+      while (ctr > 0) {
+        index = Math.floor(Math.random() * ctr)
+        ctr--
+        temp = products[ctr]
+        products[ctr] = products[index]
+        products[index] = temp
+      }
+      state.randomProducts = products.slice(0, 4)
     },
     insertCategories (state, payload) {
       state.categories = payload
@@ -46,9 +65,7 @@ export default new Vuex.Store({
       state.banners = payload.filter(e => e.status)
     },
     filterProducts (state, payload) {
-      console.log(payload.products)
       state.products = payload.products.filter(e => e.Category.categoryName === payload.categoryName)
-      console.log(state.products)
     },
     changeAuthStatus (state, payload) {
       state.authStatus = payload
@@ -155,6 +172,7 @@ export default new Vuex.Store({
       })
         .then(({ data }) => {
           context.commit('insertProducts', data)
+          context.commit('randomizeProducts', data)
         })
         .catch(err => {
           console.log(err)

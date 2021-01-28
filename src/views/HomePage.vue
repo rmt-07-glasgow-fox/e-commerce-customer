@@ -43,19 +43,19 @@ export default {
       return this.$store.state.banners
     },
     products () {
-      const products = this.$store.state.products
-      let ctr = products.length
-      let temp
-      let index
+      // const products = this.$store.state.products
+      // let ctr = products.length
+      // let temp
+      // let index
 
-      while (ctr > 0) {
-        index = Math.floor(Math.random() * ctr)
-        ctr--
-        temp = products[ctr]
-        products[ctr] = products[index]
-        products[index] = temp
-      }
-      return products.slice(0, 4)
+      // while (ctr > 0) {
+      //   index = Math.floor(Math.random() * ctr)
+      //   ctr--
+      //   temp = products[ctr]
+      //   products[ctr] = products[index]
+      //   products[index] = temp
+      // }
+      return this.$store.state.randomProducts
     }
   },
   methods: {
