@@ -11,6 +11,9 @@
         <a v-if="getAccesstoken" class="nav-link active"><router-link to="/wishlist">Wishlist</router-link></a>
       </li>
       <li class="nav-item">
+        <a v-if="getAccesstoken" class="nav-link active"><router-link to="/history">History</router-link></a>
+      </li>
+      <li class="nav-item">
         <a v-if="!getAccesstoken" class="nav-link active"><router-link to="/login">Login</router-link></a>
       </li>
       <li class="nav-item">

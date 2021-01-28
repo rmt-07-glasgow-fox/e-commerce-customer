@@ -13,9 +13,13 @@ export default new Vuex.Store({
     products: [],
     product: {},
     cartlist: [],
-    wishlists: []
+    wishlists: [],
+    history: []
   },
   mutations: {
+    history (state, payload) {
+      state.history = payload
+    },
     wishlists (state, payload) {
       state.wishlists = payload
     },
@@ -159,6 +163,15 @@ export default new Vuex.Store({
       axios.get('/product/id/wishlist', { headers: { accesstoken: payload } })
         .then(({ data }) => {
           context.commit('wishlists', data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    findHistory (context, payload) {
+      axios.get('/history', { headers: { accesstoken: payload } })
+        .then(({ data }) => {
+          context.commit('history', data)
         })
         .catch(err => {
           console.log(err)
