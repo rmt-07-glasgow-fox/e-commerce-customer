@@ -32,23 +32,23 @@ import { mapState } from 'vuex'
 export default {
   methods: {
     async deleteCart (id) {
-      console.log('>>> cart id', id)
+      // console.log('>>> cart id', id)
       await this.$store.dispatch('deleteCart', id)
     },
     plus () {
       if (this.cart.quantity < this.cart.Product.stock) {
         this.cart.quantity++
       }
-      console.log('plus', this.cart.quantity)
+      // console.log('plus', this.cart.quantity)
     },
     minus () {
       if (this.cart.quantity > 1) {
         this.cart.quantity--
       }
-      console.log('minus', this.cart.quantity)
+      // console.log('minus', this.cart.quantity)
     },
     async updateCart (id) {
-      console.log('>>> update cart id : ', id, this.cart.quantity)
+      // console.log('>>> update cart id : ', id, this.cart.quantity)
       const body = {
         id: id,
         quantity: this.cart.quantity

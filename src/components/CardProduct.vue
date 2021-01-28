@@ -22,7 +22,7 @@ import { mapState } from 'vuex'
 export default {
   methods: {
     async addCart (ProductId) {
-      console.log('>>> addCart ', ProductId)
+      // console.log('>>> addCart ', ProductId)
       this.$store.dispatch('addCart', ProductId)
     },
     toRupiah (number) {

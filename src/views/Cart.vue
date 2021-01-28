@@ -8,7 +8,7 @@
         <form>
           <h1>Total payment :</h1>
           <h1>{{ toRupiah(totalPayment) }}</h1>
-          <button class="btn btn-success btn-block">
+          <button class="btn btn-success btn-block my-2">
             <b-icon icon="wallet" /> Checkout
           </button>
         </form>

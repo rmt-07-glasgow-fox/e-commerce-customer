@@ -44,14 +44,17 @@ export default new Vuex.Store({
         const URL = this.state.baseURL + '/user/loginUser'
         const response = await axios.post(URL, payload)
 
-        console.log('>>> login : ', response.data)
+        // console.log('>>> login : ', response.data)
         localStorage.setItem('access_token', response.data.access_token)
+        Vue.swal('You are login !')
       } catch (err) {
-        console.log(err)
+        Vue.swal('Please correct email / password !')
+        // console.log(err)
       }
     },
     logout (context, payload) {
       localStorage.clear()
+      Vue.swal('You are logout !')
     },
     async register (context, payload) {
       try {
@@ -60,8 +63,10 @@ export default new Vuex.Store({
 
         // console.log('>>> login : ',response.data)
         localStorage.setItem('access_token', response.data.access_token)
+        Vue.swal('You are registered !')
       } catch (err) {
-        console.log(err)
+        Vue.swal('input email and password correctly !')
+        // console.log(err)
       }
     },
     isUserLogin (context, payload) {
@@ -86,7 +91,7 @@ export default new Vuex.Store({
         // console.log('>>> total :', totalPayment)
         context.commit('SET_TOTALPAYMENT', totalPayment)
       } catch (err) {
-        console.log(err)
+        // console.log(err)
       }
     },
     async deleteCart (context, idCart) {
@@ -94,8 +99,10 @@ export default new Vuex.Store({
         const URL = this.state.baseURL + `/cart/${idCart}`
         await axios.delete(URL, { headers: { access_token: localStorage.access_token } })
         this.dispatch('getCart')
+        Vue.swal('Success deleted !')
       } catch (err) {
-        console.log(err)
+        Vue.swal('Fail deleted !')
+        // console.log(err)
       }
     },
     async addCart (context, ProductId) {
@@ -104,23 +111,27 @@ export default new Vuex.Store({
 
         const URL = this.state.baseURL + '/cart'
         const response = await axios.post(URL, { ProductId, quantity }, { headers: { access_token: localStorage.access_token } })
-        console.log(response.data)
+        // console.log(response.data)
         this.dispatch('getCart')
+        Vue.swal('Success add cart !')
       } catch (err) {
-        console.log(err)
+        Vue.swal('Please check total quantity !')
+        // console.log(err)
       }
     },
     async updateCart (context, body) {
       try {
-        console.log('>>> axios body ', body)
+        // console.log('>>> axios body ', body)
         const { id, quantity } = body
 
         const URL = this.state.baseURL + `/cart/${id}`
         const response = await axios.patch(URL, { quantity: quantity }, { headers: { access_token: localStorage.access_token } })
-        console.log(response.data)
+        // console.log(response.data)
         this.dispatch('getCart')
+        Vue.swal('Success update cart !')
       } catch (err) {
-        console.log(err)
+        Vue.swal('Fail update cart !')
+        // console.log(err)
       }
     }
   }
