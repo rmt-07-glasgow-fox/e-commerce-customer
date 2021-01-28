@@ -5,7 +5,7 @@
       <li></li>
     </ul>
     <ul>
-      <li class="cart">
+      <li class="cart" v-if="status == 'logout'">
         <button @click="toCart" class="cart-btn">
           <img src="../assets/cart-2.png" height="40px">
         </button>

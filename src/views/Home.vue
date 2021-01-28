@@ -27,7 +27,9 @@ export default {
   },
   created () {
     this.$store.dispatch('fetchProducts')
-    this.$store.dispatch('fetchCarts')
+    if (localStorage.access_token) {
+      this.$store.dispatch('fetchCarts')
+    }
   }
 }
 </script>

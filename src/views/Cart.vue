@@ -2,12 +2,13 @@
   <div class="row">
     <div class="col-md-5 cart-list">
       <div class="list-group">
+        <h2 v-if="cartItems.length === 0">Cart is empty</h2>
         <CartCard
-      v-for="item in cartItems"
-      :key="item.id"
-      :cartItem="item"
-      class="list-group-item"
-      />
+        v-for="item in cartItems"
+        :key="item.id"
+        :cartItem="item"
+        class="list-group-item"
+        />
       </div>
     </div>
     <div class="col-md-5">
