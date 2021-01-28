@@ -43,12 +43,11 @@ export default {
       if (this.isAuth) {
         this.$store.dispatch('addCart', ProdId)
       } else {
-        this.$router.replace('/auth/login')
+        this.$router.replace('/login')
       }
     },
     checkAuth () {
       localStorage.getItem('access_token') ? this.isAuth = true : this.isAuth = false
-      console.log(this.isAuth)
     }
   },
   created () {

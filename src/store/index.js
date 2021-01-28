@@ -118,6 +118,7 @@ export default new Vuex.Store({
           ProdId: payload
         }
         await axios.post('/carts', data, { headers: { access_token: accessToken }, mode: 'cors' })
+        // eslint-disable-next-line
         this.fetchCarts
         Swal.fire(
           'Success',
@@ -134,10 +135,11 @@ export default new Vuex.Store({
       try {
         const accessToken = localStorage.getItem('access_token')
         await axios.delete('/carts/' + payload, { headers: { access_token: accessToken } })
+        // eslint-disable-next-line
         this.fetchCarts
         Swal.fire(
           'Success',
-          'Added to Cart',
+          'Cart Deleted',
           'success'
         )
       } catch (error) {

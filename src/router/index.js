@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import Auth from '../views/Auth.vue'
 import LoginForm from '../components/LoginForm.vue'
 import RegisterForm from '../components/RegisterForm.vue'
 import ProductList from '../components/ProductList.vue'
@@ -23,7 +22,7 @@ const guardRouter = (to, from, next) => {
   if (isAuthenticated) {
     next() // allow to enter route
   } else {
-    next('/auth/login') // go to '/login';
+    next('/login') // go to '/login';
   }
 }
 
@@ -37,6 +36,16 @@ const routes = [
         path: '',
         name: 'ProductList',
         component: ProductList
+      },
+      {
+        path: '/login',
+        name: 'Login',
+        component: LoginForm
+      },
+      {
+        path: '/register',
+        name: 'Register',
+        component: RegisterForm
       },
       {
         path: 'wishlist',
@@ -57,31 +66,6 @@ const routes = [
         component: TransactionList
       }
     ]
-  },
-  {
-    path: '/auth',
-    name: 'Auth',
-    component: Auth,
-    children: [
-      {
-        path: 'login',
-        name: 'Login',
-        component: LoginForm
-      },
-      {
-        path: 'register',
-        name: 'Register',
-        component: RegisterForm
-      }
-    ]
-  },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   }
 ]
 

@@ -51,7 +51,7 @@
                   {{ tr.Product.name }}
                 </vs-td>
                 <vs-td>
-                {{ tr.Product.price }}
+                {{ 'IDR ' + tr.Product.price.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, '$1\.') }}
                 </vs-td>
                 <vs-td>
                 {{ tr.qty }}
@@ -110,6 +110,10 @@ export default {
   computed: {
     carts () {
       return this.$store.state.carts
+    },
+    price () {
+      // eslint-disable-next-line
+      return 'IDR ' + this.product.price.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, '$1\.')
     }
   }
 }

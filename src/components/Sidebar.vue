@@ -72,14 +72,13 @@ export default {
   methods: {
     checkAuth () {
       localStorage.getItem('access_token') ? this.isAuth = true : this.isAuth = false
-      console.log(this.isAuth)
     },
     redirectLogin () {
-      this.$router.replace('/auth/login')
+      this.$router.replace('/login')
     },
     logout () {
       localStorage.clear()
-      this.redirectLogin()
+      this.$router.replace('/login')
     },
     redirectProducts () {
       this.$router.replace('/')

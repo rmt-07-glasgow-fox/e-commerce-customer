@@ -79,7 +79,7 @@ export default {
       }
     },
     redirectLogin () {
-      this.$router.replace('/auth/login')
+      this.$router.replace('/login')
     }
   }
 }

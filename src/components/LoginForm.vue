@@ -79,7 +79,7 @@ export default {
       }
     },
     redirectRegister () {
-      this.$router.replace('/auth/register')
+      this.$router.replace('/register')
     }
   }
 }
