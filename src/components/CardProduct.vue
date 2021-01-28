@@ -24,6 +24,7 @@ export default {
     async addCart (ProductId) {
       // console.log('>>> addCart ', ProductId)
       this.$store.dispatch('addCart', ProductId)
+      this.$router.push('/cart')
     },
     toRupiah (number) {
       return number.toLocaleString('id-ID', {
