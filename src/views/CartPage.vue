@@ -13,7 +13,7 @@
             <p class='card-text'> {{ formatPrice(totalPrice) }} </p>
           </div>
           <div class='card-footer'>
-            <button class='btn btn-lg btn-success'>Checkout</button>
+            <button class='btn btn-lg btn-success' @click='checkOut'>Checkout</button>
           </div>
         </div>
       </div>
@@ -28,6 +28,23 @@ export default {
   name: 'CartPage',
   components: {
     Navbar, CartCard
+  },
+  methods: {
+    checkOut () {
+      this.$swal.fire({
+        title: 'Checkout the cart?',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        denyButtonText: 'No'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          console.log('checkout done')
+        } else if (result.isDenied) {
+          this.$swal.fire('Checkout cancelled', '', 'info')
+        }
+      })
+    }
   },
   computed: {
     carts () {
