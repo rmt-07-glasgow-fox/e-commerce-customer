@@ -10,7 +10,7 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
+    path: '/home',
     name: 'Home',
     component: Home,
     children: [
@@ -22,10 +22,17 @@ const routes = [
         path: 'register',
         component: Register
       }
-    ]
+    ],
+    beforeEnter (to, from, next) {
+      if (localStorage.getItem('access_token')) {
+        next({ name: 'MainPage' })
+      } else {
+        next()
+      }
+    }
   },
   {
-    path: '/main',
+    path: '/',
     name: 'MainPage',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
