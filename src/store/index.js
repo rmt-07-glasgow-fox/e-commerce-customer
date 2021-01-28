@@ -6,6 +6,7 @@ import banner from './module/banner/index.js'
 import category from './module/category/index.js'
 import product from './module/product/index.js'
 import cart from './module/cart/index.js'
+import wishlist from './module/wishlist/index.js'
 
 Vue.use(Vuex)
 
@@ -15,6 +16,7 @@ export default new Vuex.Store({
     banner,
     category,
     product,
-    cart
+    cart,
+    wishlist
   }
 })

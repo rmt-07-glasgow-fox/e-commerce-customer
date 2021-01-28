@@ -50,6 +50,7 @@
                     border-top-left-radius: 2.4rem;
                     border-bottom-left-radius: 2.4rem;
                   "
+                  @click="addCart(Product.id)"
                 >
                   <shopping-cart-icon
                     size="1x"
@@ -64,6 +65,7 @@
                     border-top-right-radius: 2.4rem;
                     border-bottom-right-radius: 2.4rem;
                   "
+                  @click="addWishlist(Product.id)"
                 >
                   <heart-icon
                     size="1x"
@@ -101,6 +103,12 @@ export default {
       if (product.stock) return product.stock + ' left'
 
       return 'Sold'
+    },
+    addCart (id) {
+      this.$store.dispatch('addCart', id)
+    },
+    addWishlist (id) {
+      this.$store.dispatch('addWishlist', id)
     }
   },
   computed: {

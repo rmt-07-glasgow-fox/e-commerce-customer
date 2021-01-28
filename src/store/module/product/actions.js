@@ -8,7 +8,6 @@ export default {
         url: '/product'
       })
 
-      console.log(data)
       context.commit('fetchProducts', data)
     } catch (err) {
       console.log(err)

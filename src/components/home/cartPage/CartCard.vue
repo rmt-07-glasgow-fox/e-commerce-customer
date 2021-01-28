@@ -3,10 +3,14 @@
     <div class="container-fluid" style="padding: 0">
       <div class="row row-cols-1 row-cols-md-3 g-4">
         <!-- card -->
-        <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+        <div
+          v-for="Cart in fetchCarts"
+          :key="Cart.id"
+          class="col-12 col-sm-6 col-md-6 col-lg-3"
+        >
           <div class="card h-100" style="border-radius: 1rem">
             <img
-              src="https://gamepreorders.com/wp-content/uploads/2019/06/cover-art-6.jpg"
+              :src="Cart.Product.image_url"
               class="card-img-top card-img-size"
               style="
                 border-top-left-radius: 1rem;
@@ -23,13 +27,13 @@
                   color: #e55c3e;
                 "
               >
-                Cyberpunk 2077
+                {{ Cart.Product.name }}
               </h5>
               <p class="card-text" style="font-weight: 600; margin-bottom: 4px">
-                Rp. 500.000
+                {{ priceFormatter(Cart) }}
               </p>
               <p class="card-text" style="font-weight: 600; margin-bottom: 8px">
-                250 left
+                {{ stockFormatter(Cart) }}
               </p>
 
               <div
@@ -37,7 +41,11 @@
                 role="group"
                 aria-label="Basic outlined example"
               >
-                <button type="button" class="btn btn-light">
+                <button
+                  type="button"
+                  class="btn btn-light"
+                  @click="decreCart(Cart.id)"
+                >
                   <minus-icon size="1x"></minus-icon>
                 </button>
                 <button
@@ -46,15 +54,20 @@
                   style="border: 0"
                   disabled
                 >
-                  1
+                  {{ Cart.quantity }}
                 </button>
-                <button type="button" class="btn btn-light">
+                <button
+                  type="button"
+                  class="btn btn-light"
+                  @click="increCart(Cart.id)"
+                >
                   <plus-icon size="1x"></plus-icon>
                 </button>
               </div>
               <button
                 class="btn btn-outline-danger"
                 style="border-radius: 2.4em"
+                @click="deleteCart(Cart.id)"
               >
                 <shopping-cart-icon
                   size="1x"
@@ -81,6 +94,25 @@ export default {
     PlusIcon,
     MinusIcon,
     ShoppingCartIcon
+  },
+  methods: {
+    priceFormatter (payload) {
+      if (payload.Product.Price === 0) return 'Free'
+
+      return `Rp. ${payload.Product.price.toLocaleString('id')}`
+    },
+    stockFormatter (payload) {
+      return `${payload.Product.stock} left`
+    },
+    increCart (id) {
+      this.$store.dispatch('increCart', id)
+    },
+    decreCart (id) {
+      this.$store.dispatch('decreCart', id)
+    },
+    deleteCart (id) {
+      this.$store.dispatch('deleteCart', id)
+    }
   },
   computed: {
     ...mapGetters([
