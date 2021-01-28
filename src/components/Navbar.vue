@@ -7,7 +7,7 @@
           <router-link to="/" class="navbar-brand"><h3>Danuspedia</h3></router-link>
         </div>
         <div>
-          ...
+          <!-- ... -->
         </div>
         <div class="col-3 navbar-account">
           <div v-if="isLogin == true">
@@ -21,7 +21,8 @@
             </ul>
           </div>
           <div v-if="isLogin == true">
-            <button class="btn btn-danger mb-2" @click.prevent="logout">Logout</button>
+            <!-- <router-link to="" class="nav-link"> History </router-link> -->
+            <a href="#" class="nav-link text-danger" @click.prevent="logout">Logout</a>
           </div>
           <div v-if="isLogin == false">
             <router-link to="login" class="nav-link"> Login </router-link>

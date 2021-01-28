@@ -64,8 +64,9 @@ export default {
         ProductId: +this.ProductId,
         quantity: +this.quantity
       }
-      this.$store.dispatch('addToCart', payload)
-      this.$store.dispatch('fetchCarts')
+      this.$store.dispatch('updateCart', payload).then(() => {
+        this.$store.dispatch('fetchCarts')
+      })
     }
   }
 }

@@ -1,6 +1,7 @@
 <template>
   <div>
     <h3>Checkout Summary</h3>
+    <p>Please review your carts before checking out</p>
     <h2><b>Total: {{grandTotal}}</b></h2>
     <div class="row m-3 justify-content-center">
       <CheckoutCard

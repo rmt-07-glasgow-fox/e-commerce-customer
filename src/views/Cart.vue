@@ -16,8 +16,8 @@
           :key="index">
           <b>{{priceArr[index][0]}}: {{priceArr[index][1]}}</b>
         </div> -->
-        <!-- <h2><b>Total: {{grandTotal}}</b></h2> -->
-        <router-link to="/checkout" class="btn btn-primary">Proceed to Checkout</router-link>
+        <h2><b>Total: {{grandTotal}}</b></h2>
+        <router-link to="/checkout" class="btn btn-primary mr-6">Proceed to Checkout</router-link>
         <!-- <div class="btn btn-primary" @click.prevent="test">Test Show Total</div> -->
       </div>
     </div>
@@ -51,7 +51,7 @@ export default {
     carts () {
       console.log('Carts has changed:', this.carts)
       this.grandTotal = 0
-      // this.calculateGrandTotal()
+      this.calculateGrandTotal()
     }
   },
   computed: {
@@ -60,8 +60,9 @@ export default {
     }
   },
   created () {
-    this.$store.dispatch('fetchCarts')
-    // this.calculateGrandTotal()
+    this.$store.dispatch('fetchCarts').then(() => {
+      this.calculateGrandTotal()
+    })
   }
 }
 

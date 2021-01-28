@@ -6,9 +6,9 @@
         <div class="">
           <h4>{{cart.Product.name}}</h4>
           <p class="card-text"><b>Rp {{total.toLocaleString('id-ID')}}</b></p>
-          <p class="text-danger" v-if="quantity > cart.Product.stock">Quantity exceeds stock</p>
+          <!-- <p class="text-danger" v-if="quantity > cart.Product.stock">Quantity exceeds stock</p> -->
           <p class="card-text">Quantity: {{quantity}}</p>
-          <p class="card-text">Bought: {{cart.updatedAt.slice(0, 10)}}</p>
+          <p class="card-text">Bought at {{cart.updatedAt.slice(0, 10)}}</p>
         </div>
       </div>
     </div>

@@ -122,6 +122,22 @@ export default new Vuex.Store({
           console.log(err.response.data.message)
         })
     },
+    updateCart (context, payload) {
+      axios({
+        method: 'PUT',
+        url: '/cart',
+        headers: {
+          access_token: localStorage.access_token
+        },
+        data: payload
+      })
+        .then((response) => {
+          console.log('SUCCESS updateCart', { data: response.data })
+        })
+        .catch((err) => {
+          console.log(err.response.data.message)
+        })
+    },
     fetchCarts (context, payload) {
       axios({
         method: 'GET',
