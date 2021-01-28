@@ -7,13 +7,14 @@
       <div class="col-md-8">
         <div class="card-body">
           <h4 class="card-title">{{ cart.Product.name }}</h4>
-          <h6 class="card-title">Total : {{ cart.totalPrice }}</h6>
-          <small class="text-muted">price : {{ cart.Product.price }}/pcs</small>
+          <h5 class="card-title">Total : {{ cart.totalPrice }}</h5>
+          <small class="text-muted">Price : {{ cart.Product.price }}/pcs</small><br>
+          <small class="text-muted">Stock : {{ cart.Product.stock }}</small>
           <div class="my-2">
-            <form @submit.prevent="updateCart">
-              Quantity :
+            <form @submit.prevent="updateCart(cart.id)">
+              <b>Quantity : </b>
               <button @click="plus" type="button" class="btn btn-sm btn-primary rounded-circle mx-2" > + </button>
-              {{ cart.quantity }}
+              <b> {{ cart.quantity }} </b>
               <button @click="minus" type="button" class="btn btn-sm btn-danger rounded-circle mx-2"> - </button>
               <button type="submit" class="btn btn-warning mx-2"> <b-icon icon="arrow-clockwise" /> update </button>
               <button @click="deleteCart(cart.id)" type="button" class="btn btn-dark"> <b-icon icon="trash-fill" /> delete </button>
@@ -35,10 +36,25 @@ export default {
       await this.$store.dispatch('deleteCart', id)
     },
     plus () {
-      console.log('plus')
+      if (this.cart.quantity < this.cart.Product.stock) {
+        this.cart.quantity++
+      }
+      console.log('plus', this.cart.quantity)
     },
     minus () {
-      console.log('minus')
+      if (this.cart.quantity > 1) {
+        this.cart.quantity--
+      }
+      console.log('minus', this.cart.quantity)
+    },
+    async updateCart (id) {
+      console.log('>>> update cart id : ', id, this.cart.quantity)
+      const body = {
+        id: id,
+        quantity: this.cart.quantity
+      }
+
+      await this.$store.dispatch('updateCart', body)
     }
   },
   props: ['cart'],

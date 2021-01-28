@@ -91,13 +91,25 @@ export default new Vuex.Store({
     },
     async addCart (context, ProductId) {
       try {
-        let quantity = 1
+        const quantity = 1
 
-        const URL = this.state.baseURL + `/cart`
-        let response = await axios.post(URL, { ProductId, quantity },{ headers: { access_token: localStorage.access_token } })
+        const URL = this.state.baseURL + '/cart'
+        const response = await axios.post(URL, { ProductId, quantity }, { headers: { access_token: localStorage.access_token } })
         console.log(response.data)
         this.dispatch('getCart')
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    async updateCart (context, body) {
+      try {
+        console.log('>>> axios body ', body)
+        const { id, quantity } = body
 
+        const URL = this.state.baseURL + `/cart/${id}`
+        const response = await axios.patch(URL, { quantity: quantity }, { headers: { access_token: localStorage.access_token } })
+        console.log(response.data)
+        this.dispatch('getCart')
       } catch (err) {
         console.log(err)
       }
