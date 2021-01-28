@@ -1,6 +1,6 @@
 import axios from 'axios'
 
 export default axios.create({
-  // baseURL: 'https://e-commerce-cms-app.herokuapp.com'
-  baseURL: 'http://localhost:3000'
+  baseURL: 'https://e-commerce-cms-app.herokuapp.com'
+  // baseURL: 'http://localhost:3000'
 })
