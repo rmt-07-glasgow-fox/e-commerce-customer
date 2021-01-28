@@ -14,10 +14,10 @@
       </tr>
       <cart-card v-for="cart in carts" :key="cart.id" :cart="cart"/>
     </table>
-    <div class="bg-light d-flex justify-content-center align-items-center py-2 px-4">
+    <div v-if="carts.length > 0" class="bg-light d-flex justify-content-center align-items-center py-2 px-4">
       <div>
         <div class="fs-5 mb-2 fw-bold">Total Payment : {{ totalPayment }}</div>
-        <button class="btn btn-outline-success">Checkout</button>
+        <button class="btn btn-outline-success" @click="checkout">Checkout</button>
       </div>
     </div>
   </div>
@@ -37,6 +37,11 @@ export default {
       return (Object.values(carts).reduce((a, { quantity, Product }) => {
         return a + quantity * Product.price
       }, 0)).toLocaleString('id', { style: 'currency', currency: 'IDR' })
+    }
+  },
+  methods: {
+    checkout () {
+      this.$store.dispatch('checkout', this.carts)
     }
   },
   beforeRouteEnter (to, from, next) {

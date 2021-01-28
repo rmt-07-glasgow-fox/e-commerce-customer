@@ -25,6 +25,12 @@ export default {
   computed: {
     products () {
       return this.$store.getters.filterProducts
+    },
+    filter () {
+      return this.$store.state.filter
+    },
+    categories () {
+      return this.$store.state.categories
     }
   },
   created () {

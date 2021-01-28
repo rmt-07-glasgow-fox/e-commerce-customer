@@ -14,7 +14,7 @@
           <i class="fas fa-shopping-cart"></i>
           <span v-if="$route.path != '/login' && $route.path != '/register' && carts.length ">{{ carts.length }}</span>
         </div>
-        <div><i class="fas fa-history"></i></div>
+        <div @click="navigateToHistory"><i class="fas fa-history"></i></div>
         <button
           v-if="!access_token"
           class="btn btn-sm btn-outline-success"
@@ -74,6 +74,9 @@ export default {
     navigateToCart () {
       if (this.$route.path !== '/cart') this.$router.push('/cart')
     },
+    navigateToHistory () {
+      if (this.$route.path !== '/history') this.$router.push('/history')
+    },
     fetchCategory () {
       this.$store.dispatch('fetchCategory')
     },
@@ -86,12 +89,16 @@ export default {
     },
     fetchCarts () {
       if (this.access_token) this.$store.dispatch('fetchCarts')
+    },
+    fetchTransaction () {
+      if (this.access_token) this.$store.dispatch('fetchTransaction')
     }
   },
   created () {
     this.access_token = localStorage.access_token
     this.fetchCarts()
     this.fetchCategory()
+    this.fetchTransaction()
     this.$store.commit('changeFilter', '')
   },
   updated () {

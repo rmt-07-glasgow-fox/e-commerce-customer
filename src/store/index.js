@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from '../api/axios'
 import router from '../router'
+import Swal from 'sweetalert2'
 
 Vue.use(Vuex)
 
@@ -11,7 +12,19 @@ export default new Vuex.Store({
     categories: [],
     filter: '',
     search: '',
-    carts: []
+    carts: [],
+    transactions: [],
+    Toast: Swal.mixin({
+      toast: true,
+      position: 'top',
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
   },
   mutations: {
     insertProduct (state, payload) {
@@ -28,6 +41,9 @@ export default new Vuex.Store({
     },
     insertCart (state, payload) {
       state.carts = payload
+    },
+    insertTransaction (state, payload) {
+      state.transactions = payload
     }
   },
   actions: {
@@ -43,10 +59,17 @@ export default new Vuex.Store({
       })
         .then(({ data }) => {
           localStorage.access_token = data.access_token
+          _.state.Toast.fire({
+            icon: 'success',
+            title: 'Logged in successfully'
+          })
           router.push('/')
         })
         .catch(err => {
-          console.log(err)
+          _.state.Toast.fire({
+            icon: 'error',
+            title: err.response.data.message
+          })
         })
     },
     register (_, payload) {
@@ -60,10 +83,17 @@ export default new Vuex.Store({
         }
       })
         .then(({ data }) => {
+          _.state.Toast.fire({
+            icon: 'success',
+            title: 'Register success'
+          })
           router.push('/login')
         })
         .catch(err => {
-          console.log(err)
+          _.state.Toast.fire({
+            icon: 'error',
+            title: err.response.data.message[0]
+          })
         })
     },
     fetchProduct ({ commit }) {
@@ -105,6 +135,21 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
+    fetchTransaction ({ commit }) {
+      axios({
+        method: 'GET',
+        url: '/carts/transactions',
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+        .then(({ data }) => {
+          commit('insertTransaction', data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
     addToCart (_, payload) {
       axios({
         method: 'POST',
@@ -117,8 +162,11 @@ export default new Vuex.Store({
         }
       })
         .then(({ data }) => {
+          _.state.Toast.fire({
+            icon: 'success',
+            title: 'Successfully add to cart'
+          })
           this.dispatch('fetchCarts')
-          console.log(data)
         })
         .catch(() => {
           router.push('/login')
@@ -137,7 +185,6 @@ export default new Vuex.Store({
         }
       })
         .then(({ data }) => {
-          console.log(data)
           this.dispatch('fetchCarts')
         })
         .catch((err) => {
@@ -153,24 +200,52 @@ export default new Vuex.Store({
         }
       })
         .then(() => {
+          _.state.Toast.fire({
+            icon: 'success',
+            title: 'Product removed'
+          })
           this.dispatch('fetchCarts')
         })
         .catch(err => {
           console.log(err)
         })
+    },
+    checkout (_, payload) {
+      axios({
+        method: 'PATCH',
+        url: '/carts',
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+        .then(({ data }) => {
+          _.state.Toast.fire({
+            icon: 'success',
+            title: data.message
+          })
+          this.dispatch('fetchCarts')
+        })
+        .catch(err => {
+          _.state.Toast.fire({
+            icon: 'error',
+            title: err.response.data.error.message
+          })
+          this.dispatch('fetchCarts')
+        })
     }
   },
   getters: {
     filterProducts: state => {
-      if (state.filter === '' && state.search === '') return state.products
-      else if (state.search) {
+      if (state.filter === '' && state.search === '') {
+        return state.products.filter(e => e.stock > 0)
+      } else if (state.search) {
         return state.products.filter(e => {
           return e.name.toLowerCase().includes(state.search.toLowerCase())
-        })
+        }).filter(e => e.stock > 0)
       } else {
         return state.products.filter(e => {
           return e.CategoryId === state.filter
-        })
+        }).filter(e => e.stock > 0)
       }
     },
     sortedCart: state => {

@@ -42,8 +42,8 @@ export default {
       if (val > this.cart.Product.stock) val = this.cart.Product.stock
       else if (val < 0) val = 0
       this.quantity = val
-
-      this.$store.dispatch('updateQuantity', { id: this.cart.id, quantity: val })
+      if (val === 0) this.deleteCart()
+      else this.$store.dispatch('updateQuantity', { id: this.cart.id, quantity: val })
     }, 200)
   },
   data () {

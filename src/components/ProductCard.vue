@@ -4,7 +4,7 @@
     <div class="">
       <p class="card-title">{{ product.name }}</p>
       <div class="footer">
-        <div>Rp. {{ product.price }}</div>
+        <div class="price">{{ price }}</div>
         <button
           @click.prevent="addToCart"
           class="btn btn-sm btn-outline-primary"
@@ -15,9 +15,19 @@
 </template>
 
 <script>
+// import Swal from 'sweetalert2'
+
 export default {
   name: 'ProductCard',
   props: ['product'],
+  computed: {
+    Toast () {
+      return this.$store.state.Toast
+    },
+    price () {
+      return this.product.price.toLocaleString('id', { style: 'currency', currency: 'IDR' })
+    }
+  },
   methods: {
     addToCart () {
       this.$store.dispatch('addToCart', this.product.id)
@@ -45,5 +55,8 @@ export default {
     bottom: 0;
     width: 100%;
     padding-left: 5px;
+  }
+  .price{
+    font-size: 0.9em;
   }
 </style>
