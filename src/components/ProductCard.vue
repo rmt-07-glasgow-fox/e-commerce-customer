@@ -35,17 +35,21 @@ export default {
   props: ['product'],
   methods: {
     addCart () {
-      this.$store.dispatch('addCart', {
-        ProductId: this.product.id,
-        amount: 1,
-        totalPrice: +this.product.price
-      }).catch(err => {
-        err.response.data = Array.isArray(err.response.data) ? err.response.data[0] : err.response.data
-        this.$swal({
-          icon: 'warning',
-          text: err.response.data.message
+      if (localStorage.access_token && localStorage.user) {
+        this.$store.dispatch('addCart', {
+          ProductId: this.product.id,
+          amount: 1,
+          totalPrice: +this.product.price
+        }).catch(err => {
+          err.response.data = Array.isArray(err.response.data) ? err.response.data[0] : err.response.data
+          this.$swal({
+            icon: 'warning',
+            text: err.response.data.message
+          })
         })
-      })
+      } else {
+        this.$store.commit('toggleLogin', !this.showLogin)
+      }
     }
   }
 }
