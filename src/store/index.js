@@ -10,7 +10,7 @@ export default new Vuex.Store({
     banners: [],
     carts: [],
     totalPayment: 0,
-    baseURL: 'http://localhost:3000',
+    baseURL: 'https://e-commerce-server-by-rozakus.herokuapp.com',
     isUserLogin: false
   },
   mutations: {

@@ -5,8 +5,8 @@
       style="text-shadow: 0px 0px 2px #000"
       :interval="1200"
       indicators
-      img-width="100vw"
-      img-height="100vh"
+      img-width="1024"
+      img-height="480"
     >
       <b-carousel-slide
         v-for="(banner, index) in banners"

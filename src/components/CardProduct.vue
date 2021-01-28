@@ -22,9 +22,13 @@ import { mapState } from 'vuex'
 export default {
   methods: {
     async addCart (ProductId) {
-      // console.log('>>> addCart ', ProductId)
+      if(this.isUserLogin) {
+        // console.log('>>> addCart ', ProductId)
       this.$store.dispatch('addCart', ProductId)
       this.$router.push('/cart')
+      } else {
+        this.$swal('Please login !')
+      }
     },
     toRupiah (number) {
       return number.toLocaleString('id-ID', {
@@ -34,7 +38,7 @@ export default {
     }
   },
   props: ['product'],
-  computed: { ...mapState(['baseURL']) }
+  computed: { ...mapState(['baseURL','isUserLogin']) }
 }
 </script>
 
