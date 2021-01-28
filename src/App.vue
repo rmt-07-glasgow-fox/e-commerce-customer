@@ -2,17 +2,30 @@
   <div id="app">
     <Navbar/>
     <router-view class="view"/>
-    <Footer/>
+    <Footer v-if="page == 'Dashboard'"/>
   </div>
 </template>
 <script>
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
-
+import { mapState } from 'vuex'
 export default {
   components: {
     Footer,
     Navbar
+  },
+  computed: {
+    ...mapState([
+      'page'
+    ])
+  },
+  created () {
+    if (localStorage.access_token) {
+      this.$store.dispatch('getCarts')
+      this.$store.dispatch('getHistories')
+      this.$store.commit('statusLogin')
+    }
+    this.$store.dispatch('getProducts')
   }
 }
 </script>
@@ -40,6 +53,6 @@ export default {
 }
 
 .view{
-  min-height: 55vh;
+  min-height: 75vh;
 }
 </style>
