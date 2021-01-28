@@ -6,16 +6,38 @@
     <video src="https://assets.mixkit.co/videos/preview/mixkit-coffee-beans-falling-into-a-coffee-pot-4985-large.mp4" muted loop autoplay></video>
     <div class="overlay"></div>
     <div class="text">
-      <h2>Coffee first</h2>
-      <h3>others will follow...</h3>
-      <p>Are you a coffee addict?, so you come to the right place. Intoduce Doffee-Coffee, the only coffee paradise for the coffe lovers.</p>
-      <router-link to="/login">Login</router-link>
+            <section class="w-full px-8 py-16 xl:px-8 bg-transparent-100">
+    <div class="max-w-5xl mx-auto">
+        <div class="flex flex-col items-center md:flex-row">
+
+            <div class="w-full space-y-5 md:w-3/5 md:pr-16">
+                <p class="font-medium uppercase">"Coffee Tale"</p>
+                <h3 class="text-2xl font-extrabold leading-none text-black sm:text-3xl md:text-5xl">
+                    May your coffee be stronger than your toddler.
+                </h3>
+                <p class="text-xl text-gray-600 md:pr-16"> "Here’s to all the people who remain unharmed because I have coffee and a sense of humor."</p>
+            </div>
+
+            <div class="w-full mt-16 md:mt-0 md:w-2/5">
+                <div class="relative z-10 h-auto p-8 py-10 overflow-hidden bg-white border-b-2 border-gray-300 rounded-lg shadow-2xl px-7">
+                    <h4 class="mb-6 text-2xl font-medium text-center">Sign in to your Account</h4>
+                    <div class="block mb-4 border border-gray-200 rounded-lg">
+                        <input type="text" name="email" id="email" class="block w-full px-4 py-3 border-2 border-transparent rounded-lg focus:border-blue-500 focus:outline-none" placeholder="Email address">
+                    </div>
+                    <div class="block mb-4 border border-gray-200 rounded-lg">
+                        <input type="password" name="password" id="password" class="block w-full px-4 py-3 border-2 border-transparent rounded-lg focus:border-blue-500 focus:outline-none" placeholder="Password">
+                    </div>
+                    <div class="block">
+                        <button class="w-full px-3 py-4 font-medium text-white bg-gray-600 rounded-lg">Log Me In</button>
+                    </div>
+                    <p class="w-full mt-4 text-sm text-center text-gray-500">Don't have an account? <a href="#_" class="text-blue-500 underline">Sign up here</a></p>
+                </div>
+            </div>
+
+        </div>
     </div>
-    <ul class="social">
-      <li><a href="#"><img src="https://i.ibb.co/x7P24fL/facebook.png"></a></li>
-      <li><a href="#"><img src="https://i.ibb.co/Wnxq2Nq/twitter.png"></a></li>
-      <li><a href="#"><img src="https://i.ibb.co/ySwtH4B/instagram.png"></a></li>
-    </ul>
+</section>
+    </div>
   </section>
 </template>
 
@@ -34,13 +56,18 @@ export default {
   box-sizing: border-box;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
+
+html {
+  overflow: hidden;
+}
+
 header
 {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  padding: 40px 100px;
+  padding: 20px 80px;
   z-index: 1000;
   display: flex;
   justify-content: space-between;
@@ -77,7 +104,7 @@ header .logo
   right: 0;
   width: 100%;
   min-height: 100vh;
-  padding: 100px;
+  padding: 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -118,7 +145,7 @@ header .logo
 
 .text h2
 {
-  font-size: 5em;
+  font-size: 4em;
   font-weight: 800;
   color: #fff;
   line-height: 1em;
