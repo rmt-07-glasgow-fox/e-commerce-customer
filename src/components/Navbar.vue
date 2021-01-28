@@ -12,7 +12,7 @@
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item" @click='goToCartPage' v-show="currentRouteName !== 'CartPage'">
+          <li class="nav-item" @click='goToCartPage' v-show="currentRouteName !== 'CartPage' && isLogoutActive">
             <a class="nav-link" href="#"><i class="fas fa-shopping-cart fa-lg"></i></a>
           </li>
           <li class="nav-item logout-btn ml-4" @click='logout' v-show='isLogoutActive'>
