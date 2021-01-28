@@ -137,7 +137,7 @@ export default new Vuex.Store({
             title: ' ',
             text: 'Item has been added to cart',
             showConfirmButton: false,
-            timer: 2000,
+            timer: 1000,
             timerProgressBar: true,
             toast: true,
             position: 'top-right'
@@ -164,7 +164,7 @@ export default new Vuex.Store({
         }
       })
         .then(({ data }) => {
-          console.log(data)
+          // console.log(data)
           context.dispatch('getCartItems')
         })
         .catch(err => {
@@ -207,6 +207,43 @@ export default new Vuex.Store({
           context.dispatch('getCartItems')
         })
         .catch(err => {
+          console.log(err.response.data)
+        })
+    },
+    checkout (context, payload) {
+      axios({
+        url: '/carts/checkout',
+        method: 'POST',
+        headers: {
+          access_token: localStorage.access_token
+        },
+        data: this.state.cartItems
+      })
+        .then(({ data }) => {
+          // console.log(data)
+          Swal.fire({
+            icon: 'success',
+            title: 'Thank you',
+            text: 'Enjoy your new items',
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+            toast: true,
+            position: 'top-right'
+          })
+          context.dispatch('getCartItems')
+        })
+        .catch(err => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops',
+            text: err.response.data.errors,
+            showConfirmButton: false,
+            timer: 1000,
+            timerProgressBar: true,
+            toast: true,
+            position: 'top-right'
+          })
           console.log(err.response.data)
         })
     }

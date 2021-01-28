@@ -17,7 +17,7 @@
           <h2>Cart summary</h2>
           <h6>Number of items: {{ numberofItems }}</h6>
           <h6>Total price: {{ new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(totalPrice) }}</h6>
-          <button class="btn btn-primary mt-5">Checkout</button>
+          <button @click.prevent='checkout' class="btn btn-primary mt-5">Checkout</button>
         </div>
       </div>
     </div>
@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2'
 import CartItems from '../components/CartItems'
 export default {
   name: 'Cart',
@@ -54,6 +55,31 @@ export default {
   methods: {
     updateAmount (payload) {
       this.$store.dispatch('updateAmount', payload)
+    },
+    checkout () {
+      let safe = true
+      console.log(this.cartItems)
+      this.cartItems.forEach(item => {
+        console.log(item.amount)
+        if (!item.amount) {
+          safe = false
+        }
+      })
+      // console.log(safe)
+      if (!safe) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops',
+          text: 'Please insert amount',
+          showConfirmButton: false,
+          timer: 1000,
+          timerProgressBar: true,
+          toast: true,
+          position: 'top-right'
+        })
+      } else {
+        this.$store.dispatch('checkout')
+      }
     }
   }
 

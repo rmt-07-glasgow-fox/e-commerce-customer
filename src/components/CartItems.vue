@@ -14,7 +14,7 @@
       <div class="d-flex justify-content-between align-items-center">
         <div class="btn-group btn-group-sm" role="group" aria-label="Button group">
           <button type="button" class="btn btn-outline-secondary" @click="decreaseAmount">-</button>
-          <input class="text-center" min="1" style="width:50px" type="text" v-model="amount">
+          <input class="text-center" min="1" style="width:50px" type="number" v-model="amount">
           <button type="button" class="btn btn-outline-secondary" @click="addAmount">+</button>
         </div>
         <span mx-5 v-text="error" class="text-danger"></span>
@@ -40,7 +40,19 @@ export default {
   },
   watch: {
     amount (newAmount, oldAmount) {
-      if (newAmount > this.cartItem.Product.stock) {
+      if (newAmount === '') {
+        // this.amount = 0
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops',
+          text: 'Please insert amount',
+          showConfirmButton: false,
+          timer: 1000,
+          timerProgressBar: true,
+          toast: true,
+          position: 'top-right'
+        })
+      } else if (newAmount > this.cartItem.Product.stock) {
         Swal.fire({
           icon: 'error',
           title: 'Oops',
@@ -67,7 +79,7 @@ export default {
         // this.error = 'Amount must be at least 1'
         this.amount = 1
       } else {
-        this.error = ''
+        // this.error = ''
         const payload = {
           id: this.cartItem.id,
           ProductId: this.cartItem.ProductId,
@@ -79,10 +91,10 @@ export default {
   },
   methods: {
     addAmount () {
-      this.amount = this.amount + 1
+      this.amount = +this.amount + 1
     },
     decreaseAmount () {
-      this.amount = this.amount - 1
+      this.amount = +this.amount - 1
     },
     deleteCartItem () {
       this.$store.dispatch('deleteCartItem', this.cartItem.id)
