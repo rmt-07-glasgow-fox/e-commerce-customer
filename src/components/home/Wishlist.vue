@@ -19,7 +19,15 @@
           </div>
         </div>
 
-        <wishlist-card />
+        <div class="container-fluid" style="padding: 0">
+          <div class="row row-cols-1 row-cols-md-3 g-4">
+            <wishlist-card
+              v-for="Wishlist in fetchWishlists"
+              :key="Wishlist.id"
+              :Wishlist="Wishlist"
+            />
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -27,11 +35,20 @@
 
 <script>
 import WishlistCard from './wishlistPage/WishlistCard.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'Wishlist',
   components: {
     WishlistCard
+  },
+  computed: {
+    ...mapGetters([
+      'fetchWishlists'
+    ])
+  },
+  created () {
+    this.$store.dispatch('fetchWishlists')
   }
 }
 </script>

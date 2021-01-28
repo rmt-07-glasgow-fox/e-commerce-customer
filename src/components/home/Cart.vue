@@ -19,7 +19,11 @@
           </div>
         </div>
 
-        <cart-card />
+        <div class="container-fluid" style="padding: 0">
+          <div class="row row-cols-1 row-cols-md-3 g-4">
+            <cart-card v-for="Cart in fetchCarts" :key="Cart.id" :Cart="Cart" />
+          </div>
+        </div>
 
         <cart-total />
       </div>
@@ -30,12 +34,21 @@
 <script>
 import CartCard from './cartPage/CartCard.vue'
 import CartTotal from './cartPage/CartTotal.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'Cart',
   components: {
     CartCard,
     CartTotal
+  },
+  computed: {
+    ...mapGetters([
+      'fetchCarts'
+    ])
+  },
+  created () {
+    this.$store.dispatch('fetchCarts')
   }
 }
 </script>

@@ -8,14 +8,26 @@
           <h1 style="margin-bottom: 0; font-size: 36px">Products</h1>
           <div class="btn-toolbar mb-2 mb-md-0">
             <router-link to="/">
-              <button type="button" class="btn btn-sm btn-outline-secondary" style="border-radius: 2.4em;margin-top: 6px">
+              <button
+                type="button"
+                class="btn btn-sm btn-outline-secondary"
+                style="border-radius: 2.4em; margin-top: 6px"
+              >
                 Home
               </button>
             </router-link>
           </div>
         </div>
 
-        <product-card-page />
+        <div class="container-fluid" style="padding: 0">
+          <div class="row row-cols-1 row-cols-md-3 g-4">
+            <product-card-page
+              v-for="Product in fetchProducts"
+              :key="Product.id"
+              :Product="Product"
+            />
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -23,11 +35,20 @@
 
 <script>
 import ProductCardPage from './productPage/ProductCard.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'Product',
   components: {
     ProductCardPage
+  },
+  computed: {
+    ...mapGetters([
+      'fetchProducts'
+    ])
+  },
+  created () {
+    this.$store.dispatch('fetchProducts')
   }
 }
 </script>

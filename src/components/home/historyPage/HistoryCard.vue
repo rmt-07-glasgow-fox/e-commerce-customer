@@ -1,57 +1,43 @@
 <template>
-  <div id="HistoryCard">
-    <div class="container-fluid" style="padding: 0">
-      <div class="row row-cols-1 row-cols-md-3 g-4">
-        <!-- card -->
-        <div
-          v-for="History in fetchHistory"
-          :key="History.id"
-          class="col-12 col-sm-6 col-md-6 col-lg-3"
+  <!-- card -->
+  <div class="col-12 col-sm-6 col-md-6 col-lg-3" id="HistoryCard">
+    <div class="card h-100" style="border-radius: 1rem">
+      <img
+        :src="History.Product.image_url"
+        class="card-img-top card-img-size"
+        style="border-top-left-radius: 1rem; border-top-right-radius: 1rem"
+      />
+      <div class="card-body">
+        <h5
+          class="card-title"
+          style="
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #e55c3e;
+          "
         >
-          <div class="card h-100" style="border-radius: 1rem">
-            <img
-              :src="History.Product.image_url"
-              class="card-img-top card-img-size"
-              style="
-                border-top-left-radius: 1rem;
-                border-top-right-radius: 1rem;
-              "
-            />
-            <div class="card-body">
-              <h5
-                class="card-title"
-                style="
-                  white-space: nowrap;
-                  overflow: hidden;
-                  text-overflow: ellipsis;
-                  color: #e55c3e;
-                "
-              >
-                {{ History.Product.name }}
-              </h5>
-              <p class="card-text" style="font-weight: 600; margin-bottom: 4px">
-                {{ sumFormatter(History) }}
-              </p>
-              <p class="card-text" style="font-weight: 600; margin-bottom: 4px">
-                {{ totalFormatter(History) }}
-              </p>
-              <p class="card-text" style="font-weight: 600; margin-bottom: 8px">
-                {{ History.Product.updatedAt.split("T")[0] }}
-              </p>
-            </div>
-          </div>
-        </div>
-        <!-- card// -->
+          {{ History.Product.name }}
+        </h5>
+        <p class="card-text" style="font-weight: 600; margin-bottom: 4px">
+          {{ sumFormatter(History) }}
+        </p>
+        <p class="card-text" style="font-weight: 600; margin-bottom: 4px">
+          {{ totalFormatter(History) }}
+        </p>
+        <p class="card-text" style="font-weight: 600; margin-bottom: 8px">
+          {{ History.Product.updatedAt.split("T")[0] }}
+        </p>
       </div>
     </div>
   </div>
+  <!-- card// -->
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-
 export default {
   name: 'HistoryCard',
+  props: ['History'],
   methods: {
     sumFormatter (payload) {
       if (payload.quantity === 1) return `Rp. ${payload.Product.price.toLocaleString('id')} × ${payload.quantity} item`
@@ -63,14 +49,6 @@ export default {
 
       return `Rp. ${total.toLocaleString('id')}`
     }
-  },
-  computed: {
-    ...mapGetters([
-      'fetchHistory'
-    ])
-  },
-  created () {
-    this.$store.dispatch('fetchCarts')
   }
 }
 </script>

@@ -1,62 +1,37 @@
 <template>
-  <div id="CategoryCard">
-    <div class="row">
-      <div
-        class="col-6 col-md-3"
-        v-for="(HomeCategory, i) in fetchHomeCategories"
-        :key="HomeCategory.id"
-      >
-        <router-link
-          to="/category"
-          style="text-decoration: none"
-          @click.native="scrollToTop"
-        >
-          <div :class="colorCategory[i]" style="margin-bottom: 16px">
-            <div class="card-body">
-              <h5 class="card-title">{{ HomeCategory.name }}</h5>
-              <a
-                href=""
-                :class="textColorCategory[i]"
-                style="text-decoration: none"
-              >
-                <p class="card-text" style="font-size: 12px">
-                  {{ HomeCategory.Products.length }} games
+  <div class="col-6 col-md-3">
+    <router-link
+      to="/category"
+      style="text-decoration: none"
+      @click.native="scrollToTop"
+    >
+      <div :class="colorCategory[i]" style="margin-bottom: 16px">
+        <div class="card-body">
+          <h5 class="card-title">{{ HomeCategory.name }}</h5>
+          <a
+            href=""
+            :class="textColorCategory[i]"
+            style="text-decoration: none"
+          >
+            <p class="card-text" style="font-size: 12px">
+              {{ HomeCategory.Products.length }} games
 
-                  <chevron-right-icon size="1x"></chevron-right-icon>
-                </p>
-              </a>
-            </div>
-          </div>
-        </router-link>
+              <chevron-right-icon size="1x"></chevron-right-icon>
+            </p>
+          </a>
+        </div>
       </div>
-      <div class="col-6 col-md-3">
-        <router-link
-          to="/product"
-          style="text-decoration: none"
-          @click.native="scrollToTop"
-        >
-          <div class="card bg-danger text-white" style="margin-bottom: 16px">
-            <div class="card-body">
-              <h5 class="card-title">Show All</h5>
-
-              <p class="card-text text-white" style="font-size: 12px">
-                {{ fetchTotalCategories }} Categories
-                <chevron-right-icon size="1x"></chevron-right-icon>
-              </p>
-            </div>
-          </div>
-        </router-link>
-      </div>
-    </div>
+    </router-link>
   </div>
+
 </template>
 
 <script>
 import { ChevronRightIcon } from 'vue-feather-icons'
-import { mapGetters } from 'vuex'
 
 export default {
   name: 'CategoryCard',
+  props: ['HomeCategory', 'i'],
   data () {
     return {
       colorCategory: [
@@ -71,22 +46,8 @@ export default {
       ]
     }
   },
-  methods: {
-    scrollToTop () {
-      window.scrollTo(0, 0)
-    }
-  },
   components: {
     ChevronRightIcon
-  },
-  computed: {
-    ...mapGetters([
-      'fetchHomeCategories',
-      'fetchTotalCategories'
-    ])
-  },
-  created () {
-    this.$store.dispatch('fetchCategories')
   }
 }
 </script>

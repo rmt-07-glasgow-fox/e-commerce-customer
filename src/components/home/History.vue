@@ -19,7 +19,15 @@
           </div>
         </div>
 
-        <history-card />
+        <div class="container-fluid" style="padding: 0">
+          <div class="row row-cols-1 row-cols-md-3 g-4">
+            <history-card
+              v-for="History in fetchHistory"
+              :key="History.id"
+              :History="History"
+            />
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -27,11 +35,20 @@
 
 <script>
 import HistoryCard from './historyPage/HistoryCard.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'History',
   components: {
     HistoryCard
+  },
+  computed: {
+    ...mapGetters([
+      'fetchHistory'
+    ])
+  },
+  created () {
+    this.$store.dispatch('fetchCarts')
   }
 }
 </script>

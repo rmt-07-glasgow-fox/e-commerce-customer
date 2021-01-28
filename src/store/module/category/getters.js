@@ -12,6 +12,13 @@ export default {
     return temp
   },
   fetchTotalCategories (state) {
-    return state.categories.length
+    const categories = state.categories
+    let temp = 0
+
+    for (let i = 0; i < categories.length; i++) {
+      if (categories[i].Products.length > 0) temp += categories[i].Products.length
+    }
+
+    return temp
   }
 }
