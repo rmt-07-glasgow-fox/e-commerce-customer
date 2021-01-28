@@ -181,7 +181,7 @@ export default {
   },
   watch: {
     carts: function () {
-      this.total = 1
+      this.total = 0
       this.carts.forEach(e => {
         this.total += (+e.price * +e.CartList.qty)
       })
