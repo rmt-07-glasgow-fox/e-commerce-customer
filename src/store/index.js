@@ -12,7 +12,8 @@ export default new Vuex.Store({
     categories: [],
     isLoggedIn: false,
     categoryName: '',
-    carts: []
+    carts: [],
+    histories: []
   },
   mutations: {
     SET_BANNERS (state, payload) {
@@ -32,6 +33,9 @@ export default new Vuex.Store({
     },
     SET_CARTS (state, payload) {
       state.carts = payload
+    },
+    SET_HISTORIES (state, payload) {
+      state.histories = payload
     }
   },
   actions: {
@@ -151,9 +155,6 @@ export default new Vuex.Store({
           console.log(err.response)
         })
     },
-    addMoreQuantity (context, payload) {
-      console.log('from store', payload)
-    },
     deleteCartById (context, payload) {
       axios({
         method: 'DELETE',
@@ -174,8 +175,45 @@ export default new Vuex.Store({
         })
     },
     checkoutCart (context) {
-      // axios
-      console.log('ALLO STORE')
+      axios({
+        method: 'PATCH',
+        url: '/carts',
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
+      })
+        .then(({ data }) => {
+          console.log(data)
+          context.dispatch('fetchCarts')
+          Vue.swal({
+            title: 'Thank You!',
+            text: data.message,
+            icon: 'success',
+            toast: true,
+            position: 'top-end',
+            timer: 3000,
+            timerProgressBar: true,
+            showConfirmButton: false
+          })
+        })
+        .catch(err => {
+          console.log(err.response)
+        })
+    },
+    fetchHistories (context, payload) {
+      axios({
+        method: 'GET',
+        url: '/carts/order/histories',
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
+      })
+        .then(({ data }) => {
+          context.commit('SET_HISTORIES', data)
+        })
+        .catch(err => {
+          console.log(err.response)
+        })
     }
   },
   getters: {
