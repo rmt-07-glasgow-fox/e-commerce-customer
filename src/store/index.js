@@ -108,6 +108,10 @@ export default new Vuex.Store({
     register (context, payload) {
       return axios
         .post('/register', payload)
+    },
+    sendConfirmationEmail (context, payload) {
+      return axios
+        .post('send', payload)
     }
   },
   getters: {
