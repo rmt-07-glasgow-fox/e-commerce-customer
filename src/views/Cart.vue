@@ -22,6 +22,10 @@
                 </div>
               </td>
               <td>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEdit" @click="findOne(cart.id, cart.CartList.qty, cart.CartList.CartId)">
+                  <span class="glyphicon glyphicon-shopping-cart"> Edit_Cart_List</span>
+                </button>
+                <hr>
                 <button class="btn btn-primary" @click="destroy(cart.CartList.ProductId, cart.CartList.CartId)">
                   <span class="glyphicon glyphicon-trash"> Delete</span>
                 </button>
