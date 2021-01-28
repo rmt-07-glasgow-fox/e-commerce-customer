@@ -1,5 +1,6 @@
 <template>
-  <div class="banner">
+  <div class="banner"
+   v-if="banners.length > 0">
     <img :src="banners[count].imgUrl"/>
     <div id="btn-control">
       <button
@@ -15,7 +16,7 @@ export default {
   name: 'Banners',
   data () {
     return {
-      count: 1
+      count: 0
     }
   },
   methods: {
@@ -23,14 +24,19 @@ export default {
       this.$store.dispatch('fetchBanners')
     },
     next () {
-      if (this.count !== this.banners.length) this.count += 1
+      if (this.count !== this.banners.length - 1) this.count += 1
+      else this.count = 1
     },
     prev () {
-      if (this.count !== 1) this.count -= 1
+      if (this.count !== 0) this.count -= 1
+      else this.count = this.banners.length - 1
+    },
+    startTimer () {
     }
   },
   created () {
     this.setupBanner()
+    setInterval(this.next, 5000)
   },
   computed: {
     banners () {
@@ -55,10 +61,11 @@ button {
 .banner {
   margin: 0px;
   padding: 0px;
+  z-index: -10;
 }
 
 img {
-  width: 280px;
+  max-width: 280px;
   height: 530px;
 }
 </style>

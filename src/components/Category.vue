@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a>{{ target.tag }}</a>
+    <a href="/" @click.prevent="">{{ target.tag }}</a>
   </div>
 </template>
 

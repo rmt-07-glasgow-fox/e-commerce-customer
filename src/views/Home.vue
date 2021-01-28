@@ -78,7 +78,7 @@ export default {
 
 .flex-end {
   position: fixed;
-  right: 0px;
+  right: 5px;
   top: 10%;
 }
 

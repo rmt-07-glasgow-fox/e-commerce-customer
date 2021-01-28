@@ -8,6 +8,7 @@
         <div>
           <p class="card-text">{{ item.price }} IDR</p>
           <p class="card-text">stock: {{ item.stock }}</p>
+          <p>{{ category }}</p>
         </div>
         <img src="../assets/wishlist.png" alt="wishlist" class="wishlist"/>
       </div>
@@ -18,7 +19,18 @@
 <script>
 export default {
   name: 'ProductCard',
-  props: ['item']
+  props: ['item'],
+  data () {
+    return {
+      category: ''
+    }
+  },
+  created () {
+    this.$store.state.categories.forEach(el => {
+      if (el.id === this.item.CategoryId + 1) this.category = el.tag
+    })
+    console.log(this.category)
+  }
 }
 </script>
 

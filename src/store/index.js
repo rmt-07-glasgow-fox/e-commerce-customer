@@ -94,5 +94,11 @@ export default new Vuex.Store({
     }
   },
   getters: {
+    getProductByCategory: (state) => (category) => {
+      return state.products.filter(product => product.CategoryId)
+    },
+    getCategoryById: (state) => (CategoryId) => {
+      return state.categories.find(category => category.id === CategoryId)
+    }
   }
 })
