@@ -76,12 +76,10 @@ export default new Vuex.Store({
       })
     },
     addCart (context, payload) {
-      const { productId, cartId, quantity } = payload
-      console.log(quantity)
+      const { productId, cartId } = payload
       axios({
         method: 'POST',
         url: `carts/${cartId}/${productId}`,
-        data: { quantity },
         headers: {
           access_token: localStorage.access_token
         }
