@@ -55,6 +55,9 @@ export default {
     logout () {
       localStorage.clear()
       this.$store.commit('setLogin', false)
+      if (this.$router.history.current.name !== 'Home') {
+        this.$router.push('/')
+      }
     }
   },
   computed: {
