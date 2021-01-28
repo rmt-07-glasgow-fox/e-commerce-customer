@@ -84,8 +84,8 @@ export default new Vuex.Store({
         })
         .catch(err => {
           Swal.fire({
-            icon: 'success',
-            title: `${err.response.msg}`,
+            icon: 'error',
+            title: `${err.response.data.msg}`,
             showConfirmButton: false,
             timer: 1500
           })
