@@ -18,12 +18,22 @@
 </template>
 
 <script>
+import Vue from 'vue'
+
 export default {
   name: 'ProductCard',
   props: ['product'],
   methods: {
     addToCart (ProductId) {
-      // console.log('ALLO', ProductId)
+      Vue.swal({
+        title: `Success add ${this.product.name}!`,
+        icon: 'success',
+        toast: true,
+        position: 'top-end',
+        timer: 2000,
+        timerProgressBar: true,
+        showConfirmButton: false
+      })
       this.$store.dispatch('handleAddProductToCart', {
         ProductId,
         amount: 1
