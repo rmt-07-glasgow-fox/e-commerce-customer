@@ -18,7 +18,7 @@
             stock : {{product.stock}}
           </b-card-text>
 
-          <b-button href="#" @click.prevent="addToCart(product.id)" variant="primary">Add To Cart</b-button>
+          <b-button  @click.prevent="addToCart(product.id)" variant="primary">Add To Cart</b-button>
         </b-card>
     </div>
 </template>
@@ -33,7 +33,7 @@ export default {
     },
     addToCart (ProductId) {
       if (!localStorage.access_token) {
-        this.$router.push('/carts')
+        this.$router.push('/login')
       } else {
         const payload = {
           quantity: 1,
@@ -60,5 +60,14 @@ export default {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
   }
-
+  @media (max-width: 750px) {
+    .listProduct {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 600px) {
+    .listProduct {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
 </style>

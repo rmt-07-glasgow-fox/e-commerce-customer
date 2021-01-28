@@ -8,6 +8,7 @@
             <div class="card-body" style="text-align: start;">
               <h5 class="card-title text-dark">{{cart.Product.name}}</h5>
               <p class="card-text text-dark m-0 mb-1">Price: {{rupiahFormat(cart.Product.price)}}</p>
+              <p class="card-text text-dark m-0 mb-1">In Your Cart: {{cart.quantity}}</p>
               <label for="quantity" class="text-dark smallText">Quantity:</label>
               <input class="mx-2 " style="max-width: 50px"
               v-model="quantity" type="number" name="quantity" id="quantity">
