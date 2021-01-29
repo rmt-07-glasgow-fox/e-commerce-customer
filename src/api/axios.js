@@ -4,6 +4,7 @@ import axios from 'axios'
 const production = 'https://server-ecommerce-nur.herokuapp.com/'
 
 const instance = axios.create({
+  // baseURL: development
   baseURL: production
 })
 

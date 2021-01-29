@@ -44,8 +44,8 @@ export default new Vuex.Store({
       const id = payload
       const indexCart = state.carts.findIndex(el => el.ProductId === id)
 
-      if (state.carts[indexCart].quantity < 1) {
-        state.carts[indexCart].quantity = 0
+      if (state.carts[indexCart].quantity < 2) {
+        state.carts[indexCart].quantity = 1
       } else {
         state.carts[indexCart].quantity--
       }
