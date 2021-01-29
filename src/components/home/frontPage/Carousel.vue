@@ -3,7 +3,7 @@
     id="bannerIndicator"
     class="carousel slide"
     data-bs-ride="carousel"
-    style="width: auto; margin-bottom: 32px"
+    style=" margin-bottom: 32px"
   >
     <ol class="carousel-indicators">
       <li

@@ -24,18 +24,32 @@
           v-if="isLogin"
         >
           <router-link to="/wishlist">
-            <heart-icon
-              class="nav-btn"
-              size="1.5x"
-              style="margin: auto 8px"
-            ></heart-icon>
+            <div>
+              <span
+                class="badge bg-danger badge-notify"
+                v-if="fetchTotalWishlists > 0"
+                >{{ fetchTotalWishlists }}</span
+              >
+              <heart-icon
+                class="nav-btn"
+                size="1.5x"
+                style="margin: auto 8px"
+              ></heart-icon>
+            </div>
           </router-link>
           <router-link to="/cart">
-            <shopping-cart-icon
-              class="nav-btn"
-              size="1.5x"
-              style="margin: auto 8px"
-            ></shopping-cart-icon>
+            <div>
+              <span
+                class="badge bg-danger badge-notify"
+                v-if="fetchTotalCarts > 0"
+                >{{ fetchTotalCarts }}</span
+              >
+              <shopping-cart-icon
+                class="nav-btn"
+                size="1.5x"
+                style="margin: auto 8px"
+              ></shopping-cart-icon>
+            </div>
           </router-link>
           <router-link to="/history">
             <clock-icon
@@ -188,13 +202,17 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'fetchUserInfo'
+      'fetchUserInfo',
+      'fetchTotalWishlists',
+      'fetchTotalCarts'
     ])
   },
   created () {
     if (localStorage.getItem('access_token')) {
       this.$store.commit('isLogin', true)
       this.$store.dispatch('fetchUserInfo')
+      this.$store.dispatch('fetchCarts')
+      this.$store.dispatch('fetchWishlists')
     }
   }
 }
@@ -243,8 +261,16 @@ export default {
 .user-btn:active {
   background-color: #d6d6d6;
 }
-.user-btn:focus-visible{
+.user-btn:focus-visible {
   background-color: blue;
+}
+
+.badge-notify {
+  position: absolute;
+  top: 9px;
+  font-size: 8px;
+  border-radius: 2.4em;
+  border: 3px #f8f9fa solid;
 }
 
 .nav-drop {
@@ -261,6 +287,9 @@ export default {
   }
   .nav-drop {
     display: block;
+  }
+  .badge-notify {
+    display: none;
   }
 }
 </style>

@@ -23,7 +23,10 @@ export default {
         headers: { access_token: localStorage.getItem('access_token') }
       })
 
+      // console.log(data, '<<<<< DATA')
+      // console.log(id, '<<<<< id')
       context.commit('fetchOneWishlist', data)
+      this.dispatch('fetchWishlists')
     } catch (err) {
       console.log(err)
     }

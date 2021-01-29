@@ -9,6 +9,16 @@ export default {
 
     return temp
   },
+  fetchTotalCarts (state) {
+    const carts = state.carts
+    let temp = 0
+
+    for (let i = 0; i < carts.length; i++) {
+      if (!carts[i].isPaid) temp++
+    }
+
+    return temp
+  },
   fetchHistory (state) {
     const carts = state.carts
     const temp = []
