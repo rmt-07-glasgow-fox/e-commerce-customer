@@ -48,14 +48,13 @@ export default {
   },
   methods: {
     openNotification (position = null, color, icon, title, text) {
-      const noti = this.$vs.notification({
+      this.$vs.notification({
         icon,
         color,
         position,
         title,
         text
       })
-      console.log(noti)
     },
     async register () {
       try {

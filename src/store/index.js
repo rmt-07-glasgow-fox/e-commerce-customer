@@ -7,6 +7,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    isAuth: false,
     products: [],
     product: {
       name: '',
@@ -20,6 +21,9 @@ export default new Vuex.Store({
     wishlists: []
   },
   mutations: {
+    toggleAuth (state, payload) {
+      state.isAuth = !state.isAuth
+    },
     fetchProducts (state, payload) {
       state.products = payload
     },
@@ -48,6 +52,7 @@ export default new Vuex.Store({
       try {
         const response = await axios.post('/users/login', payload)
         localStorage.setItem('access_token', response.data.access_token)
+        context.commit('toggleAuth')
       } catch (error) {
         throw new Error(error.response.data.errors)
       }
@@ -58,6 +63,11 @@ export default new Vuex.Store({
       } catch (error) {
         throw new Error(error.response.data.errors)
       }
+    },
+
+    logout (context, payload) {
+      localStorage.clear()
+      context.commit('toggleAuth')
     },
 
     // === Product ===
@@ -105,7 +115,6 @@ export default new Vuex.Store({
         const carts = await axios.get('/carts/user', { headers: { access_token: accessToken }, mode: 'cors' })
         context.commit('fetchCarts', carts.data)
       } catch (error) {
-        console.log(error)
         throw new Error(error.response.data.errors)
       }
     },
@@ -119,14 +128,13 @@ export default new Vuex.Store({
         }
         await axios.post('/carts', data, { headers: { access_token: accessToken }, mode: 'cors' })
         // eslint-disable-next-line
-        this.fetchCarts
         Swal.fire(
           'Success',
           'Added to Cart',
           'success'
         )
+        context.dispatch('fetchCarts')
       } catch (error) {
-        console.log(error)
         throw new Error(error.response.data.errors)
       }
     },
@@ -135,15 +143,18 @@ export default new Vuex.Store({
       try {
         const accessToken = localStorage.getItem('access_token')
         await axios.delete('/carts/' + payload, { headers: { access_token: accessToken } })
-        // eslint-disable-next-line
-        this.fetchCarts
-        Swal.fire(
-          'Success',
-          'Cart Deleted',
-          'success'
-        )
+        context.dispatch('fetchCarts')
       } catch (error) {
-        console.log(error)
+        throw new Error(error.response.data.errors)
+      }
+    },
+
+    async updateCart (context, payload) {
+      try {
+        const accessToken = localStorage.getItem('access_token')
+        await axios.put('/carts/' + payload.id, payload, { headers: { access_token: accessToken } })
+        context.dispatch('fetchCarts')
+      } catch (error) {
         throw new Error(error.response.data.errors)
       }
     }

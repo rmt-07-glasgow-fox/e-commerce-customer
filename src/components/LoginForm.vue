@@ -48,14 +48,13 @@ export default {
   },
   methods: {
     openNotification (position = null, color, icon, title, text) {
-      const noti = this.$vs.notification({
+      this.$vs.notification({
         icon,
         color,
         position,
         title,
         text
       })
-      console.log(noti)
     },
     async login () {
       try {
@@ -64,7 +63,6 @@ export default {
           password: this.password
         }
         await this.$store.dispatch('login', user)
-        this.$store.dispatch('setAuth', true)
         this.email = ''
         this.password = ''
         this.$router.replace('/')

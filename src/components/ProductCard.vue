@@ -19,7 +19,7 @@
           color="rgb(59,222,200)"
           gradient
           icon>
-          <i class='bx bx-cart'></i>
+          <i class='bx bxs-cart-add'></i>
         </vs-button>
         <vs-button danger icon>
           <i class='bx bx-heart'></i>
@@ -56,7 +56,7 @@ export default {
   computed: {
     price () {
       // eslint-disable-next-line
-      return 'IDR ' + this.product.price.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, '$1\.')
+      return 'IDR ' + this.product.price.toLocaleString('id-ID')
     }
   }
 }

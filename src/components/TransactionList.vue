@@ -1,6 +1,6 @@
 <template>
   <div class="center">
-    <h1>Transaction History</h1>
+    <h1>Transaction History Coming Soon</h1>
   </div>
 </template>
 
