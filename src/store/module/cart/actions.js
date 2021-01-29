@@ -24,6 +24,7 @@ export default {
         data: { ProductId }
       })
 
+      this.dispatch('fetchCarts')
       Swal.mixin({
         toast: true,
         position: 'top',
