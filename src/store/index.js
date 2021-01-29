@@ -22,7 +22,7 @@ export default new Vuex.Store({
     regist (context, payload) {
       axios({
         method: 'POST',
-        url: 'https://ecommerce-customer-mine.web.app/users/register',
+        url: '/users/register',
         data: {
           email: payload.email,
           password: payload.password
@@ -37,7 +37,7 @@ export default new Vuex.Store({
       console.log(payload)
       axios({
         method: 'POST',
-        url: 'https://ecommerce-customer-mine.web.app/users/login',
+        url: '/users/login',
         data: {
           email: payload.email,
           password: payload.password
@@ -53,7 +53,7 @@ export default new Vuex.Store({
     getProducts (context) {
       axios({
         method: 'GET',
-        url: 'https://ecommerce-customer-mine.web.app/products',
+        url: '/products',
         headers: {
           access_token: localStorage.getItem('access_token')
         }
@@ -68,7 +68,7 @@ export default new Vuex.Store({
     addCart (context, payload) {
       axios({
         method: 'POST',
-        url: 'https://ecommerce-customer-mine.web.app/cart',
+        url: '/cart',
         data: {
           ProductId: payload
         },
@@ -86,7 +86,7 @@ export default new Vuex.Store({
     getCarts (context, payload) {
       axios({
         method: 'GET',
-        url: 'https://ecommerce-customer-mine.web.app/cart',
+        url: '/cart',
         headers: {
           access_token: localStorage.getItem('access_token')
         }
@@ -101,7 +101,7 @@ export default new Vuex.Store({
     delCart (context, payload) {
       axios({
         method: 'DELETE',
-        url: 'https://ecommerce-customer-mine.web.app/cart/' + payload,
+        url: '/cart/' + payload,
         headers: {
           access_token: localStorage.getItem('access_token')
         }
@@ -117,7 +117,7 @@ export default new Vuex.Store({
     updateCart (context, payload) {
       axios({
         method: 'PUT',
-        url: 'https://ecommerce-customer-mine.web.app/cart/' + payload.id,
+        url: '/cart/' + payload.id,
         data: {
           amount: payload.amount
         },
