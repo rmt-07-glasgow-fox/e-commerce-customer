@@ -77,10 +77,7 @@ export default {
       return totalCart.toLocaleString('en-ID', { style: 'currency', currency: 'IDR' })
     },
     checkout () {
-      this.carts.forEach(cart => {
-        cart.status = true
-      })
-      console.log('kena hit')
+      this.$store.dispatch('checkout')
     }
   },
   computed: {

@@ -143,6 +143,21 @@ export default new Vuex.Store({
         .catch(err => {
           console.log(err)
         })
+    },
+    checkout ({ dispatch }) {
+      axios({
+        method: 'PATCH',
+        url: '/products/customer/checkout',
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+        .then(({ data }) => {
+          dispatch('fetchCart')
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   },
   modules: {

@@ -13,7 +13,7 @@
           <div>
             <span class="input-number-decrement">Amount: </span>
           <br>
-          <input v-model="addToCart.amount" class="input" type="number" placeholder="1" min="1" max="100">
+          <input v-model="addToCart.amount" class="input" type="number" min="1" max="100">
           </div>
         </div>
         <div class="flex item-center justify-between mt-3">
@@ -34,7 +34,7 @@ export default {
   data () {
     return {
       addToCart: {
-        amount: '',
+        amount: 1,
         id: this.product.id
       }
     }
