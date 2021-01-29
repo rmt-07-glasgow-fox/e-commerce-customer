@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link id="brand" to="/">MyEcommerce</router-link>
+      <router-link id="brand" to="/">
+      <a href="/" @click.prevent="toHome">MyEcommerce</a></router-link>
       <router-link to="/cart">My Cart</router-link> |
       <router-link to="/wishlist">Wish List</router-link> |
       <router-link to="/alltransaction">All Transaction</router-link>
@@ -33,6 +34,9 @@ export default {
       this.$store.commit('assignUser', '')
       this.$store.commit('authenticate')
       if (this.$router.name !== 'Home') this.$router.push('/')
+    },
+    toHome () {
+      this.$store.commit('assignPage', 'products')
     }
   },
   computed: {

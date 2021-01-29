@@ -3,7 +3,10 @@
     <img class="card-img-top img-product"
      :src="item.image_url">
     <div class="card-body">
-      <h4 class="card-title">{{ item.name }}</h4>
+      <a href="/"
+       @click.prevent="$emit('toProductDetails', item.id)">
+        <h4 class="card-title">{{ item.name }}</h4>
+      </a>
       <div class="text-card">
         <div>
           <p class="card-text">{{ item.price }} IDR</p>
@@ -38,6 +41,12 @@ export default {
 .product-card {
   display: flex;
   flex-direction: row;
+  -webkit-touch-callout: none;
+    -webkit-user-select: none;
+     -khtml-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
 }
 
 .img-product {

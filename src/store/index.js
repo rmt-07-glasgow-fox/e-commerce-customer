@@ -13,16 +13,19 @@ export default new Vuex.Store({
     page: '',
     regResult: '',
     categories: [],
-    banners: []
+    banners: [],
+    cart: []
   },
   mutations: {
     assignPage (state, payload) {
       state.page = payload
     },
     authenticate (state) {
-      if (state.user) state.isLogin = true
-      else state.isLogin = false
-      console.log(state.user, state.isLogin)
+      if (localStorage.getItem('access_token')) {
+        state.isLogin = true
+      } else {
+        state.isLogin = false
+      }
     },
     getProducts (state, payload) {
       state.products = payload
@@ -38,6 +41,9 @@ export default new Vuex.Store({
     },
     assignBanners (state, payload) {
       state.banners = payload
+    },
+    assignCart (state, payload) {
+      state.cart = payload
     }
   },
   actions: {
@@ -72,7 +78,7 @@ export default new Vuex.Store({
       axios
         .post('/register', payload)
         .then(({ data }) => {
-          context.commit('assignRegResult', data)
+          context.commit('assignRegResult', data.message)
         })
         .catch(err => console.log(err.response))
     },
@@ -91,14 +97,18 @@ export default new Vuex.Store({
           context.commit('assignBanners', data)
         })
         .catch(err => console.log(err.response))
-    }
-  },
-  getters: {
-    getProductByCategory: (state) => (category) => {
-      return state.products.filter(product => product.CategoryId)
     },
-    getCategoryById: (state) => (CategoryId) => {
-      return state.categories.find(category => category.id === CategoryId)
+    getUserCart (context) {
+      axios
+        .get('/cart')
+        .then(({ data }) => {
+          if (data.Products > 0) {
+            context.commit('assignCart', data.Products)
+          } else {
+            console.log(data.Products, 'masuk')
+          }
+        })
+        .catch(err => console.log(err.response.data))
     }
   }
 })

@@ -4,13 +4,13 @@
       <p class="h2 text-center text-success">MyRegister</p>
     </div>
     <div class="registerResult">
-      <p class="text-center text-success"></p>
+      <p class="text-center text-success">{{ regResult }}</p>
     </div>
     <div class="form-group">
-      <input type="email" class="form-control" v-model="user.emailReg" placeholder="Email">
+      <input type="email" class="form-control" v-model="user.email" placeholder="Email">
     </div>
     <div class="form-group">
-      <input type="password" class="form-control" v-model="user.passwordReg" placeholder="Password">
+      <input type="password" class="form-control" v-model="user.password" placeholder="Password">
     </div>
     <button class="btn btn-success btn-block"
      v-on:click.prevent="register">Register</button><br>
@@ -39,6 +39,11 @@ export default {
     },
     register () {
       this.$store.dispatch('tryRegister', this.user)
+    }
+  },
+  computed: {
+    regResult () {
+      return this.$store.state.regResult
     }
   }
 }

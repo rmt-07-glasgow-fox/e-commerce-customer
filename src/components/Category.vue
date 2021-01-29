@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a href="/" @click.prevent="">{{ target.tag }}</a>
+    <a href="/" @click.prevent="$emit('filterCategory', target.id)">{{ target.tag }}</a>
   </div>
 </template>
 

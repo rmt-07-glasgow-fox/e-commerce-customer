@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div class="row mt-5">
     <div class="col-sm-4"/>
     <div class="col-sm-4">
       <form-login
