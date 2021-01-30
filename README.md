@@ -8,7 +8,7 @@ Funorama client is used for Funorama web application. Funorama is Games E-Commer
  - Alert, loading and stuff
 
 ## API
-You can see the detail in [API Documentation - Kanboard Server](https://github.com/Ralfarios/ecommerce-server/blob/main/api_doc.md). 
+You can see the detail in [API Documentation - Funorama Server](https://github.com/Ralfarios/ecommerce-server/blob/main/api_doc.md). 
 
 ## Demo
 [Funorama Games E-Commerce by Ralfarios](https://lefunorama.web.app/) (deployed at Firebase). 
