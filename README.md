@@ -8,6 +8,16 @@
 - [x] Send Email when Register / Checkout
 - [x] Daftar Transaksi
 
+_________________
+**User/Password**
+> notes
+- > contact me to get admin username & password 
+-------------------
+> email
+- > customer@mail.com 
+> password
+- > 1234      
+
 ## Project setup
 ```
 npm install
