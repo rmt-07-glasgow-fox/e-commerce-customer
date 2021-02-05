@@ -12,7 +12,7 @@ Kang bang is deployed using a server with two clients webpage. The clients are c
 * [Customer site](https://the-gardara.web.app/) (click)
 * Server is using PostrgreSQL from Heroku
 
-*(You could check my [ecommerce-client-CMS](https://github.com/gianRVN/ecommerce-client-CMS) repository to get further info about the admin side)*
+*(You could check my [ecommerce-server](https://github.com/gianRVN/ecommerce-server) repository to get further info about the server side)*
 *(You could check my [ecommerce-client-customer](https://github.com/gianRVN/ecommerce-client-customer) repository to get further info about the customer client)*
 
 ### Built With
