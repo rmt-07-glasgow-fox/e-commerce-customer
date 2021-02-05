@@ -1,6 +1,6 @@
 # ecommerce-client-customer
 > ### _**Deploy ‌**_
-[https://server-used-aircraft.com](https://used-aircraft.web.app/home)
+[Firebase Deploy Link](https://used-aircraft.web.app/home)
 
 > ### _**Rocket 🚀‌**_
 - [x] Checkout
