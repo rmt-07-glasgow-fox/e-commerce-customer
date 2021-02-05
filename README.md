@@ -1,4 +1,12 @@
 # ecommerce-client-customer
+> ### _**Deploy ‌**_
+[https://server-used-aircraft.com](https://used-aircraft.web.app/home)
+
+> ### _**Rocket 🚀‌**_
+- [x] Checkout
+- [x] Wishlist
+- [x] Send Email when Register / Checkout
+- [x] Daftar Transaksi
 
 ## Project setup
 ```
