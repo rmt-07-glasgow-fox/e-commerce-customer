@@ -1,5 +1,5 @@
 # ecommerce-client-customer
-> ## VUE APP
+> ## VUE APP with VUEX state management
 > ### _**Deploy ‌**_
 [Firebase Deploy Link](https://used-aircraft.web.app/home)
 
