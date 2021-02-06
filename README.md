@@ -11,12 +11,10 @@
 
 _________________
 **User/Password**
-> notes
-- > contact me to get admin username & password 
+> notes : contact me to get admin username & password 
 -------------------
-> email
+### email and password
 - > customer@mail.com 
-> password
 - > 1234      
 
 ## Project setup
