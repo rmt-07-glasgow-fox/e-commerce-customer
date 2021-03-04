@@ -9,7 +9,8 @@ export default new Vuex.Store({
   state: {
     products: [],
     carts: [],
-    isLogin: false
+    isLogin: false,
+    transactions: []
   },
   mutations: {
     setProducts (state, payload) {
@@ -20,6 +21,9 @@ export default new Vuex.Store({
     },
     changeIsLogin (state, payload) {
       state.isLogin = payload
+    },
+    setTransactions (state, payload) {
+      state.transactions = payload
     }
   },
   actions: {
@@ -82,6 +86,7 @@ export default new Vuex.Store({
         }
       })
         .then(({ data }) => {
+          context.dispatch('fetchCarts')
           router.push('/cart')
         })
         .catch(err => {
@@ -132,6 +137,37 @@ export default new Vuex.Store({
       })
         .then(({ data }) => {
           context.dispatch('fetchCarts')
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    checkout (context, payload) {
+      axios({
+        method: 'POST',
+        url: '/transactions',
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+        .then(({ data }) => {
+          // console.log(data)
+          context.dispatch('fetchCarts')
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    fetchHistory (context, payload) {
+      axios({
+        method: 'GET',
+        url: '/transactions',
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+        .then(({ data }) => {
+          context.commit('setTransactions', data)
         })
         .catch(err => {
           console.log(err)

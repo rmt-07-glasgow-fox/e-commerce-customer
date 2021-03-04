@@ -11,6 +11,7 @@
     </ul>
     <div class="ml-auto">
         <button class="mr-5" @click.prevent="showCart" v-if="this.$store.state.isLogin === true"><i class="fas fa-shopping-cart"></i>  Cart</button>
+        <button class="mr-5" @click.prevent="goToHistory" v-if="this.$store.state.isLogin === true"><i class="fas fa-history"></i>  History</button>
         <button  @click.prevent="logout" v-if="this.$store.state.isLogin === true"><i class="fas fa-sign-out-alt"></i>  Logout</button>
     </div>
     </div>
@@ -23,6 +24,9 @@ export default {
   methods: {
     showCart () {
       this.$router.push('/cart')
+    },
+    goToHistory () {
+      this.$router.push('/history')
     },
     logout () {
       localStorage.clear()

@@ -1,7 +1,7 @@
 <template>
   <div class="col-3 mb-4 d-flex justify-content-center">
       <div class="card" style="width: 17rem;">
-          <img :src="product.image_url">
+          <img :src="product.image_url" height="250px">
           <div class="card-body">
             <strong><h5 class="card-title my-2">{{ product.name }}</h5></strong>
             <p class="card-text my-2">Price: Rp. {{ product.price }}</p>
@@ -24,7 +24,6 @@ export default {
   methods: {
     addCart (id) {
       this.$store.dispatch('addCart', id)
-      this.$router.push('/cart')
     }
   }
 }

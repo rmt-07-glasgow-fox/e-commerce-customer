@@ -2,7 +2,7 @@
   <div class="home">
     <Navbar/>
     <Jumbotron/>
-    <strong><h1 class="mt-4">All Products</h1></strong>
+    <strong><h3 class="mt-4">All Products</h3></strong>
     <div class="container mt-5 mx-auto d-flex justify-content-center">
             <div class="row">
                 <ProductCard v-for="product in products" :key="product.id" :product="product"/>
