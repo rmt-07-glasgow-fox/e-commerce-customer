@@ -12,7 +12,7 @@ export default new Vuex.Store({
     username: '',
     categories: [],
     category: '',
-    errors: [],
+    errors: '',
     carts: []
   },
   mutations: {
@@ -33,8 +33,7 @@ export default new Vuex.Store({
       state.categories = [...new Set(result)]
     },
     catchError (state, payload) {
-      state.errors = []
-      state.errors.push(payload)
+      state.errors = payload
     },
     changeCategory (state, payload) {
       state.category = payload

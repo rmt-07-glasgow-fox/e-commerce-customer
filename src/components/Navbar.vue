@@ -70,6 +70,12 @@ export default {
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Martel:wght@900&display=swap');
+
+.navbar-brand {
+  font-family: 'Martel', serif;
+}
+
 .logout-btn  {
   border: 1px solid #fff;
 }
