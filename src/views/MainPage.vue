@@ -8,8 +8,8 @@
           <div class='container'>
             <p class='mr-4'> <b>Filter by category:</b> </p>
             <select id="inputState" class="mb-4" v-model='category'>
-              <option selected>Choose a category...</option>
-              <option value='all'>All categories</option>
+              <option default>Choose a category...</option>
+              <option selected value='all'>All categories</option>
               <option v-for='(category, idx) in categories' :key='idx' :value='category'>{{ category }}</option>
             </select>
           </div>

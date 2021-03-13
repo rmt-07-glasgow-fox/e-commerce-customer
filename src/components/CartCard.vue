@@ -38,6 +38,7 @@ export default {
   methods: {
     substractQty (qty) {
       if (this.cart.quantity <= 0) {
+        this.removeCart(this.cart.id)
         this.cart.quantity = 0
       } else {
         this.cart.quantity -= 1
